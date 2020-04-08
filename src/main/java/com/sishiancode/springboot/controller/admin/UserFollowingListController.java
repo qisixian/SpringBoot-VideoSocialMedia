@@ -1,0 +1,74 @@
+package com.sishiancode.springboot.controller.admin;
+
+import com.sishiancode.springboot.controller.BaseController;
+import com.sishiancode.springboot.entities.Administrator;
+import com.sishiancode.springboot.entities.UserFollowing;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Controller
+public class UserFollowingListController extends BaseController {
+    @GetMapping("/admin/userFollowingList")
+    String toAdminUserFollowingList(Model model, HttpSession session) {
+        logger.trace("Admin/UserFollowingListController-toAdminUserFollowingList");
+        //返回管理员账号信息
+        String loginAdminId = (String) session.getAttribute("loginAdminId");
+        Administrator admin = adminService.findAdminById(loginAdminId);
+        model.addAttribute("admin", admin);
+
+        List<UserFollowing> allUserFollowing = adminService.findAllUserFollowing();
+        model.addAttribute("allUserFollowing", allUserFollowing);
+        return "admin/userFollowingList";
+    }
+
+    @GetMapping("/admin/userFollowing")
+    String toAddUserFollowing(Model model, HttpSession session) {
+        logger.trace("Admin/UserFollowingListController-toAddUserFollowing");
+        //返回管理员账号信息
+        String loginAdminId = (String) session.getAttribute("loginAdminId");
+        Administrator admin = adminService.findAdminById(loginAdminId);
+        model.addAttribute("admin", admin);
+
+        return "admin/addUserFollowing";
+    }
+
+    @GetMapping("/admin/userFollowing/{id}")
+    String toEditUserFollowing(@PathVariable("id") String userFollowingId, Model model, HttpSession session) {
+        logger.trace("Admin/UserFollowingListController-toEditUserFollowing:" + userFollowingId);
+        //返回管理员账号信息
+        String loginAdminId = (String) session.getAttribute("loginAdminId");
+        Administrator admin = adminService.findAdminById(loginAdminId);
+        model.addAttribute("admin", admin);
+
+        UserFollowing userFollowing = adminService.findUserFollowingById(userFollowingId);
+        model.addAttribute("userFollowing", userFollowing);
+        return "admin/addUserFollowing";
+    }
+
+    @PostMapping("/admin/userFollowing")
+    String addUserFollowing(UserFollowing userFollowing) {
+        logger.trace("Admin/UserFollowingListController-addUserFollowing:" + userFollowing.toString());
+        userFollowing.setLocalDateTime(LocalDateTime.now());
+        adminService.saveUserFollowing(userFollowing);
+        return "redirect:/admin/userFollowingList";
+    }
+
+    @PutMapping("/admin/userFollowing")
+    String updateUserFollowing(UserFollowing userFollowing) {
+        logger.trace("Admin/UserFollowingListController-updateUserFollowing:" + userFollowing.toString());
+        adminService.saveUserFollowing(userFollowing);
+        return "redirect:/admin/userFollowingList";
+    }
+
+    @DeleteMapping("/admin/userFollowing/{id}")
+    String deleteUserFollowing(@PathVariable("id") String userFollowingId) {
+        logger.trace("Admin/UserFollowingListController-deleteUserFollowing:" + userFollowingId);
+        adminService.deleteUserFollowing(userFollowingId);
+        return "redirect:/admin/userFollowingList";
+    }
+}

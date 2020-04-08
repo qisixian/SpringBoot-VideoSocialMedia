@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ThousandsTakes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <meta name="author" content=""/>
+
+    <!-- Facebook and Twitter integration -->
+    <meta property="og:title" content=""/>
+    <meta property="og:image" content=""/>
+    <meta property="og:url" content=""/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:description" content=""/>
+    <meta name="twitter:title" content=""/>
+    <meta name="twitter:image" content=""/>
+    <meta name="twitter:url" content=""/>
+    <meta name="twitter:card" content=""/>
+    <!--https://fonts.googleapis.com/css?family=Poppins:300,400,500,600-->
+    <link rel="stylesheet" href="/assets/css/googleapis-poppins.css" th:href="@{/assets/css/googleapis-poppins.css}">
+    <!--href="https://fonts.googleapis.com/css?family=Nunito:200,300,400"-->
+    <link rel="stylesheet" href="/assets/css/googleapis-nunito.css" th:href="@{/assets/css/googleapis-nunito.css}">
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="/assets/css/animate.css" th:href="@{/assets/css/animate.css}">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="/assets/css/icomoon.css" th:href="@{/assets/css/icomoon.css}">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.css" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.css}">
+
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="/assets/css/magnific-popup.css" th:href="@{/assets/css/magnific-popup.css}">
+
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="/assets/css/owl.carousel.min.css" th:href="@{/assets/css/owl.carousel.min.css}">
+    <link rel="stylesheet" href="/assets/css/owl.theme.default.min.css"
+          th:href="@{/assets/css/owl.theme.default.min.css}">
+
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="/assets/css/style.css" th:href="@{/assets/css/style.css}">
+
+    <!-- Modernizr JS -->
+    <script src="/assets/js/modernizr-2.6.2.min.js" th:href="@{/assets/js/modernizr-2.6.2.min.js}"></script>
+    <!-- FOR IE9 below -->
+    <!--[if lt IE 9]-->
+    <script src="/assets/js/respond.min.js" th:href="@{/assets/js/respond.min.js}"></script>
+    <!--[endif]-->
+
+</head>
+<body>
+
+<div class="colorlib-loader"></div>
+
+<div id="page">
+    <!--    thymeleaf抽取user/home中的nav-->
+    <div th:replace="~{user/home::#nav}"></div>
+
+    <!--    thymeleaf抽取user/home中的home-->
+    <div th:replace="~{user/home::#home}"></div>
+
+
+    <div class="container">
+        <div class="row" th:each="profile:${followProfileList}" th:if="${followProfileList!=null}">
+            <div class="col-md-8 col-md-offset-2">
+                <article>
+                    <p class="author-wrap"><a th:href="@{/user/}+${profile.userId}" class="author-img"
+                                              th:style="'background-image: url('+@{/avatars/stream/}+${profile.avatarId}+');'"></a>
+                        <a
+                                th:href="@{/user/}+${profile.userId}"
+                                class="author"
+                                th:text="${profile.username}">username</a>
+                    </p>
+                </article>
+            </div>
+        </div>
+    </div>
+
+
+    <footer id="colorlib-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                        All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i>
+                        by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --><br>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<div class="gototop js-top">
+    <a href="#" class="/assets/js-gotop"><i class="icon-arrow-up2"></i></a>
+</div>
+
+<!-- jQuery -->
+<script src="/assets/js/jquery.min.js" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<!-- jQuery Easing -->
+<script src="/assets/js/jquery.easing.1.3.js" th:href="@{/assets/js/jquery.easing.1.3.js}"></script>
+<!-- Bootstrap -->
+<script src="/assets/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+<!-- Waypoints -->
+<script src="/assets/js/jquery.waypoints.min.js" th:href="@{/assets/js/jquery.waypoints.min.js}"></script>
+<!-- Stellar Parallax -->
+<script src="/assets/js/jquery.stellar.min.js" th:href="@{/assets/js/jquery.stellar.min.js}"></script>
+<!-- YTPlayer -->
+<script src="/assets/js/jquery.mb.YTPlayer.min.js" th:href="@{/assets/js/jquery.mb.YTPlayer.min.js}"></script>
+<!-- Owl carousel -->
+<script src="/assets/js/owl.carousel.min.js" th:href="@{/assets/js/owl.carousel.min.js}"></script>
+<!-- Magnific Popup -->
+<script src="/assets/js/jquery.magnific-popup.min.js" th:href="@{/assets/js/jquery.magnific-popup.min.js}"></script>
+<script src="/assets/js/magnific-popup-options.js" th:href="@{/assets/js/magnific-popup-options.js}"></script>
+<!--	 Counters -->
+<script src="/assets/js/jquery.countTo.js" th:href="@{/assets/js/jquery.countTo.js}"></script>
+<!-- Main -->
+<script src="/assets/js/main.js" th:href="@{/assets/js/main.js}"></script>
+
+</body>
+</html>
+
