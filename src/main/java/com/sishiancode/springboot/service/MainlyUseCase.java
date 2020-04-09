@@ -1,12 +1,12 @@
 package com.sishiancode.springboot.service;
 
-import com.sishiancode.springboot.dto.*;
-import com.sishiancode.springboot.entities.PostComment;
+import com.sishiancode.springboot.dto.FollowerIdDTO;
+import com.sishiancode.springboot.dto.FollowingIdDTO;
+import com.sishiancode.springboot.dto.ShowProfileDTO;
 import com.sishiancode.springboot.entities.Profile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -59,28 +59,28 @@ public class MainlyUseCase extends BaseService {
 //    }
 
 
-    public List<PostComment> showCommentsNews(String userId) {
-        List<PostComment> commentList = postCommentRepository.findByReceiverId(userId);
-//        响应模型目前相同
-        return commentList;
-    }
-
-    public List<LikedNewsDTO> showLikedNews(String userId) {
-        List<PostIdDTO> postIdDTOList = postRepository.findByUserId(userId, PostIdDTO.class);
-        List<String> postIdList = new ArrayList<>();
-        for (PostIdDTO postIdDTO : postIdDTOList) {
-            postIdList.add(postIdDTO.getPostId());
-        }
-        List<LikedNewsDTO> likedNewsDTOList = postLikeRepository.findByPostIdIn(postIdList, LikedNewsDTO.class);
-//        排序问题待考虑
-        return likedNewsDTOList;
-    }
-
-    public List<FollowerNewsDTO> newFollowersNews(String userId) {
-        List<FollowerNewsDTO> newFollowerList = userFollowingRepository.findByFollowingId(userId, FollowerNewsDTO.class);
-//        排序问题待考虑
-        return newFollowerList;
-    }
+//    public List<PostComment> showCommentsNews(String userId) {
+//        List<PostComment> commentList = postCommentRepository.findByReceiverId(userId);
+////        响应模型目前相同
+//        return commentList;
+//    }
+//
+//    public List<LikedNewsDTO> showLikedNews(String userId) {
+//        List<PostIdDTO> postIdDTOList = postRepository.findByUserId(userId, PostIdDTO.class);
+//        List<String> postIdList = new ArrayList<>();
+//        for (PostIdDTO postIdDTO : postIdDTOList) {
+//            postIdList.add(postIdDTO.getPostId());
+//        }
+//        List<LikedNewsDTO> likedNewsDTOList = postLikeRepository.findByPostIdIn(postIdList, LikedNewsDTO.class);
+////        排序问题待考虑
+//        return likedNewsDTOList;
+//    }
+//
+//    public List<FollowerNewsDTO> newFollowersNews(String userId) {
+//        List<FollowerNewsDTO> newFollowerList = userFollowingRepository.findByFollowingId(userId, FollowerNewsDTO.class);
+////        排序问题待考虑
+//        return newFollowerList;
+//    }
 
 
     public Integer showFollowingCount(String userId) {

@@ -10,7 +10,7 @@ import java.util.List;
 public interface ProfileRepository extends MongoRepository<Profile, String> {
     Profile findByUserId(String userId);
 
-    <T> T findByUserId(String followingId, Class<T> type);
+    <T> T findByUserId(String userId, Class<T> type);
 
     List<Profile> findByUserIdIn(List<String> userId);
 

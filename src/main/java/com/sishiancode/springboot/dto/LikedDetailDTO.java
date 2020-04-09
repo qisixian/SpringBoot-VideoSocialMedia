@@ -5,7 +5,11 @@ import lombok.Value;
 import java.time.LocalDateTime;
 
 @Value
-public class FollowerNewsDTO {
-    String userId;
+public class LikedDetailDTO {
+    String postId;
+    String likedUserId;
+    String likedUsername;
+    String likedUserAvatarId;
     LocalDateTime localDateTime;
+
 }

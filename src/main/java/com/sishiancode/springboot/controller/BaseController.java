@@ -18,6 +18,8 @@ public abstract class BaseController {
     protected UserService userService;
     @Autowired
     protected PostService postService;
+    @Autowired
+    protected NewsService newsService;
 
     protected Logger logger = LoggerFactory.getLogger(getClass());
 }
