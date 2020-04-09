@@ -1,7 +1,7 @@
 package com.sishiancode.springboot.controller.user;
 
 import com.sishiancode.springboot.controller.BaseController;
-import com.sishiancode.springboot.dto.PostWithProfileDTO;
+import com.sishiancode.springboot.dto.PostAllDetailDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +19,7 @@ public class HomeController extends BaseController {
         String loginUserId = (String) session.getAttribute("loginUserId");
         model.addAttribute("loginUserId", loginUserId);
 
-        List<PostWithProfileDTO> followingPostWithProfiles = mainlyUseCase.showFollowingPost(loginUserId);
+        List<PostAllDetailDTO> followingPostWithProfiles = postService.findFollowingPost(loginUserId);
         logger.trace("HomeController-toHome:" + followingPostWithProfiles.toString());
         model.addAttribute("followingPostWithProfiles", followingPostWithProfiles);
         return "user/home";

@@ -63,31 +63,101 @@
 
 
     <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 animate-box">
+        <div class="row justify-content-md-center">
+            <div class="col-md-8 animate-box">
                 <article>
-                    <p class="author-wrap">
-                        <a th:href="@{/user/}+${showProfileDTO.userId}" class="author-img"
-                           th:style="'background-image: url('+@{/avatars/stream/}+${showProfileDTO.avatarId}+');'"></a>
-                        <a
-                                th:href="@{/user/}+${showProfileDTO.userId}"
-                                class="author"
-                                th:text="${myPost.username}">username</a>
-                    </p>
-                    <p class="admin" th:text="${myPost.updateTime}"><span>updateTime</span></p>
-                    <div>
-                        <video th:src="@{/videos/stream/}+${myPost.videoId}" controls="controls"
+                    <div class="row justify-content-between">
+                        <div class="col-4">
+                            <p class="author-wrap">
+                                <a th:href="@{/user/}+${postAllDetailDTO.userId}" class="author-img"
+                                   th:style="'background-image: url('+@{/avatars/stream/}+${postAllDetailDTO.avatarId}+');'"></a>
+                                <a
+                                        th:href="@{/user/}+${postAllDetailDTO.userId}"
+                                        class="author"
+                                        th:text="${postAllDetailDTO.username}">username</a>
+                            </p>
+                        </div>
+                        <div class="col-4">
+                            <p th:text="${postAllDetailDTO.updateTime}"><span>updateTime</span></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <video th:src="@{/videos/stream/}+${postAllDetailDTO.videoId}" controls="controls"
                                width="100%"></video>
                     </div>
-                    <p th:text="${myPost.describe}">describe describe describe describe describe describe describe
-                        describe describe describe describe</p>
+                    <div><i class="far fa-heart"></i></div>
+                    <div class="row">
+                        <a th:text="${postAllDetailDTO.likesCount}+' likes'"
+                           th:href="@{/post/like/}+${postAllDetailDTO.id}">null likes</a>
 
-                    <form th:action="@{/post/}+${myPost.id}" method="post">
-                        <input type="hidden" name="_method" value="delete"/>
-                        <button type="submit" class="btn btn-sm btn-danger">删除</button>
+                        <form th:if="${postAllDetailDTO.isLiked}==false"
+                              th:action="@{/post/like/}+${postAllDetailDTO.id}"
+                              method="post">
+                            <button type="submit" class="btn btn-sm btn-outline-danger">like</button>
+                        </form>
+                        <form th:if="${postAllDetailDTO.isLiked}==true"
+                              th:action="@{/post/like/}+${postAllDetailDTO.id}"
+                              method="post">
+                            <input type="hidden" name="_method" value="delete"/>
+                            <button type="submit" class="btn btn-sm btn-danger">liked!</button>
+                        </form>
+                        <!--                            <a class="btn btn-sm btn-outline-danger"-->
+                        <!--                               th:href="@{/post/like/}+${followingPost.id}" th:text="${followingPost.isLiked}">like</a>-->
 
+                    </div>
+
+                    <div class="row">
+                        <p th:text="${postAllDetailDTO.username}+' : '+${postAllDetailDTO.describe}">describe describe
+                            describe describe describe
+                            describe
+                            describe describe describe describe describe</p>
+                    </div>
+                    <div class="row">
+
+                        <ul th:each="postCommentDTO:${postCommentDTOList}">
+                            <li><span th:text="${postCommentDTO.senderName}">senderName</span>
+                                <span th:text="' to '+${postCommentDTO.receiverName}"
+                                      th:if="${postCommentDTO.receiverName}!=${postAllDetailDTO.username}">receiverName</span>
+                                <span th:text="' : '+${postCommentDTO.content}">content</span>
+                                <span th:text="${postCommentDTO.localDateTime}">localDateTime</span>
+
+                                <form th:action="@{/post/comment/}+${postCommentDTO.id}" method="post"
+                                      th:if="${loginUserId}==${postCommentDTO.senderId}">
+                                    <input type="hidden" name="_method" value="delete"/>
+                                    <input type="hidden" name="postId" th:value="${postAllDetailDTO.id}">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">delete</button>
+                                </form>
+                            </li>
+                        </ul>
+
+                    </div>
+
+
+                    <form th:action="@{/post/comment/}+${postAllDetailDTO.id}" method="post">
+
+                        <div class="row">
+                            <div class="col-md-2 px-1">
+                                <input name="receiverName" type="text" class="form-control"
+                                       placeholder="reply to" th:value="${postAllDetailDTO.username}">
+                            </div>
+                            <div class="col-md-8 px-1">
+                                <input name="comment" type="text" class="form-control"
+                                       placeholder="add a comment">
+                            </div>
+                            <div class="col-md-2 px-1">
+                                <input class="btn btn-sm btn-outline-info" type="submit" value="Comment"/>
+                            </div>
+                        </div>
                     </form>
-                    <!--                        <p th:text="${myPost.id}">This suppose to be myPost.id</p>-->
+                    <form th:action="@{/post/}+${postAllDetailDTO.id}" method="post"
+                          th:if="${postAllDetailDTO.userId}==${loginUserId}">
+                        <div class="row">
+                            <div class="col-md-2 align-self-end">
+                                <input type="hidden" name="_method" value="delete"/>
+                                <button type="submit" class="btn btn-sm btn-danger">delete</button>
+                            </div>
+                        </div>
+                    </form>
                 </article>
             </div>
         </div>

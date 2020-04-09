@@ -1,8 +1,9 @@
 package com.sishiancode.springboot.controller.user;
 
 import com.sishiancode.springboot.controller.BaseController;
+import com.sishiancode.springboot.dto.PostAllDetailDTO;
+import com.sishiancode.springboot.dto.PostDetailWithoutUserDTO;
 import com.sishiancode.springboot.dto.ShowProfileDTO;
-import com.sishiancode.springboot.entities.Post;
 import com.sishiancode.springboot.entities.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -34,10 +36,16 @@ public class UserController extends BaseController {
             logger.trace("toMe:showProfileDTO " + showProfileDTO.toString());
             model.addAttribute("showProfileDTO", showProfileDTO);
 
-            List<Post> myPostList = mainlyUseCase.showUserPostList(userId);
-            logger.trace("toMe:myPostList " + myPostList.toString());
-            model.addAttribute("myPostList", myPostList);
+            List<PostDetailWithoutUserDTO> postWithoutUserList = postService.findUserPostList(userId);
+            List<PostAllDetailDTO> postAllDetailDTOList = new ArrayList<>();
+            for (PostDetailWithoutUserDTO postWithoutUser : postWithoutUserList) {
+                Boolean isLiked = postService.findIsLiked(postWithoutUser.getId(), loginUserId);
+                postAllDetailDTOList.add(new PostAllDetailDTO(postWithoutUser.getId(), postWithoutUser.getUserId(), postWithoutUser.getUsername(), postWithoutUser.getAvatarId(), postWithoutUser.getDescribe(), postWithoutUser.getVideoId(), postWithoutUser.getUpdateTime(), postWithoutUser.getLikesCount(), isLiked));
+            }
+            logger.trace("toMe:postList " + postAllDetailDTOList.toString());
+            model.addAttribute("postList", postAllDetailDTOList);
             return "user/me";
+
         } else {
             //其他人的页面返回user/othersProfile
             logger.trace("toOtherUser:" + userId);
@@ -50,9 +58,14 @@ public class UserController extends BaseController {
             logger.trace("toOthersProfile:showProfileDTO " + showProfileDTO.toString());
             model.addAttribute("othersProfileDTO", showProfileDTO);
 
-            List<Post> othersPostList = mainlyUseCase.showUserPostList(userId);
-            logger.trace("toOthersProfile:otherPostList " + othersPostList.toString());
-            model.addAttribute("othersPostList", othersPostList);
+            List<PostDetailWithoutUserDTO> postWithoutUserList = postService.findUserPostList(userId);
+            List<PostAllDetailDTO> postAllDetailDTOList = new ArrayList<>();
+            for (PostDetailWithoutUserDTO postWithoutUser : postWithoutUserList) {
+                Boolean isLiked = postService.findIsLiked(postWithoutUser.getId(), loginUserId);
+                postAllDetailDTOList.add(new PostAllDetailDTO(postWithoutUser.getId(), postWithoutUser.getUserId(), postWithoutUser.getUsername(), postWithoutUser.getAvatarId(), postWithoutUser.getDescribe(), postWithoutUser.getVideoId(), postWithoutUser.getUpdateTime(), postWithoutUser.getLikesCount(), isLiked));
+            }
+            logger.trace("toOthersProfile:postList " + postAllDetailDTOList.toString());
+            model.addAttribute("postList", postAllDetailDTOList);
             return "user/othersProfile";
         }
     }
@@ -124,5 +137,14 @@ public class UserController extends BaseController {
         String followerId = (String) session.getAttribute("loginUserId");
         userService.unFollow(followerId, followingId);
         return "redirect:/user/" + followingId;
+    }
+
+    @GetMapping("/user/likeList/{id}")
+    String toLikeList(@PathVariable("id") String likedUserId, Model model) {
+        logger.trace("toLikeList:" + likedUserId);
+        List<PostAllDetailDTO> postAllDetailDTOList = postService.findLikePostList(likedUserId);
+
+        model.addAttribute("postList", postAllDetailDTOList);
+        return "user/likePostList";
     }
 }

@@ -8,9 +8,14 @@ import java.util.List;
 
 @Repository
 public interface PostRepository extends MongoRepository<Post, String> {
+    <T> T findById(String id, Class<T> type);
+
+    List<Post> findByIdIn(List<String> idList);
 
     //    @Query("{'userId: ?0'}")
     List<Post> findByUserId(String userId);
+
+    <T> List<T> findByUserId(String userId, Class<T> type);
 
     //    怎么用一个集合来查询？
 //    List<Post> findByUserId(List<String> userId);

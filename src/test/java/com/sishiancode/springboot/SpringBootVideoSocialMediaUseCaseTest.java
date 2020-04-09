@@ -117,7 +117,7 @@ public class SpringBootVideoSocialMediaUseCaseTest {
 
     @Test
     void showFollowingPostTest2() {
-        mainlyUseCase.showFollowingPost("5e8c8d0ab7c29f7515e21e83");
+        postService.findFollowingPost("5e8c8d0ab7c29f7515e21e83");
     }
 
     @Test

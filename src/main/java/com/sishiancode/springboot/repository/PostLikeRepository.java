@@ -8,9 +8,16 @@ import java.util.List;
 
 @Repository
 public interface PostLikeRepository extends MongoRepository<PostLike, String> {
-    List<PostLike> findByPostUserId(String postUserId);
+//    List<PostLike> findByPostUserId(String postUserId);
 
-    <T> List<T> findByPostUserId(String postUserId, Class<T> type);
+    //    <T> List<T> findByPostUserId(String postUserId, Class<T> type);
+    List<PostLike> findByPostId(String postId);
+
+    <T> List<T> findByPostId(String postId, Class<T> type);
+
+    List<PostLike> findByPostIdIn(List<String> postId);
+
+    <T> List<T> findByPostIdIn(List<String> postId, Class<T> type);
 
     List<PostLike> findByLikedUserId(String likedUserId);
 

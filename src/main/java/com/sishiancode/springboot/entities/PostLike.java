@@ -16,15 +16,15 @@ import java.time.LocalDateTime;
 public class PostLike {
     @Id
     private String id;
+//    private String postUserId;
+
     @Indexed(background = true)
-    private String postUserId;
     private String postId;
     @Indexed(background = true)
     private String likedUserId;
     private LocalDateTime localDateTime;
 
-    public PostLike(String postUserId, String postId, String likedUserId, LocalDateTime localDateTime) {
-        this.postUserId = postUserId;
+    public PostLike(String postId, String likedUserId, LocalDateTime localDateTime) {
         this.postId = postId;
         this.likedUserId = likedUserId;
         this.localDateTime = localDateTime;

@@ -1,9 +1,9 @@
-﻿<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Home - ThousandsTakes</title>
+    <title>ThousandsTakes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content=""/>
     <meta name="keywords" content=""/>
@@ -30,7 +30,6 @@
     <link rel="stylesheet" href="/assets/css/icomoon.css" th:href="@{/assets/css/icomoon.css}">
     <!-- Bootstrap  -->
     <link rel="stylesheet" href="/assets/css/bootstrap.css" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.css}">
-    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/font-awesome.css}">
 
     <!-- Magnific Popup -->
     <link rel="stylesheet" href="/assets/css/magnific-popup.css" th:href="@{/assets/css/magnific-popup.css}">
@@ -50,105 +49,79 @@
     <script src="/assets/js/respond.min.js" th:href="@{/assets/js/respond.min.js}"></script>
     <!--[endif]-->
 
+    <!--paper-dashboard-->
+    <link rel="stylesheet" href="/assets/css/paper-dashboard.css?v=2.0.0"
+          th:href="@{/assets/css/paper-dashboard.css?v=2.0.0}"/>
+
 </head>
 <body>
 
 <div class="colorlib-loader"></div>
 
 <div id="page">
-    <nav class="colorlib-nav" role="navigation" id="nav">
-        <div class="top-menu">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-2">
-                        <div id="colorlib-logo"><a href="/">ThousandsTakes</a></div>
-                    </div>
-                    <div class="col-md-10 text-right menu-1">
-                        <ul>
-                            <li><a th:href="@{/home}">Home</a></li>
-                            <li><a th:href="@{/explore}">Explore</a></li>
-                            <li><a th:href="@{/upload}">Upload</a></li>
-                            <li class="has-dropdown">
-                                <a href="#">News</a>
-                                <ul class="dropdown">
-                                    <li><a href="#">Comments</a></li>
-                                    <li><a href="#">Likes</a></li>
-                                    <li><a href="#">newFollowers</a></li>
-                                </ul>
-                            </li>
-                            <li><a th:href="@{/user/}+${loginUserId}">Me</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <!--    thymeleaf抽取user/home中的nav-->
+    <div th:replace="~{user/home::#nav}"></div>
 
-    <section id="home" class="video-hero"
-             style="height: 150px; background-image: url(assets/images/cover_img_1.jpg);  background-size:cover; background-position: center center;background-attachment:fixed;"
-             data-section="home">
-        <div class="overlay"></div>
-        <div class="display-t text-center">
-        </div>
-    </section>
+    <!--    thymeleaf抽取user/home中的home-->
+    <div th:replace="~{user/home::#home}"></div>
 
     <div class="colorlib-blog">
         <div class="container">
-            <div class="row justify-content-md-center" th:each="followingPost:${followingPostWithProfiles}">
+
+            <div class="row justify-content-md-center" th:each="post:${postList}">
                 <div class="col-md-8 animate-box">
                     <article>
                         <div class="row justify-content-between">
                             <div class="col-4">
                                 <p class="author-wrap">
-                                    <a th:href="@{/user/}+${followingPost.userId}" class="author-img"
-                                       th:style="'background-image: url('+@{/avatars/stream/}+${followingPost.avatarId}+');'"></a>
+                                    <a th:href="@{/user/}+${post.userId}" class="author-img"
+                                       th:style="'background-image: url('+@{/avatars/stream/}+${post.avatarId}+');'"></a>
                                     <a
-                                            th:href="@{/user/}+${followingPost.userId}"
+                                            th:href="@{/user/}+${post.userId}"
                                             class="author"
-                                            th:text="${followingPost.username}">username</a>
+                                            th:text="${post.username}">username</a>
                                 </p>
                             </div>
                             <div class="col-4">
-                                <p th:text="${followingPost.updateTime}"><span>updateTime</span></p>
+                                <p th:text="${post.updateTime}"><span>updateTime</span></p>
                             </div>
                         </div>
                         <div class="row">
-                            <video th:src="@{/videos/stream/}+${followingPost.videoId}" controls="controls"
+                            <video th:src="@{/videos/stream/}+${post.videoId}" controls="controls"
                                    width="100%"></video>
                         </div>
                         <div><i class="far fa-heart"></i></div>
                         <div class="row">
-                            <a th:text="${followingPost.likesCount}+' likes'"
-                               th:href="@{/post/like/}+${followingPost.id}">null likes</a>
+                            <a th:text="${post.likesCount}+' likes'" th:href="@{/post/like/}+${post.id}">null likes</a>
 
-                            <form th:if="${followingPost.isLiked}==false" th:action="@{/post/like/}+${followingPost.id}"
+                            <form th:if="${post.isLiked}==false" th:action="@{/post/like/}+${post.id}"
                                   method="post">
                                 <button type="submit" class="btn btn-sm btn-outline-danger">like</button>
                             </form>
-                            <form th:if="${followingPost.isLiked}==true" th:action="@{/post/like/}+${followingPost.id}"
+                            <form th:if="${post.isLiked}==true" th:action="@{/post/like/}+${post.id}"
                                   method="post">
                                 <input type="hidden" name="_method" value="delete"/>
                                 <button type="submit" class="btn btn-sm btn-danger">liked!</button>
                             </form>
                             <!--                            <a class="btn btn-sm btn-outline-danger"-->
-                            <!--                               th:href="@{/post/like/}+${followingPost.id}" th:text="${followingPost.isLiked}">like</a>-->
+                            <!--                               th:href="@{/post/like/}+${post.id}" th:text="${post.isLiked}">like</a>-->
 
-                            <a class="btn btn-sm btn-outline-success" th:href="@{/post/}+${followingPost.id}">show all
+                            <a class="btn btn-sm btn-outline-success" th:href="@{/post/}+${post.id}">show all
                                 comment</a>
                         </div>
 
-                        <a th:href="@{/post/}+${followingPost.id}">
+                        <a th:href="@{/post/}+${post.id}">
                             <div class="row">
-                                <p th:text="${followingPost.username}+' : '+${followingPost.describe}">describe describe
-                                    describe describe describe
+                                <p th:text="${post.username}+' : '+${post.describe}">describe describe describe describe
+                                    describe
                                     describe
                                     describe describe describe describe describe</p>
                             </div>
                         </a>
-                        <form th:action="@{/post/comment/}+${followingPost.id}" method="post">
-
+                        <form th:action="@{/post/comment/}+${post.id}" method="post">
+                            <input type="hidden" name="receiverName" th:value="${post.username}">
+                            `
                             <div class="row">
-                                <input type="hidden" name="receiverName" th:value="${followingPost.username}">
 
                                 <div class="col-md-10 px-1">
                                     <input name="comment" type="text" class="form-control"
@@ -162,11 +135,6 @@
                     </article>
                 </div>
             </div>
-
-            <div class="row justify-content-md-center" th:if="${#lists.isEmpty(followingPostWithProfiles)}">
-                <p class="text-center">Follow some user to get start!</p>
-            </div>
-
 
         </div>
     </div>
@@ -213,6 +181,10 @@
 <script src="/assets/js/jquery.countTo.js" th:href="@{/assets/js/jquery.countTo.js}"></script>
 <!-- Main -->
 <script src="/assets/js/main.js" th:href="@{/assets/js/main.js}"></script>
+
+<!--paper-dashboard-->
+<script src="/assets/js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"
+        th:href="@{/assets/js/paper-dashboard.min.js?v=2.0.0}"></script>
 
 </body>
 </html>

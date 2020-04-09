@@ -6,11 +6,12 @@ import java.time.LocalDateTime;
 
 @Value
 public class PostCommentDTO {
-    //    String id;
-    String postId;
+    String id;
+    //    String postId;
     String content;
     String senderId;
-    String receiverId;
+    String senderName;
+    String receiverName;
     LocalDateTime localDateTime;
 
 }

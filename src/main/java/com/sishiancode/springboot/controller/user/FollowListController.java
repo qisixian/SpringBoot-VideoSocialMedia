@@ -15,14 +15,14 @@ public class FollowListController extends BaseController {
     String toFollowingList(@PathVariable("id") String followerId, Model model) {
         //id得再查到profile，你让前端去查profile吗
         List<Profile> followingProfileList = userService.findFollowingProfileList(followerId);
-        model.addAttribute("followProfileList", followingProfileList);
+        model.addAttribute("profileList", followingProfileList);
         return "user/followList";
     }
 
     @GetMapping("user/followerList/{id}")
     String toFollowerList(@PathVariable("id") String followingId, Model model) {
         List<Profile> followerProfileList = userService.findFollowerProfileList(followingId);
-        model.addAttribute("followProfileList", followerProfileList);
+        model.addAttribute("profileList", followerProfileList);
 
         return "user/followList";
     }

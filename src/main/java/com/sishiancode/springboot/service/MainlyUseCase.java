@@ -1,9 +1,7 @@
 package com.sishiancode.springboot.service;
 
 import com.sishiancode.springboot.dto.*;
-import com.sishiancode.springboot.entities.Post;
 import com.sishiancode.springboot.entities.PostComment;
-import com.sishiancode.springboot.entities.PostLike;
 import com.sishiancode.springboot.entities.Profile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,36 +15,43 @@ public class MainlyUseCase extends BaseService {
     @Autowired
     protected PostService postService;
 
-    public List<PostWithProfileDTO> showFollowingPost(String userId) {
-
-//        先要查找following
-        List<FollowingIdDTO> followingList = userFollowingRepository.findByUserId(userId, FollowingIdDTO.class);
-//        要把List<FollowingIdDTO>转化为List<String>;
-        List<String> userIdList = new ArrayList<>();
-        for (FollowingIdDTO followingIdDTO : followingList) {
-            userIdList.add(followingIdDTO.getFollowingId());
-        }
-//        logger.debug(userIdList.toString());
-        List<Post> followingPosts = new ArrayList<>();
-        followingPosts = postRepository.findByUserIdIn(userIdList);
-
-        List<PostWithProfileDTO> postWithProfileList = new ArrayList<>();
-        for (Post post : followingPosts) {
-            String avatarId = findAvatarId(post.getUserId());
-            Integer likesCount = postService.findPostLikesCount(post.getId());
-            postWithProfileList.add(new PostWithProfileDTO(post.getId(), post.getUserId(), post.getUsername(), avatarId, post.getDescribe(), post.getVideoId(), post.getUpdateTime(), likesCount));
-        }
-
-//        Aggregation.newAggregation(Aggregation.match(Criteria))
-
-        //List<PostDTO> followingPostDTOs = new ArrayList<>();
-        return postWithProfileList;
-    }
-
-    public String findAvatarId(String userId) {
-        AvatarIdDTO avatarIdDTO = profileRepository.findByUserId(userId, AvatarIdDTO.class);
-        return avatarIdDTO.getAvatarId();
-    }
+//    public List<PostWithProfileDTO> showFollowingPost(String userId) {
+//
+////        先要查找following
+//        List<FollowingIdDTO> followingList = userFollowingRepository.findByUserId(userId, FollowingIdDTO.class);
+////        要把List<FollowingIdDTO>转化为List<String>;
+//        List<String> userIdList = new ArrayList<>();
+//        for (FollowingIdDTO followingIdDTO : followingList) {
+//            userIdList.add(followingIdDTO.getFollowingId());
+//        }
+////        logger.debug(userIdList.toString());
+//        List<Post> followingPosts = new ArrayList<>();
+//        followingPosts = postRepository.findByUserIdIn(userIdList);
+//
+//        List<PostWithProfileDTO> postWithProfileList = new ArrayList<>();
+//        for (Post post : followingPosts) {
+//            String avatarId = findAvatarId(post.getUserId());
+//            Integer likesCount = postService.findPostLikesCount(post.getId());
+////            Integer isLiked;
+////            if(postService.findIsLiked(post.getId(), userId)==true){
+////                isLiked =1;
+////            }else {
+////                isLiked = 0;
+////            }
+//            Boolean isLiked = postService.findIsLiked(post.getId(), userId);
+//            postWithProfileList.add(new PostWithProfileDTO(post.getId(), post.getUserId(), post.getUsername(), avatarId, post.getDescribe(), post.getVideoId(), post.getUpdateTime(), likesCount, isLiked));
+//        }
+//
+////        Aggregation.newAggregation(Aggregation.match(Criteria))
+//
+//        //List<PostDTO> followingPostDTOs = new ArrayList<>();
+//        return postWithProfileList;
+//    }
+//
+//    public String findAvatarId(String userId) {
+//        AvatarIdDTO avatarIdDTO = profileRepository.findByUserId(userId, AvatarIdDTO.class);
+//        return avatarIdDTO.getAvatarId();
+//    }
 
 //    public Post uploadPost(PostDTO postDTO) {
 //        //controller要不要看到entity？(感觉这才是DTO的作用？)
@@ -61,7 +66,12 @@ public class MainlyUseCase extends BaseService {
     }
 
     public List<LikedNewsDTO> showLikedNews(String userId) {
-        List<LikedNewsDTO> likedNewsDTOList = postLikeRepository.findByPostUserId(userId, LikedNewsDTO.class);
+        List<PostIdDTO> postIdDTOList = postRepository.findByUserId(userId, PostIdDTO.class);
+        List<String> postIdList = new ArrayList<>();
+        for (PostIdDTO postIdDTO : postIdDTOList) {
+            postIdList.add(postIdDTO.getPostId());
+        }
+        List<LikedNewsDTO> likedNewsDTOList = postLikeRepository.findByPostIdIn(postIdList, LikedNewsDTO.class);
 //        排序问题待考虑
         return likedNewsDTOList;
     }
@@ -102,24 +112,19 @@ public class MainlyUseCase extends BaseService {
         return count;
     }
 
-    public List<Post> showUserPostList(String userId) {
-        List<Post> postList = postRepository.findByUserId(userId);
-//        响应模型目前相同
-        return postList;
-    }
 
     public Integer showLikesCount(String userId) {
         Integer count = postLikeRepository.countByLikedUserId(userId);
         return count;
     }
 
-    public List<PostLike> showLikeList(String userId) {
-        List<PostLike> likeList = postLikeRepository.findByLikedUserId(userId);
-//        不需要likedUserId，甚至是postUserId，排序好甚至不需要localDateTime
-//        返回PostLike还是返回Post？
-//        要不要返回一个postLikeRepository的DTO？返回DTO还能再连接到Post表查询吗？还是直接多表查询？
-        return likeList;
-    }
+//    public List<PostLike> showLikeList(String userId) {
+//        List<PostLike> likeList = postLikeRepository.findByLikedUserId(userId);
+////        不需要likedUserId，甚至是postUserId，排序好甚至不需要localDateTime
+////        返回PostLike还是返回Post？
+////        要不要返回一个postLikeRepository的DTO？返回DTO还能再连接到Post表查询吗？还是直接多表查询？
+//        return likeList;
+//    }
 
     public ShowProfileDTO showProfile(String userId) {
         Profile profile = profileRepository.findByUserId(userId);

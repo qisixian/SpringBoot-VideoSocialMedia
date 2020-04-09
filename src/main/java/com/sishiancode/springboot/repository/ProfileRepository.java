@@ -14,6 +14,8 @@ public interface ProfileRepository extends MongoRepository<Profile, String> {
 
     List<Profile> findByUserIdIn(List<String> userId);
 
+    Profile findByUsername(String username);
+
     //    ProfileDTO findByUserId(String userId);
     Integer countByUserId(String userId);
 

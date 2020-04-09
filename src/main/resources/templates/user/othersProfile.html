@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Profile - ThousandsTakes</title>
+    <title>ThousandsTakes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content=""/>
     <meta name="keywords" content=""/>
@@ -72,6 +72,7 @@
                     <div class="text-left">
                         <form th:if="${isFollowed==false}" th:action="@{/follow/}+${othersProfileDTO.userId}"
                               method="post">
+
                             <button type="submit" class="btn btn-sm btn-primary">follow</button>
                         </form>
                         <form th:if="${isFollowed==true}" th:action="@{/unFollow/}+${othersProfileDTO.userId}"
@@ -131,30 +132,97 @@
             </div>
         </div>
         <div class="container">
-            <div class="row" th:each="othersPost:${othersPostList}">
-                <div class="col-md-8 col-md-offset-2 animate-box">
+            <!--            <div class="row" th:each="othersPost:${othersPostList}">-->
+            <!--                <div class="col-md-8 col-md-offset-2 animate-box">-->
+            <!--                    <article>-->
+            <!--                        <p class="author-wrap">-->
+            <!--                            <a th:href="@{/user/}+${othersProfileDTO.userId}" class="author-img"-->
+            <!--                               th:style="'background-image: url('+@{/avatars/stream/}+${othersProfileDTO.avatarId}+');'"></a>-->
+            <!--                            <a-->
+            <!--                                    th:href="@{/user/}+${othersProfileDTO.userId}"-->
+            <!--                                    class="author"-->
+            <!--                                    th:text="${othersPost.username}">username</a>-->
+            <!--                        </p>-->
+            <!--                        <p class="admin" th:text="${othersPost.updateTime}"><span>updateTime</span></p>-->
+            <!--                        <div>-->
+            <!--                            <video th:src="@{/videos/stream/}+${othersPost.videoId}" controls="controls"-->
+            <!--                                   width="100%"></video>-->
+            <!--                        </div>-->
+            <!--                        <p th:text="${othersPost.describe}">describe describe describe describe describe describe-->
+            <!--                            describe-->
+            <!--                            describe describe describe describe</p>-->
+
+            <!--                    </article>-->
+            <!--                </div>-->
+            <!--            </div>-->
+
+            <div class="row justify-content-md-center" th:each="post:${postList}">
+                <div class="col-md-8 animate-box">
                     <article>
-                        <p class="author-wrap">
-                            <a th:href="@{/user/}+${othersProfileDTO.userId}" class="author-img"
-                               th:style="'background-image: url('+@{/avatars/stream/}+${othersProfileDTO.avatarId}+');'"></a>
-                            <a
-                                    th:href="@{/user/}+${othersProfileDTO.userId}"
-                                    class="author"
-                                    th:text="${othersPost.username}">username</a>
-                        </p>
-                        <p class="admin" th:text="${othersPost.updateTime}"><span>updateTime</span></p>
-                        <div>
-                            <video th:src="@{/videos/stream/}+${othersPost.videoId}" controls="controls"
+                        <div class="row justify-content-between">
+                            <div class="col-4">
+                                <p class="author-wrap">
+                                    <a th:href="@{/user/}+${post.userId}" class="author-img"
+                                       th:style="'background-image: url('+@{/avatars/stream/}+${post.avatarId}+');'"></a>
+                                    <a
+                                            th:href="@{/user/}+${post.userId}"
+                                            class="author"
+                                            th:text="${post.username}">username</a>
+                                </p>
+                            </div>
+                            <div class="col-4">
+                                <p th:text="${post.updateTime}"><span>updateTime</span></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <video th:src="@{/videos/stream/}+${post.videoId}" controls="controls"
                                    width="100%"></video>
                         </div>
-                        <p th:text="${othersPost.describe}">describe describe describe describe describe describe
-                            describe
-                            describe describe describe describe</p>
+                        <div><i class="far fa-heart"></i></div>
+                        <div class="row">
+                            <a th:text="${post.likesCount}+' likes'" th:href="@{/post/like/}+${post.id}">null likes</a>
 
+                            <form th:if="${post.isLiked}==false" th:action="@{/post/like/}+${post.id}"
+                                  method="post">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">like</button>
+                            </form>
+                            <form th:if="${post.isLiked}==true" th:action="@{/post/like/}+${post.id}"
+                                  method="post">
+                                <input type="hidden" name="_method" value="delete"/>
+                                <button type="submit" class="btn btn-sm btn-danger">liked!</button>
+                            </form>
+                            <!--                            <a class="btn btn-sm btn-outline-danger"-->
+                            <!--                               th:href="@{/post/like/}+${post.id}" th:text="${post.isLiked}">like</a>-->
+
+                            <a class="btn btn-sm btn-outline-success" th:href="@{/post/}+${post.id}">show all
+                                comment</a>
+                        </div>
+
+                        <a th:href="@{/post/}+${post.id}">
+                            <div class="row">
+                                <p th:text="${post.username}+' : '+${post.describe}">describe describe describe describe
+                                    describe
+                                    describe
+                                    describe describe describe describe describe</p>
+                            </div>
+                        </a>
+                        <form th:action="@{/post/comment/}+${post.id}" method="post">
+                            <input type="hidden" name="receiverName" th:value="${post.username}">
+                            `
+                            <div class="row">
+
+                                <div class="col-md-10 px-1">
+                                    <input name="comment" type="text" class="form-control"
+                                           placeholder="add a comment">
+                                </div>
+                                <div class="col-md-2 px-1">
+                                    <input class="btn btn-sm btn-outline-info" type="submit" value="Comment"/>
+                                </div>
+                            </div>
+                        </form>
                     </article>
                 </div>
             </div>
-
 
         </div>
     </div>

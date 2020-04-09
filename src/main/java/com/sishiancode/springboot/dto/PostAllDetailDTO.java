@@ -5,7 +5,7 @@ import lombok.Value;
 import java.time.LocalDateTime;
 
 @Value
-public class PostWithProfileDTO {
+public class PostAllDetailDTO {
     String id;
     String userId;
     String username;
@@ -14,4 +14,5 @@ public class PostWithProfileDTO {
     String videoId;
     LocalDateTime updateTime;
     Integer likesCount;
+    Boolean isLiked;
 }
