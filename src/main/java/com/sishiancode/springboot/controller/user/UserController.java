@@ -71,7 +71,9 @@ public class UserController extends BaseController {
     }
 
     @GetMapping("/profile/{id}")
-    String toEditProfile(@PathVariable("id") String userId, Model model) {
+    String toEditProfile(@PathVariable("id") String userId, Model model, HttpSession session) {
+        String loginUserId = (String) session.getAttribute("loginUserId");
+        model.addAttribute("loginUserId", loginUserId);
         logger.trace("toEditProfile:" + userId);
 
         Profile profile = userService.findProfileByUserId(userId);

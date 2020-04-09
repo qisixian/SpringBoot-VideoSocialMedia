@@ -67,115 +67,118 @@
 
     <div class="colorlib-blog">
         <div class="container">
-            <div class="col-md-8 justify-content-md-center">
-                <div class="card card-user">
-                    <div class="card-header">
-                        <h5 class="card-title">Edit Profile</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-
-                            <div class="col-md-4 px-1 justify-content-md-center">
-                                <img class="author-img" th:src="@{/avatars/stream/}+${profile.avatarId}" alt="..."
-                                     width="140px">
-                            </div>
+            <div class="row justify-content-md-center">
+                <div class="col-md-8">
+                    <div class="card card-user">
+                        <div class="card-header">
+                            <h5 class="card-title">Edit Profile</h5>
                         </div>
-                        <form th:action="@{/avatar}" method="post" enctype="multipart/form-data">
-
+                        <div class="card-body">
                             <div class="row">
 
-                                <div class="col-md-12 px-1">
-
-                                    <input type="hidden" name="_method" value="put"/>
-
-                                    <label>Change avatar</label>
-                                    <input type="file" name="file" accept="image/*"/>
-                                    <input class="btn btn-primary btn-round" type="submit" value="Change"/>
+                                <div class="col-md-4 px-1 justify-content-md-center">
+                                    <img class="author-img" th:src="@{/avatars/stream/}+${profile.avatarId}" alt="..."
+                                         width="140px">
                                 </div>
                             </div>
-                        </form>
-                        <form th:action="@{/profile}" method="post">
+                            <form th:action="@{/avatar}" method="post" enctype="multipart/form-data">
 
-                            <!--HiddenHttpMethodFilter-->
-                            <input type="hidden" name="_method" value="put"/>
+                                <div class="row">
 
-                            <input type="hidden" name="id" th:value="${profile.id}">
-                            <input type="hidden" name="userId" th:value="${profile.userId}">
-                            <input type="hidden" name="username" th:value="${profile.username}">
-                            <input type="hidden" name="phoneNumber" th:value="${profile.phoneNumber}">
-                            <input type="hidden" name="avatarId" th:value="${profile.avatarId}">
+                                    <div class="col-md-12 px-1">
 
-                            <div class="row">
-                                <div class="col-md-4 px-1">
-                                    <div class="form-group">
-                                        <label>username</label>
-                                        <input name="username" type="text" class="form-control" placeholder="username"
-                                               disabled
-                                               th:value="${profile.username}">
+                                        <input type="hidden" name="_method" value="put"/>
+
+                                        <label>Change avatar</label>
+                                        <input type="file" name="file" accept="image/*"/>
+                                        <input class="btn btn-primary btn-round" type="submit" value="Change"/>
                                     </div>
                                 </div>
-                                <div class="col-md-4 px-1">
-                                    <div class="form-group">
-                                        <label>phoneNumber</label>
-                                        <input name="phoneNumber" type="text" class="form-control"
-                                               placeholder="phoneNumber" disabled
-                                               th:value="${profile.phoneNumber}">
+                            </form>
+                            <form th:action="@{/profile}" method="post">
+
+                                <!--HiddenHttpMethodFilter-->
+                                <input type="hidden" name="_method" value="put"/>
+
+                                <input type="hidden" name="id" th:value="${profile.id}">
+                                <input type="hidden" name="userId" th:value="${profile.userId}">
+                                <input type="hidden" name="username" th:value="${profile.username}">
+                                <input type="hidden" name="phoneNumber" th:value="${profile.phoneNumber}">
+                                <input type="hidden" name="avatarId" th:value="${profile.avatarId}">
+
+                                <div class="row">
+                                    <div class="col-md-4 px-1">
+                                        <div class="form-group">
+                                            <label>username</label>
+                                            <input name="username" type="text" class="form-control"
+                                                   placeholder="username"
+                                                   disabled
+                                                   th:value="${profile.username}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 px-1">
+                                        <div class="form-group">
+                                            <label>phoneNumber</label>
+                                            <input name="phoneNumber" type="text" class="form-control"
+                                                   placeholder="phoneNumber" disabled
+                                                   th:value="${profile.phoneNumber}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 px-1">
+                                        <div class="form-group">
+                                            <label>email</label>
+                                            <input name="email" type="email" class="form-control" placeholder="email"
+                                                   th:value="${profile.email}">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4 px-1">
-                                    <div class="form-group">
-                                        <label>email</label>
-                                        <input name="email" type="email" class="form-control" placeholder="email"
-                                               th:value="${profile.email}">
+                                <div class="row">
+                                    <!--                                <div class="col-md-6 pl-1">-->
+                                    <!--                                    <div class="form-group">-->
+                                    <!--                                        <label>avatarId</label>-->
+                                    <!--                                        <input name="avatarId" type="text" class="form-control"-->
+                                    <!--                                               placeholder="avatarId"-->
+                                    <!--                                               th:value="${profile.avatarId}">-->
+                                    <!--                                    </div>-->
+                                    <!--                                </div>-->
+                                    <div class="col-md-2 px-1">
+                                        <div class="form-group">
+                                            <label>gender</label>
+                                            <input name="gender" type="text" class="form-control"
+                                                   placeholder="gender"
+                                                   th:value="${profile.gender}">
+                                        </div>
                                     </div>
+                                    <div class="col-md-10 px-1">
+                                        <div class="form-group">
+                                            <label>signature</label>
+                                            <input name="signature" type="text" class="form-control"
+                                                   placeholder="signature"
+                                                   th:value="${profile.signature}">
+                                        </div>
+                                    </div>
+
                                 </div>
-                            </div>
-                            <div class="row">
-                                <!--                                <div class="col-md-6 pl-1">-->
+                                <!--                            <div class="row">-->
+                                <!--                                <div class="col-md-4 px-1">-->
                                 <!--                                    <div class="form-group">-->
-                                <!--                                        <label>avatarId</label>-->
-                                <!--                                        <input name="avatarId" type="text" class="form-control"-->
-                                <!--                                               placeholder="avatarId"-->
-                                <!--                                               th:value="${profile.avatarId}">-->
+                                <!--                                        <label>birthDate</label>-->
+                                <!--                                        <input name="birthDate" type="text" class="form-control"-->
+                                <!--                                               placeholder="birthDate"-->
+                                <!--                                               th:value="${profile.birthDate}">-->
                                 <!--                                    </div>-->
                                 <!--                                </div>-->
-                                <div class="col-md-2 px-1">
-                                    <div class="form-group">
-                                        <label>gender</label>
-                                        <input name="gender" type="text" class="form-control"
-                                               placeholder="gender"
-                                               th:value="${profile.gender}">
+
+                                <!--                            </div>-->
+                                <div class="row">
+                                    <div class="update ml-auto mr-auto">
+                                        <button type="submit" class="btn btn-primary btn-round">
+                                            Update
+                                        </button>
                                     </div>
                                 </div>
-                                <div class="col-md-10 px-1">
-                                    <div class="form-group">
-                                        <label>signature</label>
-                                        <input name="signature" type="text" class="form-control"
-                                               placeholder="signature"
-                                               th:value="${profile.signature}">
-                                    </div>
-                                </div>
-
-                            </div>
-                            <!--                            <div class="row">-->
-                            <!--                                <div class="col-md-4 px-1">-->
-                            <!--                                    <div class="form-group">-->
-                            <!--                                        <label>birthDate</label>-->
-                            <!--                                        <input name="birthDate" type="text" class="form-control"-->
-                            <!--                                               placeholder="birthDate"-->
-                            <!--                                               th:value="${profile.birthDate}">-->
-                            <!--                                    </div>-->
-                            <!--                                </div>-->
-
-                            <!--                            </div>-->
-                            <div class="row">
-                                <div class="update ml-auto mr-auto">
-                                    <button type="submit" class="btn btn-primary btn-round">
-                                        Update
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

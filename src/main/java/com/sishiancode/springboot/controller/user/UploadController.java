@@ -2,6 +2,7 @@ package com.sishiancode.springboot.controller.user;
 
 import com.sishiancode.springboot.controller.BaseController;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,8 +20,9 @@ public class UploadController extends BaseController {
     }
 
     @PostMapping("/upload")
-    public String uploadPost(@RequestParam("file") MultipartFile file, @RequestParam("describe") String describe, HttpSession session) throws IOException {
+    public String uploadPost(@RequestParam("file") MultipartFile file, @RequestParam("describe") String describe, Model model, HttpSession session) throws IOException {
         String loginUserId = (String) session.getAttribute("loginUserId");
+        model.addAttribute("loginUserId", loginUserId);
         if (file.getSize() != 0) {
             logger.trace("uploadPost:" + file.toString());
             logger.debug(file.getOriginalFilename());

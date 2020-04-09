@@ -47,6 +47,8 @@ public class PostController extends BaseController {
 
     @GetMapping("/post/like/{id}")
     String toLikeList(@PathVariable("id") String postId, Model model, HttpSession session) {
+        String loginUserId = (String) session.getAttribute("loginUserId");
+        model.addAttribute("loginUserId", loginUserId);
         logger.trace("toLikeList:" + postId);
 
         List<Profile> likedUserProfileList = postService.findPostLikedUserProfile(postId);

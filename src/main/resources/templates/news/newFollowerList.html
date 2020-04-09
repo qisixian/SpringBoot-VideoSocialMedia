@@ -62,24 +62,25 @@
     <div th:replace="~{user/home::#home}"></div>
 
 
-    <div class="container">
-        <div class="row  justify-content-md-center" th:each="followerDetail:${followerDetailList}">
-            <div class="col-md-8">
-                <article>
-                    <p class="author-wrap"><a th:href="@{/user/}+${followerDetail.userId}" class="author-img"
-                                              th:style="'background-image: url('+@{/avatars/stream/}+${followerDetail.avatarId}+');'"></a>
-                        <a
-                                th:href="@{/user/}+${followerDetail.userId}"
-                                class="author"
-                                th:text="${followerDetail.username}">username</a>
-                    </p>
-                    <span>follow you at </span>
-                    <span th:text="${followerDetail.localDateTime}">time</span>
-                </article>
+    <div class="colorlib-blog">
+        <div class="container">
+            <div class="row  justify-content-md-center" th:each="followerDetail:${followerDetailList}">
+                <div class="col-md-8">
+                    <article>
+                        <p class="author-wrap"><a th:href="@{/user/}+${followerDetail.userId}" class="author-img"
+                                                  th:style="'background-image: url('+@{/avatars/stream/}+${followerDetail.avatarId}+');'"></a>
+                            <a
+                                    th:href="@{/user/}+${followerDetail.userId}"
+                                    class="author"
+                                    th:text="${followerDetail.username}">username</a>
+                        </p>
+                        <span>follow you at </span>
+                        <span th:text="${#temporals.format(followerDetail.localDateTime, 'MM-dd HH:mm')}">time</span>
+                    </article>
+                </div>
             </div>
         </div>
     </div>
-
 
     <footer id="colorlib-footer">
         <div class="container">

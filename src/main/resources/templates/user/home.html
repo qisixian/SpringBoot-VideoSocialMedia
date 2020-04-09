@@ -108,8 +108,9 @@
                                             th:text="${followingPost.username}">username</a>
                                 </p>
                             </div>
-                            <div class="col-4">
-                                <p th:text="${followingPost.updateTime}"><span>updateTime</span></p>
+                            <div class="col-3">
+                                <p th:text="${#temporals.format(followingPost.updateTime, 'MM-dd HH:mm')}"><span>updateTime</span>
+                                </p>
                             </div>
                         </div>
                         <div class="row">

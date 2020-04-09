@@ -62,22 +62,24 @@
     <div th:replace="~{user/home::#home}"></div>
 
 
-    <div class="container">
-        <div class="row  justify-content-md-center" th:each="likedDetail:${likedDetailList}">
-            <div class="col-md-8">
-                <article>
-                    <p class="author-wrap"><a th:href="@{/user/}+${likedDetail.likedUserId}" class="author-img"
-                                              th:style="'background-image: url('+@{/avatars/stream/}+${likedDetail.likedUserAvatarId}+');'"></a>
-                        <a
-                                th:href="@{/user/}+${likedDetail.likedUserId}"
-                                class="author"
-                                th:text="${likedDetail.likedUsername}">username</a>
-                    </p>
-                    <span>liked your </span>
-                    <a th:text="'post'" th:href="@{/post/}+${likedDetail.postId}"></a>
-                    <span> at </span>
-                    <span th:text="${likedDetail.localDateTime}">time</span>
-                </article>
+    <div class="colorlib-blog">
+        <div class="container">
+            <div class="row  justify-content-md-center" th:each="likedDetail:${likedDetailList}">
+                <div class="col-md-8">
+                    <article>
+                        <p class="author-wrap"><a th:href="@{/user/}+${likedDetail.likedUserId}" class="author-img"
+                                                  th:style="'background-image: url('+@{/avatars/stream/}+${likedDetail.likedUserAvatarId}+');'"></a>
+                            <a
+                                    th:href="@{/user/}+${likedDetail.likedUserId}"
+                                    class="author"
+                                    th:text="${likedDetail.likedUsername}">username</a>
+                        </p>
+                        <span>liked your </span>
+                        <a th:text="'post'" th:href="@{/post/}+${likedDetail.postId}"></a>
+                        <span> at </span>
+                        <span th:text="${#temporals.format(likedDetail.localDateTime, 'MM-dd HH:mm')}">time</span>
+                    </article>
+                </div>
             </div>
         </div>
     </div>

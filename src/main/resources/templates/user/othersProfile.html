@@ -67,63 +67,80 @@
 
     <div class="colorlib-blog">
         <div class="container">
-            <div class="col-md-8 justify-content-md-center">
-                <div class="card card-user">
-                    <div class="text-left">
-                        <form th:if="${isFollowed==false}" th:action="@{/follow/}+${othersProfileDTO.userId}"
-                              method="post">
+            <div class="row justify-content-md-center">
+                <div class="col-md-8">
+                    <div class="card card-user">
+                        <div class="card-body">
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-8">
+                                    <img class="avatar border-gray"
+                                         th:src="@{/avatars/stream/}+${othersProfileDTO.avatarId}" alt="...">
 
-                            <button type="submit" class="btn btn-sm btn-primary">follow</button>
-                        </form>
-                        <form th:if="${isFollowed==true}" th:action="@{/unFollow/}+${othersProfileDTO.userId}"
-                              method="post">
-                            <input type="hidden" name="_method" value="delete"/>
-                            <button type="submit" class="btn btn-sm btn-success">following</button>
-                        </form>
-                    </div>
-                    <div class="card-body">
-                        <div>
-                            <img class="author-img" th:src="@{/avatars/stream/}+${othersProfileDTO.avatarId}" alt="..."
-                                 width="140px">
-                            <h5 class="title" th:text="${othersProfileDTO.username}">Username</h5>
-                            <h6>
-                                phone number:<span th:text="${othersProfileDTO.phoneNumber}">phoneNumber</span>
-                            </h6>
-                            <h6>
-                                email:<span th:text="${othersProfileDTO.email}">email</span>
-                            </h6>
+                                    <h5 class="title" th:text="${othersProfileDTO.username}">Username</h5>
+                                    <p>
+                                        <span>phone number : </span><span
+                                            th:text="${othersProfileDTO.phoneNumber}">phoneNumber</span>
+                                    </p>
+                                    <p>
+                                        <span>email : </span><span th:text="${othersProfileDTO.email}">email</span>
+                                    </p>
+                                </div>
+                                <div class="col-md-2">
+                                    <form th:if="${isFollowed==false}"
+                                          th:action="@{/follow/}+${othersProfileDTO.userId}"
+                                          method="post">
+
+                                        <button type="submit" class="btn btn-sm btn-primary">follow</button>
+                                    </form>
+                                    <form th:if="${isFollowed==true}"
+                                          th:action="@{/unFollow/}+${othersProfileDTO.userId}"
+                                          method="post">
+                                        <input type="hidden" name="_method" value="delete"/>
+                                        <button type="submit" class="btn btn-sm btn-success">following</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-10">
+                                    <div class="row">
+                                        <div class="col-md-auto">
+                                            <h6 class="text-center text-muted" th:text="${othersProfileDTO.signature}">
+                                                signature signature signature signature signature signature signature
+                                                signature
+                                                signature signature
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <h6 class="text-center text-muted" th:text="${othersProfileDTO.signature}">
-                            signature signature signature signature signature signature signature signature
-                            signature signature
-                        </h6>
-                    </div>
-                    <div class="card-footer">
-                        <hr>
-                        <div class="button-container">
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6 col-6 ml-auto">
-                                    <h5>
-                                        <a th:href="@{/user/followingList/}+${othersProfileDTO.userId}"
-                                           th:text="${othersProfileDTO.followingCount}">FollowingCount</a>
-                                        <br>
-                                        <a th:href="@{/user/followingList/}+${othersProfileDTO.userId}"><small>Following</small></a>
-                                    </h5>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-6 ml-auto mr-auto">
-                                    <h5>
-                                        <a th:href="@{/user/followerList/}+${othersProfileDTO.userId}"
-                                           th:text="${othersProfileDTO.followersCount}">FollowersCount</a>
-                                        <br>
-                                        <a th:href="@{/user/followerList/}+${othersProfileDTO.userId}"><small>Followers</small></a>
-                                    </h5>
-                                </div>
-                                <div class="col-lg-3 mr-auto">
-                                    <h5>
-                                        <span th:text="${othersProfileDTO.postsCount}">PostsCount</span>
-                                        <br>
-                                        <small>Posts</small>
-                                    </h5>
+                        <div class="card-footer">
+                            <hr>
+                            <div class="button-container">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-6 col-6 ml-auto">
+                                        <h5>
+                                            <a th:href="@{/user/followingList/}+${othersProfileDTO.userId}"
+                                               th:text="${othersProfileDTO.followingCount}">FollowingCount</a>
+                                            <br>
+                                            <a th:href="@{/user/followingList/}+${othersProfileDTO.userId}"><small>Following</small></a>
+                                        </h5>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6 col-6 ml-auto mr-auto">
+                                        <h5>
+                                            <a th:href="@{/user/followerList/}+${othersProfileDTO.userId}"
+                                               th:text="${othersProfileDTO.followersCount}">FollowersCount</a>
+                                            <br>
+                                            <a th:href="@{/user/followerList/}+${othersProfileDTO.userId}"><small>Followers</small></a>
+                                        </h5>
+                                    </div>
+                                    <div class="col-lg-3 mr-auto">
+                                        <h5>
+                                            <span th:text="${othersProfileDTO.postsCount}">PostsCount</span>
+                                            <br>
+                                            <small>Posts</small>
+                                        </h5>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -170,8 +187,9 @@
                                             th:text="${post.username}">username</a>
                                 </p>
                             </div>
-                            <div class="col-4">
-                                <p th:text="${post.updateTime}"><span>updateTime</span></p>
+                            <div class="col-3">
+                                <p th:text="${#temporals.format(post.updateTime, 'MM-dd HH:mm')}">
+                                    <span>updateTime</span></p>
                             </div>
                         </div>
                         <div class="row">

@@ -67,9 +67,8 @@
 
     <div class="colorlib-blog">
         <div class="container">
-
             <div class="row justify-content-md-center" th:each="post:${postList}">
-                <div class="col-md-8 animate-box">
+                <div class="col-md-8">
                     <article>
                         <div class="row justify-content-between">
                             <div class="col-4">
@@ -82,8 +81,9 @@
                                             th:text="${post.username}">username</a>
                                 </p>
                             </div>
-                            <div class="col-4">
-                                <p th:text="${post.updateTime}"><span>updateTime</span></p>
+                            <div class="col-3">
+                                <p th:text="${#temporals.format(post.updateTime, 'MM-dd HH:mm')}">
+                                    <span>updateTime</span></p>
                             </div>
                         </div>
                         <div class="row">

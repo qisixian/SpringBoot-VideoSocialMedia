@@ -67,17 +67,19 @@
 
     <div class="colorlib-blog">
         <div class="container">
-            <div class="col-md-8 justify-content-md-center">
-                <div class="card card-user">
-                    <div class="card-header">
-                        <h5 class="card-title">Upload</h5>
-                    </div>
-                    <div class="card-body">
-                        <form th:action="@{/upload}" method="post" enctype="multipart/form-data">
-                            <div class="row">
-                                <div class="col-md-8 px-1 justify-content-md-center">
-                                    <label>upload video</label>
-                                    <input type="file" name="file" accept="video/*"/>
+
+            <div class="row justify-content-md-center">
+                <div class="col-md-8">
+                    <div class="card card-user">
+                        <div class="card-header">
+                            <h5 class="card-title">Upload</h5>
+                        </div>
+                        <div class="card-body">
+                            <form th:action="@{/upload}" method="post" enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="col-md-8 px-1 justify-content-md-center">
+                                        <label>upload video</label>
+                                        <input type="file" name="file" accept="video/*"/>
                                 </div>
                             </div>
                             <div class="row">
@@ -95,7 +97,8 @@
                                     </button>
                                 </div>
                             </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
