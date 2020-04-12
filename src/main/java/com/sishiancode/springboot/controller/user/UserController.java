@@ -142,8 +142,10 @@ public class UserController extends BaseController {
     }
 
     @GetMapping("/user/likeList/{id}")
-    String toLikeList(@PathVariable("id") String likedUserId, Model model) {
+    String toLikeList(@PathVariable("id") String likedUserId, Model model, HttpSession session) {
         logger.trace("toLikeList:" + likedUserId);
+        String loginUserId = (String) session.getAttribute("loginUserId");
+        model.addAttribute("loginUserId", loginUserId);
         List<PostAllDetailDTO> postAllDetailDTOList = postService.findLikePostList(likedUserId);
 
         model.addAttribute("postList", postAllDetailDTOList);

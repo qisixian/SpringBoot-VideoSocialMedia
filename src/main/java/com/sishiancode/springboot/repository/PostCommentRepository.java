@@ -11,7 +11,11 @@ public interface PostCommentRepository extends MongoRepository<PostComment, Stri
 
     List<PostComment> findByReceiverId(String receiverId);
 
+    List<PostComment> findByReceiverIdOrderByLocalDateTimeDesc(String receiverId);
+
     List<PostComment> findByPostId(String postId);
+
+    List<PostComment> findByPostIdOrderByLocalDateTimeAsc(String postId);
 
     void deleteByPostId(String postId);
 }

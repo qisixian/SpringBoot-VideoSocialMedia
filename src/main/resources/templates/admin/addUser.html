@@ -70,13 +70,20 @@ The above copyright notice and this permission notice shall be included in all c
                             <!--HiddenHttpMethodFilter-->
                             <input type="hidden" name="_method" value="put" th:if="${user!=null}"/>
                             <input type="hidden" name="id" th:if="${user!=null}" th:value="${user.id}">
+                            <input type="hidden" name="username" th:if="${user!=null}" th:value="${user.username}">
+                            <input type="hidden" name="phoneNumber" th:if="${user!=null}"
+                                   th:value="${user.phoneNumber}">
 
 
                             <div class="row">
                                 <div class="col-md-4 px-1">
                                     <div class="form-group">
                                         <label>username</label>
-                                        <input name="username" type="text" class="form-control" placeholder="username"
+                                        <input th:if="${user!=null}" name="username" type="text" class="form-control"
+                                               placeholder="username" disabled
+                                               th:value="${user!=null}?${user.username}">
+                                        <input th:if="${user==null}" name="username" type="text" class="form-control"
+                                               placeholder="username"
                                                th:value="${user!=null}?${user.username}">
                                     </div>
                                 </div>
@@ -91,7 +98,11 @@ The above copyright notice and this permission notice shall be included in all c
                                 <div class="col-md-4 px-1">
                                     <div class="form-group">
                                         <label>phoneNumber</label>
-                                        <input name="phoneNumber" type="text" class="form-control"
+                                        <input th:if="${user!=null}" name="phoneNumber" type="text" class="form-control"
+                                               disabled
+                                               placeholder="phoneNumber"
+                                               th:value="${user!=null}?${user.phoneNumber}">
+                                        <input th:if="${user==null}" name="phoneNumber" type="text" class="form-control"
                                                placeholder="phoneNumber"
                                                th:value="${user!=null}?${user.phoneNumber}">
                                     </div>

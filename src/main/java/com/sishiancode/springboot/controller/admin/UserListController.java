@@ -14,7 +14,7 @@ import java.util.List;
 public class UserListController extends BaseController {
     @GetMapping("/admin/userList")
     String toAdminUserList(Model model, HttpSession session) {
-        logger.trace("Admin/UserListController-toAdminUserList");
+        logger.trace("toAdminUserList");
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator admin = adminService.findAdminById(loginAdminId);
@@ -27,7 +27,7 @@ public class UserListController extends BaseController {
 
     @GetMapping("/admin/user")
     String toAddUser(Model model, HttpSession session) {
-        logger.trace("Admin/UserListController-toAddUser");
+        logger.trace("toAddUser");
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator admin = adminService.findAdminById(loginAdminId);
@@ -38,7 +38,7 @@ public class UserListController extends BaseController {
 
     @GetMapping("/admin/user/{id}")
     String toEditUser(@PathVariable("id") String userId, Model model, HttpSession session) {
-        logger.trace("Admin/UserListController-toEditUser:" + userId);
+        logger.trace("toEditUser:" + userId);
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator admin = adminService.findAdminById(loginAdminId);
@@ -51,21 +51,21 @@ public class UserListController extends BaseController {
 
     @PostMapping("/admin/user")
     String addUser(User user) {
-        logger.trace("Admin/UserListController-addUser:" + user.toString());
+        logger.trace("addUser:" + user.toString());
         adminService.saveUser(user);
         return "redirect:/admin/userList";
     }
 
     @PutMapping("/admin/user")
     String updateUser(User user) {
-        logger.trace("Admin/UserListController-updateUser:" + user.toString());
+        logger.trace("updateUser:" + user.toString());
         adminService.saveUser(user);
         return "redirect:/admin/userList";
     }
 
     @DeleteMapping("/admin/user/{id}")
     String deleteUser(@PathVariable("id") String userId) {
-        logger.trace("Admin/UserListController-deleteUser:" + userId);
+        logger.trace("deleteUser:" + userId);
         adminService.deleteUser(userId);
         return "redirect:/admin/userList";
     }

@@ -12,10 +12,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
-public class PostLikeController extends BaseController {
+public class PostLikeListController extends BaseController {
     @GetMapping("/admin/postLikeList")
     String toAdminPostLikeList(Model model, HttpSession session) {
-        logger.trace("Admin/PostLikeListController-toAdminPostLikeList");
+        logger.trace("toAdminPostLikeList");
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator admin = adminService.findAdminById(loginAdminId);
@@ -28,7 +28,7 @@ public class PostLikeController extends BaseController {
 
     @GetMapping("/admin/postLike")
     String toAddPostLike(Model model, HttpSession session) {
-        logger.trace("Admin/PostLikeListController-toAddPostLike");
+        logger.trace("toAddPostLike");
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator admin = adminService.findAdminById(loginAdminId);
@@ -39,7 +39,7 @@ public class PostLikeController extends BaseController {
 
     @GetMapping("/admin/postLike/{id}")
     String toEditPostLike(@PathVariable("id") String postLikeId, Model model, HttpSession session) {
-        logger.trace("Admin/PostLikeListController-toEditPostLike:" + postLikeId);
+        logger.trace("toEditPostLike:" + postLikeId);
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator admin = adminService.findAdminById(loginAdminId);
@@ -52,7 +52,7 @@ public class PostLikeController extends BaseController {
 
     @PostMapping("/admin/postLike")
     String addPostLike(PostLike postLike) {
-        logger.trace("Admin/PostLikeListController-addPostLike:" + postLike.toString());
+        logger.trace("addPostLike:" + postLike.toString());
         postLike.setLocalDateTime(LocalDateTime.now());
         adminService.savePostLike(postLike);
         return "redirect:/admin/postLikeList";
@@ -60,7 +60,7 @@ public class PostLikeController extends BaseController {
 
     @PutMapping("/admin/postLike")
     String updatePostLike(PostLike postLike) {
-        logger.trace("Admin/PostLikeListController-updateUser:" + postLike.toString());
+        logger.trace("updateUser:" + postLike.toString());
         postLike.setLocalDateTime(LocalDateTime.now());
         adminService.savePostLike(postLike);
         return "redirect:/admin/postLikeList";
@@ -68,7 +68,7 @@ public class PostLikeController extends BaseController {
 
     @DeleteMapping("/admin/postLike/{id}")
     String deletePostLike(@PathVariable("id") String postLikeId) {
-        logger.trace("Admin/PostLikeListController-deletePostLike:" + postLikeId);
+        logger.trace("deletePostLike:" + postLikeId);
         adminService.deletePostLike(postLikeId);
         return "redirect:/admin/postLikeList";
     }

@@ -15,7 +15,7 @@ import java.util.List;
 public class UserFollowingListController extends BaseController {
     @GetMapping("/admin/userFollowingList")
     String toAdminUserFollowingList(Model model, HttpSession session) {
-        logger.trace("Admin/UserFollowingListController-toAdminUserFollowingList");
+        logger.trace("toAdminUserFollowingList");
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator admin = adminService.findAdminById(loginAdminId);
@@ -28,7 +28,7 @@ public class UserFollowingListController extends BaseController {
 
     @GetMapping("/admin/userFollowing")
     String toAddUserFollowing(Model model, HttpSession session) {
-        logger.trace("Admin/UserFollowingListController-toAddUserFollowing");
+        logger.trace("toAddUserFollowing");
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator admin = adminService.findAdminById(loginAdminId);
@@ -39,7 +39,7 @@ public class UserFollowingListController extends BaseController {
 
     @GetMapping("/admin/userFollowing/{id}")
     String toEditUserFollowing(@PathVariable("id") String userFollowingId, Model model, HttpSession session) {
-        logger.trace("Admin/UserFollowingListController-toEditUserFollowing:" + userFollowingId);
+        logger.trace("toEditUserFollowing:" + userFollowingId);
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator admin = adminService.findAdminById(loginAdminId);
@@ -52,7 +52,7 @@ public class UserFollowingListController extends BaseController {
 
     @PostMapping("/admin/userFollowing")
     String addUserFollowing(UserFollowing userFollowing) {
-        logger.trace("Admin/UserFollowingListController-addUserFollowing:" + userFollowing.toString());
+        logger.trace("addUserFollowing:" + userFollowing.toString());
         userFollowing.setLocalDateTime(LocalDateTime.now());
         adminService.saveUserFollowing(userFollowing);
         return "redirect:/admin/userFollowingList";
@@ -60,14 +60,14 @@ public class UserFollowingListController extends BaseController {
 
     @PutMapping("/admin/userFollowing")
     String updateUserFollowing(UserFollowing userFollowing) {
-        logger.trace("Admin/UserFollowingListController-updateUserFollowing:" + userFollowing.toString());
+        logger.trace("updateUserFollowing:" + userFollowing.toString());
         adminService.saveUserFollowing(userFollowing);
         return "redirect:/admin/userFollowingList";
     }
 
     @DeleteMapping("/admin/userFollowing/{id}")
     String deleteUserFollowing(@PathVariable("id") String userFollowingId) {
-        logger.trace("Admin/UserFollowingListController-deleteUserFollowing:" + userFollowingId);
+        logger.trace("deleteUserFollowing:" + userFollowingId);
         adminService.deleteUserFollowing(userFollowingId);
         return "redirect:/admin/userFollowingList";
     }

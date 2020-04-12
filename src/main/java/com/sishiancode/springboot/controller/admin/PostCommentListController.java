@@ -15,7 +15,7 @@ import java.util.List;
 public class PostCommentListController extends BaseController {
     @GetMapping("/admin/postCommentList")
     String toAdminPostCommentList(Model model, HttpSession session) {
-        logger.trace("Admin/PostCommentListController-toAdminPostCommentList");
+        logger.trace("toAdminPostCommentList");
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator admin = adminService.findAdminById(loginAdminId);
@@ -28,7 +28,7 @@ public class PostCommentListController extends BaseController {
 
     @GetMapping("/admin/postComment")
     String toAddPostComment(Model model, HttpSession session) {
-        logger.trace("Admin/PostCommentListController-toAddPostComment");
+        logger.trace("toAddPostComment");
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator admin = adminService.findAdminById(loginAdminId);
@@ -39,7 +39,7 @@ public class PostCommentListController extends BaseController {
 
     @GetMapping("/admin/postComment/{id}")
     String toEditPostComment(@PathVariable("id") String postCommentId, Model model, HttpSession session) {
-        logger.trace("Admin/PostCommentListController-toEditPostComment:" + postCommentId);
+        logger.trace("toEditPostComment:" + postCommentId);
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator admin = adminService.findAdminById(loginAdminId);
@@ -52,7 +52,7 @@ public class PostCommentListController extends BaseController {
 
     @PostMapping("/admin/postComment")
     String addPostComment(PostComment postComment) {
-        logger.trace("Admin/PostCommentListController-addPostComment:" + postComment.toString());
+        logger.trace("addPostComment:" + postComment.toString());
         postComment.setLocalDateTime(LocalDateTime.now());
         adminService.savePostComment(postComment);
         return "redirect:/admin/postCommentList";
@@ -60,7 +60,7 @@ public class PostCommentListController extends BaseController {
 
     @PutMapping("/admin/postComment")
     String updatePostComment(PostComment postComment) {
-        logger.trace("Admin/PostCommentListController-updateUser:" + postComment.toString());
+        logger.trace("updatePostComment:" + postComment.toString());
         postComment.setLocalDateTime(LocalDateTime.now());
         adminService.savePostComment(postComment);
         return "redirect:/admin/postCommentList";
@@ -68,7 +68,7 @@ public class PostCommentListController extends BaseController {
 
     @DeleteMapping("/admin/postComment/{id}")
     String deletePostComment(@PathVariable("id") String postCommentId) {
-        logger.trace("Admin/PostCommentListController-deletePostComment:" + postCommentId);
+        logger.trace("deletePostComment:" + postCommentId);
         adminService.deletePostComment(postCommentId);
         return "redirect:/admin/postCommentList";
     }

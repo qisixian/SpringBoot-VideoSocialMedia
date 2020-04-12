@@ -25,6 +25,7 @@ import java.util.Optional;
 @Service
 public class UserService extends BaseService {
 
+
     public Profile findProfileByUserId(String userId) {
         return profileRepository.findByUserId(userId);
     }
@@ -97,7 +98,7 @@ public class UserService extends BaseService {
 //        userFollowingRepository
 //    }
     public List<String> findFollowingIdList(String userId) {
-        List<FollowingIdDTO> followingList = userFollowingRepository.findByUserId(userId, FollowingIdDTO.class);
+        List<FollowingIdDTO> followingList = userFollowingRepository.findByUserIdOrderByLocalDateTimeDesc(userId, FollowingIdDTO.class);
 //        需要按localDateTime排序
 //        需不需要返回username，头像，签名，？（关注数量？）
         List<String> followingIdList = new ArrayList<>();
@@ -118,7 +119,7 @@ public class UserService extends BaseService {
     }
 
     public List<String> findFollowerIdList(String followingId) {
-        List<FollowerIdDTO> followerList = userFollowingRepository.findByFollowingId(followingId, FollowerIdDTO.class);
+        List<FollowerIdDTO> followerList = userFollowingRepository.findByFollowingIdOrderByLocalDateTimeDesc(followingId, FollowerIdDTO.class);
 
         List<String> followerIdList = new ArrayList<>();
 //        for (int i = 0; i < followingList.size(); i++) {

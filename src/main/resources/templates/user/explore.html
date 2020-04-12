@@ -68,7 +68,7 @@
                             <li><a th:href="@{/explore}">Explore</a></li>
                             <li><a th:href="@{/upload}">Upload</a></li>
                             <li class="has-dropdown">
-                                <a href="#">News</a>
+                                <a th:href="@{/news/comment}">News</a>
                                 <ul class="dropdown">
                                     <li><a th:href="@{/news/comment}">Comments</a></li>
                                     <li><a th:href="@{/news/like}">Likes</a></li>
@@ -85,10 +85,8 @@
 
     <section id="home" class="video-hero"
              style="height: 700px; background-image: url(assets/images/cover_img_1.jpg);  background-size:cover; background-position: center center;background-attachment:fixed;"
-             data-section="home">
+             data-section="home" th:if="${loginUserId}==null">
         <div class="overlay"></div>
-        <a class="player"
-           data-property="{videoURL:'https://www.youtube.com/watch?v=vqqt5p0q-eU',containment:'#home', showControls:false, autoPlay:true, loop:true, mute:true, startAt:0, opacity:1, quality:'default'}"></a>
         <div class="display-t text-center">
             <div class="display-tc">
                 <div class="container">
@@ -105,18 +103,29 @@
     </section>
 
 
-    <div class="container">
-        <div class="row justify-content-md-center" th:each="profile:${allProfile}" th:if="${allProfile!=null}">
-            <div class="col-md-8">
-                <article>
-                    <p class="author-wrap"><a th:href="@{/user/}+${profile.userId}" class="author-img"
-                                              th:style="'background-image: url('+@{/avatars/stream/}+${profile.avatarId}+');'"></a>
-                        <a
-                                th:href="@{/user/}+${profile.userId}"
-                                class="author"
-                                th:text="${profile.username}">username</a>
-                    </p>
-                </article>
+    <section th:if="${loginUserId}!=null" id="home2" class="video-hero"
+             style="height: 150px; background-image: url(assets/images/cover_img_1.jpg);  background-size:cover; background-position: center center;background-attachment:fixed;"
+             data-section="home">
+        <div class="overlay"></div>
+        <div class="display-t text-center">
+        </div>
+    </section>
+
+
+    <div class="colorlib-blog">
+        <div class="container">
+            <div class="row justify-content-md-center" th:each="profile:${allProfile}" th:if="${allProfile!=null}">
+                <div class="col-md-8">
+                    <article>
+                        <p class="author-wrap"><a th:href="@{/user/}+${profile.userId}" class="author-img"
+                                                  th:style="'background-image: url('+@{/avatars/stream/}+${profile.avatarId}+');'"></a>
+                            <a
+                                    th:href="@{/user/}+${profile.userId}"
+                                    class="author"
+                                    th:text="${profile.username}">username</a>
+                        </p>
+                    </article>
+                </div>
             </div>
         </div>
     </div>

@@ -13,7 +13,7 @@ import java.util.List;
 public class AdminListController extends BaseController {
     @GetMapping("/admin/adminList")
     String toAdminAdminList(Model model, HttpSession session) {
-        logger.trace("Admin/AdminListController-toAdminAdminList");
+        logger.trace("toAdminAdminList");
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator loginAdmin = adminService.findAdminById(loginAdminId);
@@ -26,7 +26,7 @@ public class AdminListController extends BaseController {
 
     @GetMapping("/admin/admin")
     String toAddAdmin(Model model, HttpSession session) {
-        logger.trace("Admin/AdminListController-toAddAdmin");
+        logger.trace("toAddAdmin");
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator loginAdmin = adminService.findAdminById(loginAdminId);
@@ -37,7 +37,7 @@ public class AdminListController extends BaseController {
 
     @GetMapping("/admin/admin/{id}")
     String toEditAdmin(@PathVariable("id") String adminId, Model model, HttpSession session) {
-        logger.trace("Admin/AdminListController-toEditAdmin:" + adminId);
+        logger.trace("toEditAdmin:" + adminId);
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator loginAdmin = adminService.findAdminById(loginAdminId);
@@ -50,21 +50,21 @@ public class AdminListController extends BaseController {
 
     @PostMapping("/admin/admin")
     String addAdmin(Administrator admin) {
-        logger.trace("Admin/AdminListController-addAdmin:" + admin.toString());
+        logger.trace("addAdmin:" + admin.toString());
         adminService.saveAdmin(admin);
         return "redirect:/admin/adminList";
     }
 
     @PutMapping("/admin/admin")
     String updateAdmin(Administrator admin) {
-        logger.trace("Admin/AdminListController-updateAdmin:" + admin.toString());
+        logger.trace("updateAdmin:" + admin.toString());
         adminService.saveAdmin(admin);
         return "redirect:/admin/adminList";
     }
 
     @DeleteMapping("/admin/admin/{id}")
     String deleteAdmin(@PathVariable("id") String adminId) {
-        logger.trace("Admin/AdminListController-deleteAdmin:" + adminId);
+        logger.trace("deleteAdmin:" + adminId);
         adminService.deleteAdmin(adminId);
         return "redirect:/admin/adminList";
     }

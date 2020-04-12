@@ -72,18 +72,35 @@ The above copyright notice and this permission notice shall be included in all c
                             <input type="hidden" name="id" th:if="${postComment!=null}" th:value="${postComment.id}">
 
 
+                            <input type="hidden" name="postId" th:if="${postComment!=null}"
+                                   th:value="${postComment.postId}">
+                            <input type="hidden" name="senderId" th:if="${postComment!=null}"
+                                   th:value="${postComment.senderId}">
+                            <input type="hidden" name="receiverId" th:if="${postComment!=null}"
+                                   th:value="${postComment.receiverId}">
+
+
                             <div class="row">
                                 <div class="col-md-4 px-1">
                                     <div class="form-group">
                                         <label>postId</label>
-                                        <input name="postId" type="text" class="form-control" placeholder="postId"
+                                        <input th:if="${postComment!=null}" name="postId" type="text"
+                                               class="form-control" placeholder="postId" disabled
+                                               th:value="${postComment!=null}?${postComment.postId}">
+                                        <input th:if="${postComment==null}" name="postId" type="text"
+                                               class="form-control" placeholder="postId"
                                                th:value="${postComment!=null}?${postComment.postId}">
                                     </div>
                                 </div>
                                 <div class="col-md-4 px-1">
                                     <div class="form-group">
                                         <label>senderId</label>
-                                        <input name="senderId" type="text" class="form-control"
+                                        <input th:if="${postComment!=null}" name="senderId" type="text"
+                                               class="form-control" disabled
+                                               placeholder="senderId"
+                                               th:value="${postComment!=null}?${postComment.senderId}">
+                                        <input th:if="${postComment==null}" name="senderId" type="text"
+                                               class="form-control"
                                                placeholder="senderId"
                                                th:value="${postComment!=null}?${postComment.senderId}">
                                     </div>
@@ -91,7 +108,12 @@ The above copyright notice and this permission notice shall be included in all c
                                 <div class="col-md-4 px-1">
                                     <div class="form-group">
                                         <label>receiverId</label>
-                                        <input name="receiverId" type="text" class="form-control"
+                                        <input th:if="${postComment!=null}" name="receiverId" type="text"
+                                               class="form-control" disabled
+                                               placeholder="receiverId"
+                                               th:value="${postComment!=null}?${postComment.receiverId}">
+                                        <input th:if="${postComment==null}" name="receiverId" type="text"
+                                               class="form-control"
                                                placeholder="receiverId"
                                                th:value="${postComment!=null}?${postComment.receiverId}">
                                     </div>

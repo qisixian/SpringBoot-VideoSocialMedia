@@ -11,13 +11,20 @@ public interface UserFollowingRepository extends MongoRepository<UserFollowing, 
 
     List<UserFollowing> findByFollowingId(String followingId);
 
+
+    List<UserFollowing> findByFollowingIdOrderByLocalDateTimeDesc(String followingId);
+
     <T> List<T> findByFollowingId(String followingId, Class<T> type);
+
+    <T> List<T> findByFollowingIdOrderByLocalDateTimeDesc(String followingId, Class<T> type);
 
 
     //    怎么限制查询只返回一个String列？
     List<UserFollowing> findByUserId(String userId);
 
     <T> List<T> findByUserId(String userId, Class<T> type);
+
+    <T> List<T> findByUserIdOrderByLocalDateTimeDesc(String userId, Class<T> type);
 
 //    List<FollowingIdDTO> findByUserId(String userId);
 //    showFollowingList需要返回一个按时间排列的followingId

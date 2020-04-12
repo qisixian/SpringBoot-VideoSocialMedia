@@ -17,11 +17,16 @@ public interface PostLikeRepository extends MongoRepository<PostLike, String> {
 
     List<PostLike> findByPostIdIn(List<String> postId);
 
+
+    List<PostLike> findByPostIdInOrderByLocalDateTimeDesc(List<String> postId);
+
     <T> List<T> findByPostIdIn(List<String> postId, Class<T> type);
 
     List<PostLike> findByLikedUserId(String likedUserId);
 
     <T> List<T> findByLikedUserId(String likedUserId, Class<T> type);
+
+    <T> List<T> findByLikedUserIdOrderByLocalDateTimeDesc(String likedUserId, Class<T> type);
 
     Integer countByLikedUserId(String likedUserId);
 

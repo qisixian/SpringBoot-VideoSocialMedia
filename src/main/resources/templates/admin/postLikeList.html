@@ -70,7 +70,6 @@ The above copyright notice and this permission notice shall be included in all c
                                 <table class="table">
                                     <thead class=" text-primary">
                                     <th>id</th>
-                                    <th>postUserId</th>
                                     <th>postId</th>
                                     <th>likedUserId</th>
                                     <th>localDateTime</th>
@@ -79,37 +78,23 @@ The above copyright notice and this permission notice shall be included in all c
                                     <tbody>
                                     <tr th:each="postLike:${allPostLike}">
                                         <td th:text="${postLike.id}"></td>
-                                        <td th:text="${postLike.postUserId}"></td>
                                         <td th:text="${postLike.postId}"></td>
                                         <td th:text="${postLike.likedUserId}"></td>
-                                        <td th:text="${postLike.localDateTime}"></td>
+                                        <td th:text="${#temporals.format(postLike.localDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
                                         <td class="text-right">
-                                            <a class="btn btn-sm btn-primary"
-                                               th:href="@{/admin/postLike/}+${postLike.id}">修改</a>
+                                            <!--                                            <a class="btn btn-sm btn-primary"-->
+                                            <!--                                               th:href="@{/admin/postLike/}+${postLike.id}">修改</a>-->
                                             <form th:action="@{/admin/postLike/}+${postLike.id}" method="post">
-                                                <!--get多了一个?,post put delete 都有问题-->
                                                 <input type="hidden" name="_method" value="delete"/>
                                                 <button type="submit" class="btn btn-sm btn-danger">删除</button>
-                                                <!--<a class="btn btn-sm btn-danger"  th:href="@{/user/}+${user.id}">删除</a>-->
-
                                             </form>
                                         </td>
-
                                     </tr>
                                     <tr>
                                         <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td>
-                                            <!--<form th:action="@{/user/1004}" method="post"-->
-                                            <!--get多了一个?,post put delete 都有问题-->
-                                            <!--写这么硬都出错？-->
-                                            <!--<input type="hidden" name="_method" value="delete"/>-->
-                                            <!--<button type="submit" class="btn btn-sm btn-danger">删除</button>-->
-
-                                            <!--</form>-->
-                                        </td>
                                         <td class="text-right">
                                             <a class="btn btn-sm btn-success" th:href="@{/admin/postLike}">添加</a>
                                         </td>

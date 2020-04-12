@@ -14,8 +14,10 @@ import java.io.IOException;
 @Controller
 public class UploadController extends BaseController {
     @GetMapping("/upload")
-    public String toUpload() {
+    public String toUpload(Model model, HttpSession session) {
         logger.trace("toUpload:");
+        String loginUserId = (String) session.getAttribute("loginUserId");
+        model.addAttribute("loginUserId", loginUserId);
         return "user/upload";
     }
 
@@ -23,6 +25,7 @@ public class UploadController extends BaseController {
     public String uploadPost(@RequestParam("file") MultipartFile file, @RequestParam("describe") String describe, Model model, HttpSession session) throws IOException {
         String loginUserId = (String) session.getAttribute("loginUserId");
         model.addAttribute("loginUserId", loginUserId);
+//        file.
         if (file.getSize() != 0) {
             logger.trace("uploadPost:" + file.toString());
             logger.debug(file.getOriginalFilename());

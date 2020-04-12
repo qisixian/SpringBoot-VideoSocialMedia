@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class NewsService extends BaseService {
     public List<CommentDetailDTO> findAllComment(String userId) {
-        List<PostComment> postCommentList = postCommentRepository.findByReceiverId(userId);
+        List<PostComment> postCommentList = postCommentRepository.findByReceiverIdOrderByLocalDateTimeDesc(userId);
         List<CommentDetailDTO> commentDetailDTOList = new ArrayList<>();
         for (PostComment postComment : postCommentList) {
             AvatarAndNameDTO profile = profileRepository.findByUserId(postComment.getSenderId(), AvatarAndNameDTO.class);
@@ -30,26 +30,29 @@ public class NewsService extends BaseService {
             postIdList.add(postIdDTO.getId());
         }
 //        logger.debug(postIdList.toString());
-        List<PostLike> postLikeList = postLikeRepository.findByPostIdIn(postIdList);
-//        logger.debug(postLikeList.toString());
+        List<PostLike> postLikeList = postLikeRepository.findByPostIdInOrderByLocalDateTimeDesc(postIdList);
+//        for (PostLike postLike :
+//                postLikeList) {
+//            logger.debug("time------>" + postLike.getLocalDateTime());
+//
+//        }
         List<LikedDetailDTO> likedDetailDTOList = new ArrayList<>();
         for (PostLike postLike : postLikeList) {
             AvatarAndNameDTO profile = profileRepository.findByUserId(postLike.getLikedUserId(), AvatarAndNameDTO.class);
             likedDetailDTOList.add(new LikedDetailDTO(postLike.getPostId(), postLike.getLikedUserId(), profile.getUsername(), profile.getAvatarId(), postLike.getLocalDateTime()));
         }
 //        logger.debug(likedDetailDTOList.toString());
-//        排序问题待考虑
         return likedDetailDTOList;
     }
 
     public List<FollowerDetailDTO> findAllFollower(String userId) {
-        List<UserFollowing> userFollowingList = userFollowingRepository.findByFollowingId(userId);
+        List<UserFollowing> userFollowingList = userFollowingRepository.findByFollowingIdOrderByLocalDateTimeDesc(userId);
+//        logger.debug("findAllFollower:"+userFollowingList.toString());
         List<FollowerDetailDTO> followerDetailDTOList = new ArrayList<>();
         for (UserFollowing userFollowing : userFollowingList) {
             AvatarAndNameDTO profile = profileRepository.findByUserId(userFollowing.getUserId(), AvatarAndNameDTO.class);
             followerDetailDTOList.add(new FollowerDetailDTO(userFollowing.getUserId(), profile.getUsername(), profile.getAvatarId(), userFollowing.getLocalDateTime()));
         }
-//        排序问题待考虑
         return followerDetailDTOList;
     }
 

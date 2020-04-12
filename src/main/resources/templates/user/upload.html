@@ -72,31 +72,35 @@
                 <div class="col-md-8">
                     <div class="card card-user">
                         <div class="card-header">
-                            <h5 class="card-title">Upload</h5>
+                            <h5 class="card-title">发布</h5>
                         </div>
                         <div class="card-body">
                             <form th:action="@{/upload}" method="post" enctype="multipart/form-data">
-                                <div class="row">
-                                    <div class="col-md-8 px-1 justify-content-md-center">
-                                        <label>upload video</label>
-                                        <input type="file" name="file" accept="video/*"/>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12 px-1">
-                                    <div class="form-group">
-                                        <label>Write a caption</label>
-                                        <input type="text" name="describe" class="form-control"/>
+                                <div class="row justify-content-md-center">
+                                    <div class="col-md-6 px-1">
+                                        <label>上传视频（我们更爱10分钟以内的视频！）</label>
+                                        <input type="file" name="file" id="fileUp" accept="video/*"/>
+                                        <div>
+                                            <span class="text-danger" id="warn"></span>
+                                            <span class="text-success" id="info"></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="update ml-auto mr-auto">
-                                    <button type="submit" class="btn btn-primary btn-round">
-                                        Upload
-                                    </button>
+                                <div class="row">
+                                    <div class="col-md-12 px-1">
+                                        <div class="form-group">
+                                            <label>写些什么吧</label>
+                                            <input type="text" name="describe" class="form-control"/>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="row">
+                                    <div class="update ml-auto mr-auto">
+                                        <button type="submit" class="btn btn-primary btn-round">
+                                            发布
+                                        </button>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -125,6 +129,65 @@
 <div class="gototop js-top">
     <a href="#" class="/assets/js-gotop"><i class="icon-arrow-up2"></i></a>
 </div>
+
+
+<script type="text/javascript">
+var myVideo;
+
+window.URL = window.URL || window.webkitURL;
+
+document.getElementById('fileUp').onchange = setFileInfo;
+
+function setFileInfo() {
+  var files = this.files;
+  myVideo=files[0];
+  var video = document.createElement('video');
+  video.preload = 'metadata';
+
+  video.onloadedmetadata = function() {
+    window.URL.revokeObjectURL(video.src);
+    var duration = video.duration;
+    myVideo.duration = duration;
+
+    if (video.duration < 1) {
+       let warn = document.getElementById('warn');
+       let info = document.getElementById('info');
+       info.textContent = "";
+       warn.textContent = "";
+       warn.textContent = "这个视频还不到一秒";
+       var file = document.getElementById('fileUp');
+       file.value = '';
+       return;
+    }else{
+      if (video.duration > 600) {
+         let warn = document.getElementById('warn');
+         let info = document.getElementById('info');
+         info.textContent = "";
+         warn.textContent = "";
+         warn.textContent = "这个视频超过10分钟了！再剪辑精炼一下？";
+         var file = document.getElementById('fileUp');
+         file.value = '';
+         return;
+      }else{
+         let warn = document.getElementById('warn');
+         let info = document.getElementById('info');
+         warn.textContent = "";
+         info.textContent = "";
+         info.textContent = "OK！";
+
+      }
+    }
+  }
+
+  video.src = URL.createObjectURL(files[0]);;
+}
+
+
+
+
+
+
+</script>
 
 <!-- jQuery -->
 <script src="/assets/js/jquery.min.js" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>

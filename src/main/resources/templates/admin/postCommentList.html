@@ -84,19 +84,15 @@ The above copyright notice and this permission notice shall be included in all c
                                         <td th:text="${postComment.content}"></td>
                                         <td th:text="${postComment.senderId}"></td>
                                         <td th:text="${postComment.receiverId}"></td>
-                                        <td th:text="${postComment.localDateTime}"></td>
+                                        <td th:text="${#temporals.format(postComment.localDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
                                         <td class="text-right">
                                             <a class="btn btn-sm btn-primary"
                                                th:href="@{/admin/postComment/}+${postComment.id}">修改</a>
                                             <form th:action="@{/admin/postComment/}+${postComment.id}" method="post">
-                                                <!--get多了一个?,post put delete 都有问题-->
                                                 <input type="hidden" name="_method" value="delete"/>
                                                 <button type="submit" class="btn btn-sm btn-danger">删除</button>
-                                                <!--<a class="btn btn-sm btn-danger"  th:href="@{/user/}+${user.id}">删除</a>-->
-
                                             </form>
                                         </td>
-
                                     </tr>
                                     <tr>
                                         <td></td>
@@ -104,15 +100,7 @@ The above copyright notice and this permission notice shall be included in all c
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td>
-                                            <!--<form th:action="@{/user/1004}" method="post"-->
-                                            <!--get多了一个?,post put delete 都有问题-->
-                                            <!--写这么硬都出错？-->
-                                            <!--<input type="hidden" name="_method" value="delete"/>-->
-                                            <!--<button type="submit" class="btn btn-sm btn-danger">删除</button>-->
-
-                                            <!--</form>-->
-                                        </td>
+                                        <td></td>
                                         <td class="text-right">
                                             <a class="btn btn-sm btn-success" th:href="@{/admin/postComment}">添加</a>
                                         </td>
