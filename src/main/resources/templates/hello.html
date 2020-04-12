@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>hello</title>
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/fontawesome.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/brands.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/solid.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/regular.css}">
+
+</head>
+<body>
+
+<div style="font-size: 36px; color: grey;">
+    <i class="fas fa-heart"></i>
+</div>
+<span style="font-size: 36px; color: Tomato;">
+    <i class="fas fa-heart"></i>
+</span>
+
+<span style="font-size: 36px; color: Tomato;">
+    <i class="far fa-heart"></i>
+</span>
+
+<span style="font-size: 3rem;">
+  <span style="color: Mediumslateblue;">
+    <i class="fab fa-heart"></i>
+  </span>
+
+    <form th:action="@{/}" method="get">
+        <input type="submit" class="far fa-heart"
+               style="font-size: 36px; color: Tomato; padding: 0;border: none;background: none;" value="&#xf004;"/>
+    </form>
+</span>
+</body>
+</html>

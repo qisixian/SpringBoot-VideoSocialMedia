@@ -30,7 +30,10 @@ The above copyright notice and this permission notice shall be included in all c
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
           th:href="@{/assets/css/googleapis-montserrat.css}" rel="stylesheet"/>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
-          th:href="@{/webjars/font-awesome/5.13.0/font-awesome.min.css}" rel="stylesheet">
+          th:href="@{/webjars/font-awesome/5.13.0/css/fontawesome.min.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/brands.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/solid.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/regular.css}">
     <!-- CSS Files -->
     <link href="../assets/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}"
           rel="stylesheet"/>
@@ -62,26 +65,26 @@ The above copyright notice and this permission notice shall be included in all c
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Profile List</h4>
+                            <h4 class="card-title">个人信息列表</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead class=" text-primary">
-                                    <th>id</th>
-                                    <th>userId</th>
-                                    <th>username</th>
-                                    <th>phoneNumber</th>
-                                    <th>email</th>
-                                    <th>avatarId</th>
-                                    <th>gender</th>
+                                    <!--                                    <th>id</th>-->
+                                    <th>用户Id</th>
+                                    <th>用户名</th>
+                                    <th>电话号码</th>
+                                    <th>电子邮件</th>
+                                    <th>头像Id</th>
+                                    <th>性别</th>
                                     <!--                                    <th>birthDate</th>-->
-                                    <th>signature</th>
-                                    <th class="text-right">Option</th>
+                                    <th>签名</th>
+                                    <th class="text-right">操作</th>
                                     </thead>
                                     <tbody>
                                     <tr th:each="profile:${allProfile}">
-                                        <td th:text="${profile.id}"></td>
+                                        <!--                                        <td th:text="${profile.id}"></td>-->
                                         <td th:text="${profile.userId}"></td>
                                         <td th:text="${profile.username}"></td>
                                         <td th:text="${profile.phoneNumber}"></td>

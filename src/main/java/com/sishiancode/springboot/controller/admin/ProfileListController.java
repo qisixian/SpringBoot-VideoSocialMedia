@@ -20,7 +20,7 @@ public class ProfileListController extends BaseController {
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator admin = adminService.findAdminById(loginAdminId);
-        model.addAttribute("admin", admin);
+        model.addAttribute("loginAdmin", admin);
         //返回profile列表
         List<Profile> allProfile = adminService.findAllProfile();
         model.addAttribute("allProfile", allProfile);
@@ -33,7 +33,7 @@ public class ProfileListController extends BaseController {
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator admin = adminService.findAdminById(loginAdminId);
-        model.addAttribute("admin", admin);
+        model.addAttribute("loginAdmin", admin);
 
         Profile profile = adminService.findProfileById(profileId);
         model.addAttribute("profile", profile);

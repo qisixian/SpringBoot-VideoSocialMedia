@@ -74,10 +74,14 @@
                                     class="author"
                                     th:text="${likedDetail.likedUsername}">username</a>
                         </p>
-                        <span>liked your </span>
-                        <a th:text="'post'" th:href="@{/post/}+${likedDetail.postId}"></a>
-                        <span> at </span>
-                        <span th:text="${#temporals.format(likedDetail.localDateTime, 'MM-dd HH:mm')}">time</span>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <span>喜欢了你的</span>
+                                <a th:text="'博客'" th:href="@{/post/}+${likedDetail.postId}"></a>
+                            </div>
+                            <div class="col-md-3  text-right">
+                                <span th:text="${#temporals.format(likedDetail.localDateTime, 'MM-dd HH:mm')}">time</span>
+                            </div>
                     </article>
                 </div>
             </div>
@@ -91,8 +95,7 @@
                 <div class="col-md-12 text-center">
                     <p>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                        All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i>
+                        This template is made with <i class="icon-heart" aria-hidden="true"></i>
                         by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --><br>
                     </p>

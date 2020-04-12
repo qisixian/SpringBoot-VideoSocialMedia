@@ -31,6 +31,11 @@
     <!-- Bootstrap  -->
     <link rel="stylesheet" href="/assets/css/bootstrap.css" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.css}">
 
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/fontawesome.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/brands.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/solid.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/regular.css}">
+
     <!-- Magnific Popup -->
     <link rel="stylesheet" href="/assets/css/magnific-popup.css" th:href="@{/assets/css/magnific-popup.css}">
 
@@ -51,8 +56,7 @@
 
     <!--paper-dashboard-->
     <link rel="stylesheet" href="/assets/css/paper-dashboard.css?v=2.0.0"
-          th:href="@{/assets/css/paper-dashboard.css?v=2.0.0}"/>
-
+          th:href="@{/assets/css/card-style.css}"/>
 </head>
 <body>
 
@@ -78,11 +82,11 @@
 
                                     <h5 class="title" th:text="${othersProfileDTO.username}">Username</h5>
                                     <p>
-                                        <span>phone number : </span><span
+                                        <span>电话号码：</span><span
                                             th:text="${othersProfileDTO.phoneNumber}">phoneNumber</span>
                                     </p>
                                     <p>
-                                        <span>email : </span><span th:text="${othersProfileDTO.email}">email</span>
+                                        <span>电子邮件：</span><span th:text="${othersProfileDTO.email}">email</span>
                                     </p>
                                 </div>
                                 <div class="col-md-2">
@@ -90,13 +94,13 @@
                                           th:action="@{/follow/}+${othersProfileDTO.userId}"
                                           method="post">
 
-                                        <button type="submit" class="btn btn-sm btn-primary">follow</button>
+                                        <button type="submit" class="btn btn-sm btn-primary">关注</button>
                                     </form>
                                     <form th:if="${isFollowed==true}"
                                           th:action="@{/unFollow/}+${othersProfileDTO.userId}"
                                           method="post">
                                         <input type="hidden" name="_method" value="delete"/>
-                                        <button type="submit" class="btn btn-sm btn-success">following</button>
+                                        <button type="submit" class="btn btn-sm btn-success">已关注</button>
                                     </form>
                                 </div>
                             </div>
@@ -123,7 +127,7 @@
                                             <a th:href="@{/user/followingList/}+${othersProfileDTO.userId}"
                                                th:text="${othersProfileDTO.followingCount}">FollowingCount</a>
                                             <br>
-                                            <a th:href="@{/user/followingList/}+${othersProfileDTO.userId}"><small>Following</small></a>
+                                            <a th:href="@{/user/followingList/}+${othersProfileDTO.userId}"><small>关注用户</small></a>
                                         </h5>
                                     </div>
                                     <div class="col-lg-3 col-md-6 col-6 ml-auto mr-auto">
@@ -131,14 +135,14 @@
                                             <a th:href="@{/user/followerList/}+${othersProfileDTO.userId}"
                                                th:text="${othersProfileDTO.followersCount}">FollowersCount</a>
                                             <br>
-                                            <a th:href="@{/user/followerList/}+${othersProfileDTO.userId}"><small>Followers</small></a>
+                                            <a th:href="@{/user/followerList/}+${othersProfileDTO.userId}"><small>被关注</small></a>
                                         </h5>
                                     </div>
                                     <div class="col-lg-3 mr-auto">
                                         <h5>
                                             <span th:text="${othersProfileDTO.postsCount}">PostsCount</span>
                                             <br>
-                                            <small>Posts</small>
+                                            <small>博客数量</small>
                                         </h5>
                                     </div>
                                 </div>
@@ -174,7 +178,7 @@
             <!--            </div>-->
 
             <div class="row justify-content-md-center" th:each="post:${postList}">
-                <div class="col-md-8 animate-box">
+                <div class="col-md-8">
                     <article>
                         <div class="row justify-content-between">
                             <div class="col-4">
@@ -187,54 +191,60 @@
                                             th:text="${post.username}">username</a>
                                 </p>
                             </div>
-                            <div class="col-3">
-                                <p th:text="${#temporals.format(post.updateTime, 'MM-dd HH:mm')}">
-                                    <span>updateTime</span></p>
+                            <div class="col-3 text-right">
+                                <p th:text="${#temporals.format(post.updateTime, 'MM-dd HH:mm')}"
+                                   style="padding-top: 30px;">
+                                    updateTime
+                                </p>
                             </div>
                         </div>
                         <div class="row">
                             <video th:src="@{/videos/stream/}+${post.videoId}" controls="controls"
                                    width="100%"></video>
                         </div>
-                        <div><i class="far fa-heart"></i></div>
                         <div class="row">
-                            <a th:text="${post.likesCount}+' likes'" th:href="@{/post/like/}+${post.id}">null likes</a>
+                            <a th:text="${post.likesCount}+' 喜欢'"
+                               th:href="@{/post/like/}+${post.id}"
+                               style="color: grey; padding-top: 18px; padding-bottom: 18px;">null likes</a>
 
                             <form th:if="${post.isLiked}==false" th:action="@{/post/like/}+${post.id}"
-                                  method="post">
-                                <button type="submit" class="btn btn-sm btn-outline-danger">like</button>
+                                  method="post" style="font-size: 36px; ">
+                                <input type="submit" class="far fa-heart"
+                                       style="color: #999999; padding: 18px; border: none;background: none;"
+                                       value="&#xf004;"/>
                             </form>
                             <form th:if="${post.isLiked}==true" th:action="@{/post/like/}+${post.id}"
-                                  method="post">
+                                  method="post" style="font-size: 36px; ">
                                 <input type="hidden" name="_method" value="delete"/>
-                                <button type="submit" class="btn btn-sm btn-danger">liked!</button>
+                                <input type="submit" class="fas fa-heart"
+                                       style="color: Tomato; padding: 18px; border: none;background: none;"
+                                       value="&#xf004;"/>
                             </form>
-                            <!--                            <a class="btn btn-sm btn-outline-danger"-->
-                            <!--                               th:href="@{/post/like/}+${post.id}" th:text="${post.isLiked}">like</a>-->
 
-                            <a class="btn btn-sm btn-outline-success" th:href="@{/post/}+${post.id}">show all
-                                comment</a>
+                            <a th:href="@{/post/}+${post.id}" style="font-size: 36px; color: #999999;">
+                                <i class="far fa-comments"></i>
+                            </a>
                         </div>
 
-                        <a th:href="@{/post/}+${post.id}">
-                            <div class="row">
+                        <div class="row">
+                            <a th:href="@{/post/}+${post.id}" style="color: grey;">
                                 <p th:text="${post.username}+' : '+${post.describe}">describe describe describe describe
                                     describe
                                     describe
                                     describe describe describe describe describe</p>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
                         <form th:action="@{/post/comment/}+${post.id}" method="post">
                             <input type="hidden" name="receiverName" th:value="${post.username}">
-                            `
+
                             <div class="row">
 
                                 <div class="col-md-10 px-1">
                                     <input name="comment" type="text" class="form-control"
-                                           placeholder="add a comment">
+                                           placeholder="写评论...">
                                 </div>
                                 <div class="col-md-2 px-1">
-                                    <input class="btn btn-sm btn-outline-info" type="submit" value="Comment"/>
+                                    <input class="btn btn-sm btn-outline-info" type="submit" value="发送"/>
                                 </div>
                             </div>
                         </form>
@@ -251,8 +261,7 @@
                 <div class="col-md-12 text-center">
                     <p>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                        All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i>
+                        This template is made with <i class="icon-heart" aria-hidden="true"></i>
                         by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --><br>
                     </p>

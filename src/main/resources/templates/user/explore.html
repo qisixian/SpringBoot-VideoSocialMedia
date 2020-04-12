@@ -64,18 +64,18 @@
                     </div>
                     <div class="col-md-10 text-right menu-1">
                         <ul>
-                            <li><a th:href="@{/home}">Home</a></li>
-                            <li><a th:href="@{/explore}">Explore</a></li>
-                            <li><a th:href="@{/upload}">Upload</a></li>
+                            <li><a th:href="@{/home}">主页</a></li>
+                            <li><a th:href="@{/explore}">发现</a></li>
+                            <li><a th:href="@{/upload}">发布</a></li>
                             <li class="has-dropdown">
-                                <a th:href="@{/news/comment}">News</a>
+                                <a th:href="@{/news/comment}">消息</a>
                                 <ul class="dropdown">
-                                    <li><a th:href="@{/news/comment}">Comments</a></li>
-                                    <li><a th:href="@{/news/like}">Likes</a></li>
-                                    <li><a th:href="@{/news/follower}">newFollowers</a></li>
+                                    <li><a th:href="@{/news/comment}">评论</a></li>
+                                    <li><a th:href="@{/news/like}">喜欢</a></li>
+                                    <li><a th:href="@{/news/follower}">关注</a></li>
                                 </ul>
                             </li>
-                            <li><a th:href="@{/user/}+${loginUserId}">Me</a></li>
+                            <li><a th:href="@{/user/}+${loginUserId}">我</a></li>
                         </ul>
                     </div>
                 </div>
@@ -94,7 +94,7 @@
                         <div class="animate-box">
                             <h2>share video creation</h2>
                             <p>with your internet neighborhood</p>
-                            <p><a th:href="@{/login}" class="btn btn-primary btn-lg btn-custom">sign in</a></p>
+                            <p><a th:href="@{/login}" class="btn btn-primary btn-lg btn-custom">登录</a></p>
                         </div>
                     </div>
                 </div>
@@ -137,8 +137,7 @@
                 <div class="col-md-12 text-center">
                     <p>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                        All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i>
+                        This template is made with <i class="icon-heart" aria-hidden="true"></i>
                         by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --><br>
                     </p>

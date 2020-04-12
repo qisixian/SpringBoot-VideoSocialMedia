@@ -30,7 +30,10 @@ The above copyright notice and this permission notice shall be included in all c
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
           th:href="@{/assets/css/googleapis-montserrat.css}" rel="stylesheet"/>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
-          th:href="@{/webjars/font-awesome/5.13.0/font-awesome.min.css}" rel="stylesheet">
+          th:href="@{/webjars/font-awesome/5.13.0/css/fontawesome.min.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/brands.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/solid.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/regular.css}">
     <!-- CSS Files -->
     <link href="../assets/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}"
           rel="stylesheet"/>
@@ -63,23 +66,23 @@ The above copyright notice and this permission notice shall be included in all c
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">PostComment List</h4>
+                            <h4 class="card-title">博客评论列表</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead class=" text-primary">
-                                    <th>id</th>
-                                    <th>postId</th>
-                                    <th>content</th>
-                                    <th>senderId</th>
-                                    <th>receiverId</th>
-                                    <th>localDateTime</th>
-                                    <th class="text-right">Option</th>
+                                    <!--                                    <th>id</th>-->
+                                    <th>博客Id</th>
+                                    <th>内容</th>
+                                    <th>发送用户Id</th>
+                                    <th>接收用户Id</th>
+                                    <th>发送时间</th>
+                                    <th class="text-right">操作</th>
                                     </thead>
                                     <tbody>
                                     <tr th:each="postComment:${allPostComment}">
-                                        <td th:text="${postComment.id}"></td>
+                                        <!--                                        <td th:text="${postComment.id}"></td>-->
                                         <td th:text="${postComment.postId}"></td>
                                         <td th:text="${postComment.content}"></td>
                                         <td th:text="${postComment.senderId}"></td>
@@ -95,7 +98,7 @@ The above copyright notice and this permission notice shall be included in all c
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td></td>
+                                        <!--                                        <td></td>-->
                                         <td></td>
                                         <td></td>
                                         <td></td>

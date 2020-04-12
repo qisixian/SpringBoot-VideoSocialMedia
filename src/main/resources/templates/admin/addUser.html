@@ -30,7 +30,10 @@ The above copyright notice and this permission notice shall be included in all c
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
           th:href="@{/assets/css/googleapis-montserrat.css}" rel="stylesheet"/>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
-          th:href="@{/webjars/font-awesome/5.13.0/font-awesome.min.css}" rel="stylesheet">
+          th:href="@{/webjars/font-awesome/5.13.0/css/fontawesome.min.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/brands.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/solid.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/regular.css}">
     <!-- CSS Files -->
     <link href="../assets/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}"
           rel="stylesheet"/>
@@ -62,7 +65,7 @@ The above copyright notice and this permission notice shall be included in all c
             <div class="row">
                 <div class="card card-user">
                     <div class="card-header">
-                        <h5 class="card-title">Edit User</h5>
+                        <h5 class="card-title">编辑用户</h5>
                     </div>
                     <div class="card-body">
                         <form th:action="@{/admin/user}" method="post">
@@ -78,32 +81,32 @@ The above copyright notice and this permission notice shall be included in all c
                             <div class="row">
                                 <div class="col-md-4 px-1">
                                     <div class="form-group">
-                                        <label>username</label>
+                                        <label>用户名</label>
                                         <input th:if="${user!=null}" name="username" type="text" class="form-control"
-                                               placeholder="username" disabled
+                                               placeholder="用户名" disabled
                                                th:value="${user!=null}?${user.username}">
                                         <input th:if="${user==null}" name="username" type="text" class="form-control"
-                                               placeholder="username"
+                                               placeholder="用户名"
                                                th:value="${user!=null}?${user.username}">
                                     </div>
                                 </div>
                                 <div class="col-md-4 pl-1">
                                     <div class="form-group">
-                                        <label>password</label>
+                                        <label>密码</label>
                                         <input name="password" type="text" class="form-control"
-                                               placeholder="password"
+                                               placeholder="密码"
                                                th:value="${user!=null}?${user.password}">
                                     </div>
                                 </div>
                                 <div class="col-md-4 px-1">
                                     <div class="form-group">
-                                        <label>phoneNumber</label>
+                                        <label>电话号码</label>
                                         <input th:if="${user!=null}" name="phoneNumber" type="text" class="form-control"
                                                disabled
-                                               placeholder="phoneNumber"
+                                               placeholder="电话号码"
                                                th:value="${user!=null}?${user.phoneNumber}">
                                         <input th:if="${user==null}" name="phoneNumber" type="text" class="form-control"
-                                               placeholder="phoneNumber"
+                                               placeholder="电话号码"
                                                th:value="${user!=null}?${user.phoneNumber}">
                                     </div>
                                 </div>
@@ -111,7 +114,7 @@ The above copyright notice and this permission notice shall be included in all c
                             <div class="row">
                                 <div class="update ml-auto mr-auto">
                                     <button type="submit" class="btn btn-primary btn-round"
-                                            th:text="${user!=null}?'Update':'Add'">Update Profile
+                                            th:text="${user!=null}?'更新':'添加'">Update Profile
                                     </button>
                                 </div>
                             </div>

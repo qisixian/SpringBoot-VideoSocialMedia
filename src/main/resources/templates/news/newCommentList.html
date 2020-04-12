@@ -74,11 +74,16 @@
                                     class="author"
                                     th:text="${commentDetail.senderName}">username</a>
                         </p>
-                        <span th:text="'to you : '+${commentDetail.content}">to you : content</span>
-                        <span> in </span>
-                        <a th:text="'post'" th:href="@{/post/}+${commentDetail.postId}"></a>
-                        <span> at </span>
-                        <span th:text="${#temporals.format(commentDetail.localDateTime, 'MM-dd HH:mm')}">time</span>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <span>在</span>
+                                <a th:text="'博客'" th:href="@{/post/}+${commentDetail.postId}"></a>
+                                <span th:text="'说：'+${commentDetail.content}">to you : content</span>
+                            </div>
+                            <div class="col-md-3  text-right">
+                                <span th:text="${#temporals.format(commentDetail.localDateTime, 'MM-dd HH:mm')}">time</span>
+                            </div>
+                        </div>
                     </article>
                 </div>
             </div>
@@ -92,8 +97,7 @@
                 <div class="col-md-12 text-center">
                     <p>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                        All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i>
+                        This template is made with <i class="icon-heart" aria-hidden="true"></i>
                         by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --><br>
                     </p>

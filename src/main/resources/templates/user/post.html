@@ -31,6 +31,11 @@
     <!-- Bootstrap  -->
     <link rel="stylesheet" href="/assets/css/bootstrap.css" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.css}">
 
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/fontawesome.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/brands.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/solid.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/regular.css}">
+
     <!-- Magnific Popup -->
     <link rel="stylesheet" href="/assets/css/magnific-popup.css" th:href="@{/assets/css/magnific-popup.css}">
 
@@ -78,10 +83,10 @@
                                             th:text="${postAllDetailDTO.username}">username</a>
                                 </p>
                             </div>
-                            <div class="col-3">
-                                <!--                                th:text="${#temporals.format(postAllDetailDTO.updateTime, 'dd-MM-yyyy HH:mm')}"-->
-                                <!--                                <p th:text="${postAllDetailDTO.updateTime}"><span>updateTime</span></p>-->
-                                <p th:text="${#temporals.format(postAllDetailDTO.updateTime, 'MM-dd HH:mm')}"><span>updateTime</span>
+                            <div class="col-3 text-right">
+                                <p th:text="${#temporals.format(postAllDetailDTO.updateTime, 'MM-dd HH:mm')}"
+                                   style="padding-top: 30px;">
+                                    updateTime
                                 </p>
                             </div>
                         </div>
@@ -89,84 +94,100 @@
                             <video th:src="@{/videos/stream/}+${postAllDetailDTO.videoId}" controls="controls"
                                    width="100%"></video>
                         </div>
-                        <div><i class="far fa-heart"></i></div>
-                        <div class="row">
-                            <a th:text="${postAllDetailDTO.likesCount}+' likes'"
-                               th:href="@{/post/like/}+${postAllDetailDTO.id}">null likes</a>
-
-                            <form th:if="${postAllDetailDTO.isLiked}==false"
-                                  th:action="@{/post/like/}+${postAllDetailDTO.id}"
-                                  method="post">
-                                <button type="submit" class="btn btn-sm btn-outline-danger">like</button>
-                            </form>
-                            <form th:if="${postAllDetailDTO.isLiked}==true"
-                                  th:action="@{/post/like/}+${postAllDetailDTO.id}"
-                                  method="post">
-                                <input type="hidden" name="_method" value="delete"/>
-                                <button type="submit" class="btn btn-sm btn-danger">liked!</button>
-                            </form>
-                            <!--                            <a class="btn btn-sm btn-outline-danger"-->
-                            <!--                               th:href="@{/post/like/}+${followingPost.id}" th:text="${followingPost.isLiked}">like</a>-->
-
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-12">
-                                <ul class="list-unstyled">
-                                    <li th:text="${postAllDetailDTO.username}+' : '+${postAllDetailDTO.describe}">
-                                        describe
-                                        describe
-                                        describe describe describe
-                                        describe
-                                        describe describe describe describe describe
-                                    </li>
-                                </ul>
-
-                                <ul th:each="postCommentDTO:${postCommentDTOList}" class="list-unstyled">
-                                    <li><span th:text="${postCommentDTO.senderName}">senderName</span>
-                                        <span th:text="' to '+${postCommentDTO.receiverName}"
-                                              th:if="${postCommentDTO.receiverName}!=${postAllDetailDTO.username}">receiverName</span>
-                                        <span th:text="' : '+${postCommentDTO.content}">content</span>
-                                        <span th:text="${#temporals.format(postCommentDTO.localDateTime, 'MM-dd HH:mm')}">localDateTime</span>
-
-                                        <form th:action="@{/post/comment/}+${postCommentDTO.id}" method="post"
-                                              th:if="${loginUserId}==${postCommentDTO.senderId}">
-                                            <input type="hidden" name="_method" value="delete"/>
-                                            <input type="hidden" name="postId" th:value="${postAllDetailDTO.id}">
-                                            <button type="submit" class="btn btn-sm btn-outline-danger">delete</button>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-
-                        <form th:action="@{/post/comment/}+${postAllDetailDTO.id}" method="post">
-
+                        <div>
                             <div class="row">
-                                <div class="col-md-2 px-1">
-                                    <input name="receiverName" type="text" class="form-control"
-                                           placeholder="reply to" th:value="${postAllDetailDTO.username}">
-                                </div>
-                                <div class="col-md-8 px-1">
-                                    <input name="comment" type="text" class="form-control"
-                                           placeholder="add a comment">
-                                </div>
-                                <div class="col-md-2 px-1">
-                                    <input class="btn btn-sm btn-outline-info" type="submit" value="Comment"/>
-                                </div>
-                            </div>
-                        </form>
-                        <form th:action="@{/post/}+${postAllDetailDTO.id}" method="post"
-                              th:if="${postAllDetailDTO.userId}==${loginUserId}">
-                            <div class="row">
-                                <div class="col-md-2 align-self-end">
+                                <a th:text="${postAllDetailDTO.likesCount}+' likes'"
+                                   th:href="@{/post/like/}+${postAllDetailDTO.id}"
+                                   style="color: grey; padding-top: 18px; padding-bottom: 18px;">null likes</a>
+
+                                <form th:if="${postAllDetailDTO.isLiked}==false"
+                                      th:action="@{/post/like/}+${postAllDetailDTO.id}"
+                                      method="post" style="font-size: 36px; ">
+                                    <input type="submit" class="far fa-heart"
+                                           style="color: #999999; padding: 18px; border: none;background: none;"
+                                           value="&#xf004;"/>
+                                </form>
+                                <form th:if="${postAllDetailDTO.isLiked}==true"
+                                      th:action="@{/post/like/}+${postAllDetailDTO.id}"
+                                      method="post" style="font-size: 36px; ">
                                     <input type="hidden" name="_method" value="delete"/>
-                                    <button type="submit" class="btn btn-sm btn-danger">delete</button>
+                                    <input type="submit" class="fas fa-heart"
+                                           style="color: Tomato; padding: 18px; border: none;background: none;"
+                                           value="&#xf004;"/>
+                                </form>
+
+                                <a th:href="@{/post/}+${postAllDetailDTO.id}" style="font-size: 36px; color: #999999;">
+                                    <i class="far fa-comments"></i>
+                                </a>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <ul class="list-unstyled">
+                                        <li th:text="${postAllDetailDTO.username}+' : '+${postAllDetailDTO.describe}">
+                                            describe
+                                            describe
+                                            describe describe describe
+                                            describe
+                                            describe describe describe describe describe
+                                        </li>
+                                    </ul>
+
+                                    <ul th:each="postCommentDTO:${postCommentDTOList}" class="list-unstyled">
+                                        <li>
+                                            <div class="row">
+                                                <div class="col-9">
+                                                    <span th:text="${postCommentDTO.senderName}">senderName</span>
+                                                    <span th:text="' to '+${postCommentDTO.receiverName}"
+                                                          th:if="${postCommentDTO.receiverName}!=${postAllDetailDTO.username}">receiverName</span>
+                                                    <span th:text="' : '+${postCommentDTO.content}">content</span>
+                                                </div>
+                                                <div class="col-3 text-right">
+                                                    <span th:text="${#temporals.format(postCommentDTO.localDateTime, 'MM-dd HH:mm')}">localDateTime</span>
+                                                </div>
+                                            </div>
+
+
+                                            <form th:action="@{/post/comment/}+${postCommentDTO.id}" method="post"
+                                                  th:if="${loginUserId}==${postCommentDTO.senderId}">
+                                                <input type="hidden" name="_method" value="delete"/>
+                                                <input type="hidden" name="postId" th:value="${postAllDetailDTO.id}">
+                                                <input type="submit" class="far fa-times-circle"
+                                                       style="color: #999999; border: none;background: none;"
+                                                       value="&#xf057;"/>
+                                            </form>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
-                        </form>
+
+
+                            <form th:action="@{/post/comment/}+${postAllDetailDTO.id}" method="post">
+
+                                <div class="row">
+                                    <div class="col-md-2 px-1">
+                                        <input name="receiverName" type="text" class="form-control"
+                                               placeholder="reply to" th:value="${postAllDetailDTO.username}">
+                                    </div>
+                                    <div class="col-md-8 px-1">
+                                        <input name="comment" type="text" class="form-control"
+                                               placeholder="add a comment">
+                                    </div>
+                                    <div class="col-md-2 px-1">
+                                        <input class="btn btn-sm btn-outline-info" type="submit" value="Comment"/>
+                                    </div>
+                                </div>
+                            </form>
+                            <form th:action="@{/post/}+${postAllDetailDTO.id}" method="post"
+                                  th:if="${postAllDetailDTO.userId}==${loginUserId}">
+                                <div class="row">
+                                    <div class="col-md-2 align-self-end" style="padding-top: 18px;">
+                                        <input type="hidden" name="_method" value="delete"/>
+                                        <button type="submit" class="btn btn-sm btn-danger">delete</button>
+                                    </div>
+                                </div>
+                            </form>
                     </article>
                 </div>
             </div>
@@ -180,8 +201,7 @@
                 <div class="col-md-12 text-center">
                     <p>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                        All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i>
+                        This template is made with <i class="icon-heart" aria-hidden="true"></i>
                         by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --><br>
                     </p>

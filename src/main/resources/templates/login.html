@@ -68,14 +68,14 @@
                 <div class="col-md-4 ">
                     <div class="card">
                         <div class="card-body">
-                            <h2 class="card-title text-center">Sign in</h2>
+                            <h2 class="card-title text-center">登录</h2>
                             <form class="form-signin" th:action="@{/login}" method="post">
 
                             <div class="row form-group justify-content-md-center">
                                     <div class="col-md-10">
                                         <!-- <label for="fname">First Name</label> -->
                                         <input type="text" name="phoneNumber" id="phoneNumber" class="form-control"
-                                               placeholder="Your phone number">
+                                               placeholder="电话号码">
                                     </div>
                                 </div>
 
@@ -83,17 +83,17 @@
                                     <div class="col-md-10">
                                         <!-- <label for="email">Email</label> -->
                                         <input type="password" name="password" id="password" class="form-control"
-                                               placeholder="Your password">
+                                               placeholder="密码">
                                     </div>
                                 </div>
 
                                 <div class="row form-group justify-content-md-center">
-                                    <input type="submit" value="Sign in" class="btn btn-primary">
+                                    <input type="submit" value="登录" class="btn btn-primary">
                                 </div>
                             </form>
                             <div class="text-center">
-                                <span>Don't have an cccount?</span>
-                                <a th:href="@{/signUp}">sign up</a>
+                                <span>还没有账户？</span>
+                                <a th:href="@{/signUp}">注册</a>
                             </div>
                         </div>
                     </div>
@@ -109,8 +109,7 @@
                 <div class="col-md-12 text-center">
                     <p>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                        All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i>
+                        This template is made with <i class="icon-heart" aria-hidden="true"></i>
                         by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --><br>
                     </p>

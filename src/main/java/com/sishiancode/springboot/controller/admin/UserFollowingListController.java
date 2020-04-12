@@ -19,7 +19,7 @@ public class UserFollowingListController extends BaseController {
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator admin = adminService.findAdminById(loginAdminId);
-        model.addAttribute("admin", admin);
+        model.addAttribute("loginAdmin", admin);
 
         List<UserFollowing> allUserFollowing = adminService.findAllUserFollowing();
         model.addAttribute("allUserFollowing", allUserFollowing);
@@ -32,7 +32,7 @@ public class UserFollowingListController extends BaseController {
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator admin = adminService.findAdminById(loginAdminId);
-        model.addAttribute("admin", admin);
+        model.addAttribute("loginAdmin", admin);
 
         return "admin/addUserFollowing";
     }
@@ -43,7 +43,7 @@ public class UserFollowingListController extends BaseController {
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator admin = adminService.findAdminById(loginAdminId);
-        model.addAttribute("admin", admin);
+        model.addAttribute("loginAdmin", admin);
 
         UserFollowing userFollowing = adminService.findUserFollowingById(userFollowingId);
         model.addAttribute("userFollowing", userFollowing);

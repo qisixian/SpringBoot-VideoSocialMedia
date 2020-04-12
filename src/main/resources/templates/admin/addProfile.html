@@ -30,7 +30,10 @@ The above copyright notice and this permission notice shall be included in all c
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
           th:href="@{/assets/css/googleapis-montserrat.css}" rel="stylesheet"/>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
-          th:href="@{/webjars/font-awesome/5.13.0/font-awesome.min.css}" rel="stylesheet">
+          th:href="@{/webjars/font-awesome/5.13.0/css/fontawesome.min.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/brands.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/solid.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/regular.css}">
     <!-- CSS Files -->
     <link href="../assets/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}"
           rel="stylesheet"/>
@@ -62,7 +65,7 @@ The above copyright notice and this permission notice shall be included in all c
             <div class="row">
                 <div class="card card-user">
                     <div class="card-header">
-                        <h5 class="card-title">Edit Profile</h5>
+                        <h5 class="card-title">编辑个人信息</h5>
                     </div>
                     <div class="card-body">
                         <form th:action="@{/admin/profile}" method="post">
@@ -84,8 +87,8 @@ The above copyright notice and this permission notice shall be included in all c
                                 </div>
                                 <div class="col-md-6 px-1">
                                     <div class="form-group">
-                                        <label>userId</label>
-                                        <input name="userId" type="text" class="form-control" placeholder="userId"
+                                        <label>用户Id</label>
+                                        <input name="userId" type="text" class="form-control" placeholder="用户Id"
                                                disabled
                                                th:value="${profile.userId}">
                                     </div>
@@ -94,24 +97,24 @@ The above copyright notice and this permission notice shall be included in all c
                             <div class="row">
                                 <div class="col-md-4 px-1">
                                     <div class="form-group">
-                                        <label>username</label>
-                                        <input name="username" type="text" class="form-control" placeholder="username"
+                                        <label>用户名</label>
+                                        <input name="username" type="text" class="form-control" placeholder="用户名"
                                                disabled
                                                th:value="${profile.username}">
                                     </div>
                                 </div>
                                 <div class="col-md-4 px-1">
                                     <div class="form-group">
-                                        <label>phoneNumber</label>
+                                        <label>电话号码</label>
                                         <input name="phoneNumber" type="text" class="form-control"
-                                               placeholder="phoneNumber" disabled
+                                               placeholder="电话号码" disabled
                                                th:value="${profile.phoneNumber}">
                                     </div>
                                 </div>
                                 <div class="col-md-4 px-1">
                                     <div class="form-group">
-                                        <label>email</label>
-                                        <input name="email" type="email" class="form-control" placeholder="email"
+                                        <label>电子邮件</label>
+                                        <input name="email" type="email" class="form-control" placeholder="电子邮件"
                                                th:value="${profile.email}">
                                     </div>
                                 </div>
@@ -119,17 +122,17 @@ The above copyright notice and this permission notice shall be included in all c
                             <div class="row">
                                 <div class="col-md-6 pl-1">
                                     <div class="form-group">
-                                        <label>avatarId</label>
+                                        <label>头像Id</label>
                                         <input name="avatarId" type="text" class="form-control"
-                                               placeholder="avatarId"
+                                               placeholder="头像Id"
                                                th:value="${profile.avatarId}">
                                     </div>
                                 </div>
                                 <div class="col-md-6 px-1">
                                     <div class="form-group">
-                                        <label>gender</label>
+                                        <label>性别</label>
                                         <input name="gender" type="text" class="form-control"
-                                               placeholder="gender"
+                                               placeholder="性别"
                                                th:value="${profile.gender}">
                                     </div>
                                 </div>
@@ -146,9 +149,9 @@ The above copyright notice and this permission notice shall be included in all c
                                 <!--                                </div>-->
                                 <div class="col-md-12 px-1">
                                     <div class="form-group">
-                                        <label>signature</label>
+                                        <label>签名</label>
                                         <input name="signature" type="text" class="form-control"
-                                               placeholder="signature"
+                                               placeholder="签名"
                                                th:value="${profile.signature}">
                                     </div>
                                 </div>
@@ -156,7 +159,7 @@ The above copyright notice and this permission notice shall be included in all c
                             <div class="row">
                                 <div class="update ml-auto mr-auto">
                                     <button type="submit" class="btn btn-primary btn-round">
-                                        Update
+                                        更新
                                     </button>
                                 </div>
                             </div>

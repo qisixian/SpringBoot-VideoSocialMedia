@@ -19,7 +19,7 @@ public class PostLikeListController extends BaseController {
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator admin = adminService.findAdminById(loginAdminId);
-        model.addAttribute("admin", admin);
+        model.addAttribute("loginAdmin", admin);
 
         List<PostLike> allPostLike = adminService.findAllPostLike();
         model.addAttribute("allPostLike", allPostLike);
@@ -32,7 +32,7 @@ public class PostLikeListController extends BaseController {
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator admin = adminService.findAdminById(loginAdminId);
-        model.addAttribute("admin", admin);
+        model.addAttribute("loginAdmin", admin);
 
         return "admin/addPostLike";
     }
@@ -43,7 +43,7 @@ public class PostLikeListController extends BaseController {
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator admin = adminService.findAdminById(loginAdminId);
-        model.addAttribute("admin", admin);
+        model.addAttribute("loginAdmin", admin);
 
         PostLike postLike = adminService.findPostLikeById(postLikeId);
         model.addAttribute("postLike", postLike);

@@ -30,7 +30,10 @@ The above copyright notice and this permission notice shall be included in all c
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
           th:href="@{/assets/css/googleapis-montserrat.css}" rel="stylesheet"/>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
-          th:href="@{/webjars/font-awesome/5.13.0/font-awesome.min.css}" rel="stylesheet">
+          th:href="@{/webjars/font-awesome/5.13.0/css/fontawesome.min.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/brands.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/solid.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/regular.css}">
     <!-- CSS Files -->
     <link href="../assets/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}"
           rel="stylesheet"/>
@@ -45,67 +48,9 @@ The above copyright notice and this permission notice shall be included in all c
 
 <body class="">
 <div class="wrapper ">
-    <div class="sidebar" data-color="white" data-active-color="danger" id="sidebar">
-        <!--
-          Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
-      -->
-        <div class="logo">
-            <a href="#" class="simple-text logo-mini">
-            </a>
-            <a href="#" class="simple-text logo-normal" th:text="${loginAdmin.username}">
-
-                <!-- <div class="logo-image-big">
-                  <img src="../assets/img/logo-big.png">
-                </div> -->
-            </a>
-        </div>
-        <div class="sidebar-wrapper" id="sidebar-wrapper">
-            <ul class="nav">
-                <li>
-                    <a th:href="@{/admin/userList}">
-                        <i class="nc-icon nc-diamond"></i>
-                        <p>user list</p>
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{/admin/profileList}">
-                        <i class="nc-icon nc-diamond"></i>
-                        <p>profile list</p>
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{/admin/userFollowingList}">
-                        <i class="nc-icon nc-diamond"></i>
-                        <p>user following list</p>
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{/admin/postList}">
-                        <i class="nc-icon nc-pin-3"></i>
-                        <p>post list</p>
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{/admin/postCommentList}">
-                        <i class="nc-icon nc-bell-55"></i>
-                        <p>post comment list</p>
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{/admin/postLikeList}">
-                        <i class="nc-icon nc-single-02"></i>
-                        <p>post like list</p>
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{/admin/adminList}">
-                        <i class="nc-icon nc-tile-56"></i>
-                        <p>admin list</p>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
+    <!--    thymeleaf抽取admin/userList中的sidebar-->
+    <!--    sidebar里有一个 th:text="${admin.username}" 需要提供model-->
+    <div th:replace="~{admin/userList::#sidebar}"></div>
     <div class="main-panel">
         <!-- Navbar -->
         <!--    thymeleaf抽取admin/userList中的navbar-->
@@ -121,17 +66,17 @@ The above copyright notice and this permission notice shall be included in all c
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Admin List</h4>
+                            <h4 class="card-title">管理员列表</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead class=" text-primary">
                                     <th>id</th>
-                                    <th>username</th>
-                                    <th>password</th>
-                                    <th>phoneNumber</th>
-                                    <th class="text-right">Option</th>
+                                    <th>管理员名</th>
+                                    <th>密码</th>
+                                    <th>电话号码</th>
+                                    <th class="text-right">操作</th>
                                     </thead>
                                     <tbody>
                                     <tr th:each="admin:${allAdmin}">

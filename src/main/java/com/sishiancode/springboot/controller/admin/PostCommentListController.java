@@ -19,7 +19,7 @@ public class PostCommentListController extends BaseController {
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator admin = adminService.findAdminById(loginAdminId);
-        model.addAttribute("admin", admin);
+        model.addAttribute("loginAdmin", admin);
 
         List<PostComment> allPostComment = adminService.findAllPostComment();
         model.addAttribute("allPostComment", allPostComment);
@@ -32,7 +32,7 @@ public class PostCommentListController extends BaseController {
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator admin = adminService.findAdminById(loginAdminId);
-        model.addAttribute("admin", admin);
+        model.addAttribute("loginAdmin", admin);
 
         return "admin/addPostComment";
     }
@@ -43,7 +43,7 @@ public class PostCommentListController extends BaseController {
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator admin = adminService.findAdminById(loginAdminId);
-        model.addAttribute("admin", admin);
+        model.addAttribute("loginAdmin", admin);
 
         PostComment postComment = adminService.findPostCommentById(postCommentId);
         model.addAttribute("postComment", postComment);

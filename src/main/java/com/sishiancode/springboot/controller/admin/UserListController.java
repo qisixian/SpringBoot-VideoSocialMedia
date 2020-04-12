@@ -18,7 +18,7 @@ public class UserListController extends BaseController {
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator admin = adminService.findAdminById(loginAdminId);
-        model.addAttribute("admin", admin);
+        model.addAttribute("loginAdmin", admin);
 
         List<User> allUser = adminService.findAllUser();
         model.addAttribute("allUser", allUser);
@@ -31,7 +31,7 @@ public class UserListController extends BaseController {
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator admin = adminService.findAdminById(loginAdminId);
-        model.addAttribute("admin", admin);
+        model.addAttribute("loginAdmin", admin);
 
         return "admin/addUser";
     }
@@ -42,7 +42,7 @@ public class UserListController extends BaseController {
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator admin = adminService.findAdminById(loginAdminId);
-        model.addAttribute("admin", admin);
+        model.addAttribute("loginAdmin", admin);
 
         User user = adminService.findUserById(userId);
         model.addAttribute("user", user);

@@ -30,7 +30,10 @@ The above copyright notice and this permission notice shall be included in all c
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
           th:href="@{/assets/css/googleapis-montserrat.css}" rel="stylesheet"/>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
-          th:href="@{/webjars/font-awesome/5.13.0/font-awesome.min.css}" rel="stylesheet">
+          th:href="@{/webjars/font-awesome/5.13.0/css/fontawesome.min.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/brands.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/solid.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/regular.css}">
     <!-- CSS Files -->
     <link href="../assets/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}"
           rel="stylesheet"/>
@@ -62,7 +65,7 @@ The above copyright notice and this permission notice shall be included in all c
             <div class="row">
                 <div class="card card-user">
                     <div class="card-header">
-                        <h5 class="card-title">Edit PostComment</h5>
+                        <h5 class="card-title">编辑博客评论</h5>
                     </div>
                     <div class="card-body">
                         <form th:action="@{/admin/postComment}" method="post">
@@ -83,38 +86,38 @@ The above copyright notice and this permission notice shall be included in all c
                             <div class="row">
                                 <div class="col-md-4 px-1">
                                     <div class="form-group">
-                                        <label>postId</label>
+                                        <label>博客Id</label>
                                         <input th:if="${postComment!=null}" name="postId" type="text"
-                                               class="form-control" placeholder="postId" disabled
+                                               class="form-control" placeholder="博客Id" disabled
                                                th:value="${postComment!=null}?${postComment.postId}">
                                         <input th:if="${postComment==null}" name="postId" type="text"
-                                               class="form-control" placeholder="postId"
+                                               class="form-control" placeholder="博客Id"
                                                th:value="${postComment!=null}?${postComment.postId}">
                                     </div>
                                 </div>
                                 <div class="col-md-4 px-1">
                                     <div class="form-group">
-                                        <label>senderId</label>
+                                        <label>发送用户Id</label>
                                         <input th:if="${postComment!=null}" name="senderId" type="text"
                                                class="form-control" disabled
-                                               placeholder="senderId"
+                                               placeholder="发送用户Id"
                                                th:value="${postComment!=null}?${postComment.senderId}">
                                         <input th:if="${postComment==null}" name="senderId" type="text"
                                                class="form-control"
-                                               placeholder="senderId"
+                                               placeholder="发送用户Id"
                                                th:value="${postComment!=null}?${postComment.senderId}">
                                     </div>
                                 </div>
                                 <div class="col-md-4 px-1">
                                     <div class="form-group">
-                                        <label>receiverId</label>
+                                        <label>接收用户Id</label>
                                         <input th:if="${postComment!=null}" name="receiverId" type="text"
                                                class="form-control" disabled
-                                               placeholder="receiverId"
+                                               placeholder="接收用户Id"
                                                th:value="${postComment!=null}?${postComment.receiverId}">
                                         <input th:if="${postComment==null}" name="receiverId" type="text"
                                                class="form-control"
-                                               placeholder="receiverId"
+                                               placeholder="接收用户Id"
                                                th:value="${postComment!=null}?${postComment.receiverId}">
                                     </div>
                                 </div>
@@ -122,9 +125,9 @@ The above copyright notice and this permission notice shall be included in all c
                             <div class="row">
                                 <div class="col-md-12 pl-1">
                                     <div class="form-group">
-                                        <label>content</label>
+                                        <label>内容</label>
                                         <input name="content" type="text" class="form-control"
-                                               placeholder="content"
+                                               placeholder="内容"
                                                th:value="${postComment!=null}?${postComment.content}">
                                     </div>
                                 </div>
@@ -132,7 +135,7 @@ The above copyright notice and this permission notice shall be included in all c
                             <div class="row">
                                 <div class="update ml-auto mr-auto">
                                     <button type="submit" class="btn btn-primary btn-round"
-                                            th:text="${postComment!=null}?'Update':'Add'">Update Profile
+                                            th:text="${postComment!=null}?'更新':'添加'">Update Profile
                                     </button>
                                 </div>
                             </div>

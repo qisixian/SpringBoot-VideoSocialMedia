@@ -23,7 +23,7 @@ public class PostListController extends BaseController {
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator admin = adminService.findAdminById(loginAdminId);
-        model.addAttribute("admin", admin);
+        model.addAttribute("loginAdmin", admin);
 
         List<Post> allPost = adminService.findAllPost();
         model.addAttribute("allPost", allPost);
@@ -36,7 +36,7 @@ public class PostListController extends BaseController {
         //返回管理员账号信息
         String loginAdminId = (String) session.getAttribute("loginAdminId");
         Administrator admin = adminService.findAdminById(loginAdminId);
-        model.addAttribute("admin", admin);
+        model.addAttribute("loginAdmin", admin);
 
         Post post = adminService.findPostById(postId);
         model.addAttribute("post", post);

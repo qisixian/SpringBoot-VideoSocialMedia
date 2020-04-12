@@ -30,7 +30,10 @@ The above copyright notice and this permission notice shall be included in all c
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
           th:href="@{/assets/css/googleapis-montserrat.css}" rel="stylesheet"/>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
-          th:href="@{/webjars/font-awesome/5.13.0/font-awesome.min.css}" rel="stylesheet">
+          th:href="@{/webjars/font-awesome/5.13.0/css/fontawesome.min.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/brands.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/solid.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/regular.css}">
     <!-- CSS Files -->
     <link href="../assets/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}"
           rel="stylesheet"/>
@@ -62,7 +65,7 @@ The above copyright notice and this permission notice shall be included in all c
             <div class="row">
                 <div class="card card-user">
                     <div class="card-header">
-                        <h5 class="card-title">Edit post</h5>
+                        <h5 class="card-title">编辑视频博客</h5>
                     </div>
                     <div class="card-body">
                         <form th:action="@{/admin/post}" method="post">
@@ -80,36 +83,36 @@ The above copyright notice and this permission notice shall be included in all c
                             <div class="row">
                                 <div class="col-md-4 px-1">
                                     <div class="form-group">
-                                        <label>userId</label>
+                                        <label>用户Id</label>
                                         <input th:if="${post!=null}" name="userId" type="text" class="form-control"
-                                               placeholder="userId" disabled
+                                               placeholder="用户Id" disabled
                                                th:value="${post!=null}?${post.userId}">
                                         <input th:if="${post==null}" name="userId" type="text" class="form-control"
-                                               placeholder="userId"
+                                               placeholder="用户Id"
                                                th:value="${post!=null}?${post.userId}">
                                     </div>
                                 </div>
                                 <div class="col-md-4 px-1">
                                     <div class="form-group">
-                                        <label>username</label>
+                                        <label>用户名</label>
                                         <input th:if="${post!=null}" name="username" type="text" class="form-control"
                                                disabled
-                                               placeholder="username"
+                                               placeholder="用户名"
                                                th:value="${post!=null}?${post.username}">
                                         <input th:if="${post==null}" name="username" type="text" class="form-control"
-                                               placeholder="username"
+                                               placeholder="用户名"
                                                th:value="${post!=null}?${post.username}">
                                     </div>
                                 </div>
                                 <div class="col-md-4 px-1">
                                     <div class="form-group">
-                                        <label>videoId</label>
+                                        <label>视频Id</label>
                                         <input th:if="${post!=null}" name="videoId" type="text" class="form-control"
                                                disabled
-                                               placeholder="videoId"
+                                               placeholder="视频Id"
                                                th:value="${post!=null}?${post.videoId}">
                                         <input th:if="${post==null}" name="videoId" type="text" class="form-control"
-                                               placeholder="videoId"
+                                               placeholder="视频Id"
                                                th:value="${post!=null}?${post.videoId}">
                                     </div>
                                 </div>
@@ -117,9 +120,9 @@ The above copyright notice and this permission notice shall be included in all c
                             <div class="row">
                                 <div class="col-md-12 pl-1">
                                     <div class="form-group">
-                                        <label>describe</label>
+                                        <label>描述</label>
                                         <input name="describe" type="text" class="form-control"
-                                               placeholder="describe"
+                                               placeholder="描述"
                                                th:value="${post!=null}?${post.describe}">
                                     </div>
                                 </div>
@@ -127,7 +130,7 @@ The above copyright notice and this permission notice shall be included in all c
                             <div class="row">
                                 <div class="update ml-auto mr-auto">
                                     <button type="submit" class="btn btn-primary btn-round"
-                                            th:text="${post!=null}?'Update':'Add'">Update Profile
+                                            th:text="${post!=null}?'更新':'添加'">Update Profile
                                     </button>
                                 </div>
                             </div>

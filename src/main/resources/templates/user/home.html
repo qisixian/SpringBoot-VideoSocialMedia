@@ -30,7 +30,10 @@
     <link rel="stylesheet" href="/assets/css/icomoon.css" th:href="@{/assets/css/icomoon.css}">
     <!-- Bootstrap  -->
     <link rel="stylesheet" href="/assets/css/bootstrap.css" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.css}">
-    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/font-awesome.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/fontawesome.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/brands.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/solid.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/regular.css}">
 
     <!-- Magnific Popup -->
     <link rel="stylesheet" href="/assets/css/magnific-popup.css" th:href="@{/assets/css/magnific-popup.css}">
@@ -65,18 +68,18 @@
                     </div>
                     <div class="col-md-10 text-right menu-1">
                         <ul>
-                            <li><a th:href="@{/home}">Home</a></li>
-                            <li><a th:href="@{/explore}">Explore</a></li>
-                            <li><a th:href="@{/upload}">Upload</a></li>
+                            <li><a th:href="@{/home}">主页</a></li>
+                            <li><a th:href="@{/explore}">发现</a></li>
+                            <li><a th:href="@{/upload}">发布</a></li>
                             <li class="has-dropdown">
-                                <a th:href="@{/news/comment}">News</a>
+                                <a th:href="@{/news/comment}">消息</a>
                                 <ul class="dropdown">
-                                    <li><a th:href="@{/news/comment}">Comments</a></li>
-                                    <li><a th:href="@{/news/like}">Likes</a></li>
-                                    <li><a th:href="@{/news/follower}">newFollowers</a></li>
+                                    <li><a th:href="@{/news/comment}">评论</a></li>
+                                    <li><a th:href="@{/news/like}">喜欢</a></li>
+                                    <li><a th:href="@{/news/follower}">关注</a></li>
                                 </ul>
                             </li>
-                            <li><a th:href="@{/user/}+${loginUserId}">Me</a></li>
+                            <li><a th:href="@{/user/}+${loginUserId}">我</a></li>
                         </ul>
                     </div>
                 </div>
@@ -108,8 +111,10 @@
                                             th:text="${followingPost.username}">username</a>
                                 </p>
                             </div>
-                            <div class="col-3">
-                                <p th:text="${#temporals.format(followingPost.updateTime, 'MM-dd HH:mm')}"><span>updateTime</span>
+                            <div class="col-3 text-right">
+                                <p th:text="${#temporals.format(followingPost.updateTime, 'MM-dd HH:mm')}"
+                                   style="padding-top: 30px;">
+                                    updateTime
                                 </p>
                             </div>
                         </div>
@@ -117,28 +122,38 @@
                             <video th:src="@{/videos/stream/}+${followingPost.videoId}" controls="controls"
                                    width="100%"></video>
                         </div>
-                        <div><i class="far fa-heart"></i></div>
                         <div class="row">
-                            <a th:text="${followingPost.likesCount}+' likes'"
-                               th:href="@{/post/like/}+${followingPost.id}">null likes</a>
+                            <a th:text="${followingPost.likesCount}+' 喜欢'"
+                               th:href="@{/post/like/}+${followingPost.id}"
+                               style="color: grey; padding-top: 18px; padding-bottom: 18px;">null likes</a>
 
                             <form th:if="${followingPost.isLiked}==false" th:action="@{/post/like/}+${followingPost.id}"
-                                  method="post">
-                                <button type="submit" class="btn btn-sm btn-outline-danger">like</button>
+                                  method="post" style="font-size: 36px; ">
+                                <input type="submit" class="far fa-heart"
+                                       style="color: #999999; padding: 18px; border: none;background: none;"
+                                       value="&#xf004;"/>
                             </form>
                             <form th:if="${followingPost.isLiked}==true" th:action="@{/post/like/}+${followingPost.id}"
-                                  method="post">
+                                  method="post" style="font-size: 36px; ">
                                 <input type="hidden" name="_method" value="delete"/>
-                                <button type="submit" class="btn btn-sm btn-danger">liked!</button>
+                                <input type="submit" class="fas fa-heart"
+                                       style="color: Tomato; padding: 18px; border: none;background: none;"
+                                       value="&#xf004;"/>
                             </form>
+
+                            <a th:href="@{/post/}+${followingPost.id}" style="font-size: 36px; color: #999999;">
+                                <i class="far fa-comments"></i>
+                            </a>
+
+
                             <!--                            <a class="btn btn-sm btn-outline-danger"-->
                             <!--                               th:href="@{/post/like/}+${followingPost.id}" th:text="${followingPost.isLiked}">like</a>-->
 
-                            <a class="btn btn-sm btn-outline-success" th:href="@{/post/}+${followingPost.id}">show all
-                                comment</a>
+                            <!--                            <a class="btn btn-sm btn-outline-success" th:href="@{/post/}+${followingPost.id}">show all-->
+                            <!--                                comment</a>-->
                         </div>
 
-                        <a th:href="@{/post/}+${followingPost.id}">
+                        <a th:href="@{/post/}+${followingPost.id}" style="color: grey;">
                             <div class="row">
                                 <p th:text="${followingPost.username}+' : '+${followingPost.describe}">describe describe
                                     describe describe describe
@@ -153,10 +168,10 @@
 
                                 <div class="col-md-10 px-1">
                                     <input name="comment" type="text" class="form-control"
-                                           placeholder="add a comment">
+                                           placeholder="写评论...">
                                 </div>
                                 <div class="col-md-2 px-1">
-                                    <input class="btn btn-sm btn-outline-info" type="submit" value="Comment"/>
+                                    <input class="btn btn-sm btn-outline-info" type="submit" value="发送"/>
                                 </div>
                             </div>
                         </form>
@@ -165,7 +180,7 @@
             </div>
 
             <div class="row justify-content-md-center" th:if="${#lists.isEmpty(followingPostWithProfiles)}">
-                <p class="text-center">Follow some user to get start!</p>
+                <p class="text-center">开始关注些用户吧！</p>
             </div>
 
 
@@ -178,8 +193,7 @@
                 <div class="col-md-12 text-center">
                     <p>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                        All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i>
+                        This template is made with <i class="icon-heart" aria-hidden="true"></i>
                         by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --><br>
                     </p>
@@ -192,6 +206,7 @@
 <div class="gototop js-top">
     <a href="#" class="/assets/js-gotop"><i class="icon-arrow-up2"></i></a>
 </div>
+
 
 <!-- jQuery -->
 <script src="/assets/js/jquery.min.js" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
