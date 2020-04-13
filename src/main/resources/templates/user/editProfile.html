@@ -50,8 +50,8 @@
     <!--[endif]-->
 
     <!--paper-dashboard-->
-    <link rel="stylesheet" href="/assets/css/paper-dashboard.css?v=2.0.0"
-          th:href="@{/assets/css/paper-dashboard.css?v=2.0.0}"/>
+    <link rel="stylesheet" href="/assets/css/paper-dashboard.css"
+          th:href="@{/assets/css/card-style.css}"/>
 
 </head>
 <body>
@@ -74,11 +74,14 @@
                             <h5 class="card-title">Edit Profile</h5>
                         </div>
                         <div class="card-body">
-                            <div class="row">
+                            <div class="row justify-content-md-center">
 
-                                <div class="col-md-4 px-1 justify-content-md-center">
-                                    <img class="author-img" th:src="@{/avatars/stream/}+${profile.avatarId}" alt="..."
-                                         width="140px">
+                                <div class="col-md-2 px-1 ">
+                                    <!--                                    <img class="author-img" th:src="@{/avatars/stream/}+${profile.avatarId}" alt="..."-->
+                                    <!--                                         width="140px">-->
+
+                                    <img class="avatar border-gray"
+                                         th:src="@{/avatars/stream/}+${profile.avatarId}" alt="...">
                                 </div>
                             </div>
                             <form th:action="@{/avatar}" method="post" enctype="multipart/form-data">
