@@ -13,11 +13,12 @@ import java.util.Map;
 public class LoginController extends BaseController {
     @GetMapping("/login")
     String toLogin(HttpSession session) {
+        logger.trace("toLogin");
         //这个方法不被Interceptor墙，session尝试取用户ID
         String loginUserId = (String) session.getAttribute("loginUserId");
         if (loginUserId == null) {
             //没有返回login
-            return "/login";
+            return "login";
         } else {
             //有返回user页面
             return "redirect:/user/" + loginUserId;
@@ -74,10 +75,11 @@ public class LoginController extends BaseController {
     @GetMapping("/signUp")
     String toSignUp(HttpSession session) {
         //这个方法不被Interceptor墙，session尝试取用户ID
+        logger.trace("toSignUp");
         String loginUserId = (String) session.getAttribute("loginUserId");
         if (loginUserId == null) {
             //没有返回login
-            return "/signUp";
+            return "signUp";
         } else {
             //有返回user页面
             return "redirect:/user/" + loginUserId;
