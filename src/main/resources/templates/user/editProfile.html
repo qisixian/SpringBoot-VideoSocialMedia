@@ -71,7 +71,7 @@
                 <div class="col-md-8">
                     <div class="card card-user">
                         <div class="card-header">
-                            <h5 class="card-title">Edit Profile</h5>
+                            <h5 class="card-title">编辑个人信息</h5>
                         </div>
                         <div class="card-body">
                             <div class="row justify-content-md-center">
@@ -92,9 +92,9 @@
 
                                         <input type="hidden" name="_method" value="put"/>
 
-                                        <label>Change avatar</label>
+                                        <label>更改头像</label>
                                         <input type="file" name="file" accept="image/*"/>
-                                        <input class="btn btn-primary btn-round" type="submit" value="Change"/>
+                                        <input class="btn btn-primary btn-round" type="submit" value="更改"/>
                                     </div>
                                 </div>
                             </form>
@@ -112,25 +112,25 @@
                                 <div class="row">
                                     <div class="col-md-4 px-1">
                                         <div class="form-group">
-                                            <label>username</label>
+                                            <label>用户名</label>
                                             <input name="username" type="text" class="form-control"
-                                                   placeholder="username"
+                                                   placeholder="用户名"
                                                    disabled
                                                    th:value="${profile.username}">
                                         </div>
                                     </div>
                                     <div class="col-md-4 px-1">
                                         <div class="form-group">
-                                            <label>phoneNumber</label>
+                                            <label>电话号码</label>
                                             <input name="phoneNumber" type="text" class="form-control"
-                                                   placeholder="phoneNumber" disabled
+                                                   placeholder="电话号码" disabled
                                                    th:value="${profile.phoneNumber}">
                                         </div>
                                     </div>
                                     <div class="col-md-4 px-1">
                                         <div class="form-group">
-                                            <label>email</label>
-                                            <input name="email" type="email" class="form-control" placeholder="email"
+                                            <label>电子邮件</label>
+                                            <input name="email" type="email" class="form-control" placeholder="电子邮件"
                                                    th:value="${profile.email}">
                                         </div>
                                     </div>
@@ -146,17 +146,17 @@
                                     <!--                                </div>-->
                                     <div class="col-md-2 px-1">
                                         <div class="form-group">
-                                            <label>gender</label>
+                                            <label>性别</label>
                                             <input name="gender" type="text" class="form-control"
-                                                   placeholder="gender"
+                                                   placeholder="性别"
                                                    th:value="${profile.gender}">
                                         </div>
                                     </div>
                                     <div class="col-md-10 px-1">
                                         <div class="form-group">
-                                            <label>signature</label>
+                                            <label>签名</label>
                                             <input name="signature" type="text" class="form-control"
-                                                   placeholder="signature"
+                                                   placeholder="签名"
                                                    th:value="${profile.signature}">
                                         </div>
                                     </div>
@@ -176,7 +176,7 @@
                                 <div class="row">
                                     <div class="update ml-auto mr-auto">
                                         <button type="submit" class="btn btn-primary btn-round">
-                                            Update
+                                            更新
                                         </button>
                                     </div>
                                 </div>
