@@ -81,8 +81,13 @@
                             <div class="col-md-3  text-right">
                                 <span th:text="${#temporals.format(followerDetail.localDateTime, 'MM-dd HH:mm')}">time</span>
                             </div>
+                        </div>
                     </article>
                 </div>
+            </div>
+
+            <div class="row justify-content-md-center" th:if="${#lists.isEmpty(followerDetailList)}">
+                <div style="height:385px;"></div>
             </div>
         </div>
     </div>

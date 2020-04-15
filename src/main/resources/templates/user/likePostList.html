@@ -50,8 +50,8 @@
     <!--[endif]-->
 
     <!--paper-dashboard-->
-    <link rel="stylesheet" href="/assets/css/paper-dashboard.css?v=2.0.0"
-          th:href="@{/assets/css/paper-dashboard.css?v=2.0.0}"/>
+    <link rel="stylesheet" href="/assets/css/paper-dashboard.css"
+          th:href="@{/assets/css/card-style.css}"/>
 
 </head>
 <body>
@@ -134,6 +134,9 @@
                         </form>
                     </article>
                 </div>
+            </div>
+            <div class="row justify-content-md-center" th:if="${#lists.isEmpty(postList)}">
+                <div style="height:385px;"></div>
             </div>
 
         </div>
