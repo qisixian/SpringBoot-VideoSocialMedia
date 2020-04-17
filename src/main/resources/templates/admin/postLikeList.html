@@ -74,20 +74,20 @@ The above copyright notice and this permission notice shall be included in all c
                                     <thead class=" text-primary">
                                     <!--                                    <th>id</th>-->
                                     <th>博客Id</th>
-                                    <th>喜欢用户Id</th>
-                                    <th>发送时间</th>
+                                    <th>喜欢用户名</th>
+                                    <th>喜欢时间</th>
                                     <th class="text-right">操作</th>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="postLike:${allPostLike}">
+                                    <tr th:each="postLikeDTO:${allPostLikeDTO}">
                                         <!--                                        <td th:text="${postLike.id}"></td>-->
-                                        <td th:text="${postLike.postId}"></td>
-                                        <td th:text="${postLike.likedUserId}"></td>
-                                        <td th:text="${#temporals.format(postLike.localDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                        <td th:text="${postLikeDTO.postId}"></td>
+                                        <td th:text="${postLikeDTO.likedUsername}"></td>
+                                        <td th:text="${#temporals.format(postLikeDTO.localDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
                                         <td class="text-right">
                                             <!--                                            <a class="btn btn-sm btn-primary"-->
                                             <!--                                               th:href="@{/admin/postLike/}+${postLike.id}">修改</a>-->
-                                            <form th:action="@{/admin/postLike/}+${postLike.id}" method="post">
+                                            <form th:action="@{/admin/postLike/}+${postLikeDTO.id}" method="post">
                                                 <input type="hidden" name="_method" value="delete"/>
                                                 <button type="submit" class="btn btn-sm btn-danger">删除</button>
                                             </form>

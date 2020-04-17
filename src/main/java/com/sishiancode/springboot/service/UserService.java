@@ -5,6 +5,7 @@ import com.mongodb.DBObject;
 import com.mongodb.client.gridfs.model.GridFSFile;
 import com.sishiancode.springboot.dto.FollowerIdDTO;
 import com.sishiancode.springboot.dto.FollowingIdDTO;
+import com.sishiancode.springboot.dto.ShowProfileDTO;
 import com.sishiancode.springboot.entities.Post;
 import com.sishiancode.springboot.entities.Profile;
 import com.sishiancode.springboot.entities.User;
@@ -97,6 +98,47 @@ public class UserService extends BaseService {
     //    public List<String> findFollowingListId(String followerId) {
 //        userFollowingRepository
 //    }
+
+    public Integer showFollowingCount(String userId) {
+        Integer count = userFollowingRepository.countByUserId(userId);
+        return count;
+    }
+
+    public Integer showFollowersCount(String userId) {
+        Integer count = userFollowingRepository.countByFollowingId(userId);
+        return count;
+    }
+
+    public Integer postsCount(String userId) {
+        Integer count = postRepository.countByUserId(userId);
+        return count;
+    }
+
+
+    public Integer showLikesCount(String userId) {
+        Integer count = postLikeRepository.countByLikedUserId(userId);
+        return count;
+    }
+
+    public ShowProfileDTO showProfile(String userId) {
+        Profile profile = profileRepository.findByUserId(userId);
+        ShowProfileDTO showProfileDTO = new ShowProfileDTO();
+        showProfileDTO.setUserId(profile.getUserId());
+        showProfileDTO.setUsername(profile.getUsername());
+        showProfileDTO.setPhoneNumber(profile.getPhoneNumber());
+        showProfileDTO.setEmail(profile.getEmail());
+        showProfileDTO.setAvatarId(profile.getAvatarId());
+        showProfileDTO.setGender(profile.getGender());
+//        showProfileDTO.setBirthDate(profile.getBirthDate());
+        showProfileDTO.setSignature(profile.getSignature());
+        showProfileDTO.setFollowingCount(showFollowingCount(userId));
+        showProfileDTO.setFollowersCount(showFollowersCount(userId));
+        showProfileDTO.setPostsCount(postsCount(userId));
+        showProfileDTO.setLikesCount(showLikesCount(userId));
+        return showProfileDTO;
+    }
+
+
     public List<String> findFollowingIdList(String userId) {
         List<FollowingIdDTO> followingList = userFollowingRepository.findByUserIdOrderByLocalDateTimeDesc(userId, FollowingIdDTO.class);
 //        需要按localDateTime排序

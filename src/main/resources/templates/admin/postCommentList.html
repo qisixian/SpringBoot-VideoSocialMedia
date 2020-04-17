@@ -75,23 +75,23 @@ The above copyright notice and this permission notice shall be included in all c
                                     <!--                                    <th>id</th>-->
                                     <th>博客Id</th>
                                     <th>内容</th>
-                                    <th>发送用户Id</th>
-                                    <th>接收用户Id</th>
-                                    <th>发送时间</th>
+                                    <th>发送用户名</th>
+                                    <th>接收用户名</th>
+                                    <th>评论时间</th>
                                     <th class="text-right">操作</th>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="postComment:${allPostComment}">
+                                    <tr th:each="postCommentDTO:${allPostCommentDTO}">
                                         <!--                                        <td th:text="${postComment.id}"></td>-->
-                                        <td th:text="${postComment.postId}"></td>
-                                        <td th:text="${postComment.content}"></td>
-                                        <td th:text="${postComment.senderId}"></td>
-                                        <td th:text="${postComment.receiverId}"></td>
-                                        <td th:text="${#temporals.format(postComment.localDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                        <td th:text="${postCommentDTO.postId}"></td>
+                                        <td th:text="${postCommentDTO.content}"></td>
+                                        <td th:text="${postCommentDTO.senderUsername}"></td>
+                                        <td th:text="${postCommentDTO.receiverUsername}"></td>
+                                        <td th:text="${#temporals.format(postCommentDTO.localDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
                                         <td class="text-right">
                                             <a class="btn btn-sm btn-primary"
-                                               th:href="@{/admin/postComment/}+${postComment.id}">修改</a>
-                                            <form th:action="@{/admin/postComment/}+${postComment.id}" method="post">
+                                               th:href="@{/admin/postComment/}+${postCommentDTO.id}">修改</a>
+                                            <form th:action="@{/admin/postComment/}+${postCommentDTO.id}" method="post">
                                                 <input type="hidden" name="_method" value="delete"/>
                                                 <button type="submit" class="btn btn-sm btn-danger">删除</button>
                                             </form>

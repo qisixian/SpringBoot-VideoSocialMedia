@@ -9,8 +9,6 @@ import org.springframework.stereotype.Controller;
 @Controller
 public abstract class BaseController {
     @Autowired
-    protected MainlyUseCase mainlyUseCase;
-    @Autowired
     protected LoginService loginService;
     @Autowired
     protected AdminService adminService;

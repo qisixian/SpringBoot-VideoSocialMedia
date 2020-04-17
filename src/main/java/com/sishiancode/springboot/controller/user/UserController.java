@@ -32,7 +32,7 @@ public class UserController extends BaseController {
             //如果是来到自己的页面返回user/me
             logger.trace("toMe:" + userId);
 
-            ShowProfileDTO showProfileDTO = mainlyUseCase.showProfile(userId);
+            ShowProfileDTO showProfileDTO = userService.showProfile(userId);
             logger.trace("toMe:showProfileDTO " + showProfileDTO.toString());
             model.addAttribute("showProfileDTO", showProfileDTO);
 
@@ -54,7 +54,7 @@ public class UserController extends BaseController {
             model.addAttribute("isFollowed", isFollowed);
 
             //这个DTO其实不需要里边的 likesCount 但是多需要 userId（用来添加或删除关注）
-            ShowProfileDTO showProfileDTO = mainlyUseCase.showProfile(userId);
+            ShowProfileDTO showProfileDTO = userService.showProfile(userId);
             logger.trace("toOthersProfile:showProfileDTO " + showProfileDTO.toString());
             model.addAttribute("othersProfileDTO", showProfileDTO);
 

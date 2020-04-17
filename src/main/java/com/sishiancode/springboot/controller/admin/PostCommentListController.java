@@ -1,6 +1,7 @@
 package com.sishiancode.springboot.controller.admin;
 
 import com.sishiancode.springboot.controller.BaseController;
+import com.sishiancode.springboot.dto.admin.AdminPostCommentDTO;
 import com.sishiancode.springboot.entities.Administrator;
 import com.sishiancode.springboot.entities.PostComment;
 import org.springframework.stereotype.Controller;
@@ -21,8 +22,8 @@ public class PostCommentListController extends BaseController {
         Administrator admin = adminService.findAdminById(loginAdminId);
         model.addAttribute("loginAdmin", admin);
 
-        List<PostComment> allPostComment = adminService.findAllPostComment();
-        model.addAttribute("allPostComment", allPostComment);
+        List<AdminPostCommentDTO> allPostCommentDTO = adminService.findAllPostCommentDTO();
+        model.addAttribute("allPostCommentDTO", allPostCommentDTO);
         return "admin/postCommentList";
     }
 

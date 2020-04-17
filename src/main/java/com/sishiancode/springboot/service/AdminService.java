@@ -2,6 +2,9 @@ package com.sishiancode.springboot.service;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+import com.sishiancode.springboot.dto.admin.AdminPostCommentDTO;
+import com.sishiancode.springboot.dto.admin.AdminPostLikeDTO;
+import com.sishiancode.springboot.dto.admin.AdminUserFollowingDTO;
 import com.sishiancode.springboot.entities.*;
 import org.bson.types.ObjectId;
 import org.springframework.core.io.ClassPathResource;
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -101,6 +105,18 @@ public class AdminService extends BaseService {
         return postCommentRepository.findAll();
     }
 
+    public List<AdminPostCommentDTO> findAllPostCommentDTO() {
+        List<PostComment> postCommentList = findAllPostComment();
+        List<AdminPostCommentDTO> adminPostCommentDTOList = new ArrayList<>();
+        for (PostComment postComment :
+                postCommentList) {
+            String senderUsername = profileRepository.findByUserId(postComment.getSenderId()).getUsername();
+            String receiverUsername = profileRepository.findByUserId(postComment.getReceiverId()).getUsername();
+            adminPostCommentDTOList.add(new AdminPostCommentDTO(postComment.getId(), postComment.getPostId(), postComment.getContent(), postComment.getSenderId(), senderUsername, postComment.getReceiverId(), receiverUsername, postComment.getLocalDateTime()));
+        }
+        return adminPostCommentDTOList;
+    }
+
     public PostComment findPostCommentById(String postCommentId) {
         return postCommentRepository.findById(postCommentId).get();
     }
@@ -116,6 +132,17 @@ public class AdminService extends BaseService {
 
     public List<PostLike> findAllPostLike() {
         return postLikeRepository.findAll();
+    }
+
+    public List<AdminPostLikeDTO> findAllPostLikeDTO() {
+        List<PostLike> postLikeList = findAllPostLike();
+        List<AdminPostLikeDTO> adminPostLikeDTOList = new ArrayList<>();
+        for (PostLike postLike :
+                postLikeList) {
+            String likedUsername = profileRepository.findByUserId(postLike.getLikedUserId()).getUsername();
+            adminPostLikeDTOList.add(new AdminPostLikeDTO(postLike.getId(), postLike.getPostId(), postLike.getLikedUserId(), likedUsername, postLike.getLocalDateTime()));
+        }
+        return adminPostLikeDTOList;
     }
 
     public PostLike findPostLikeById(String postLikeId) {
@@ -151,6 +178,18 @@ public class AdminService extends BaseService {
 
     public List<UserFollowing> findAllUserFollowing() {
         return userFollowingRepository.findAll();
+    }
+
+    public List<AdminUserFollowingDTO> findAllUserFollowingDTO() {
+        List<UserFollowing> userFollowingList = findAllUserFollowing();
+        List<AdminUserFollowingDTO> adminUserFollowingDTOList = new ArrayList<>();
+        for (UserFollowing userFollowing :
+                userFollowingList) {
+            String username = profileRepository.findByUserId(userFollowing.getUserId()).getUsername();
+            String followingUsername = profileRepository.findByUserId(userFollowing.getFollowingId()).getUsername();
+            adminUserFollowingDTOList.add(new AdminUserFollowingDTO(userFollowing.getId(), userFollowing.getUserId(), username, userFollowing.getFollowingId(), followingUsername, userFollowing.getLocalDateTime()));
+        }
+        return adminUserFollowingDTOList;
     }
 
     public UserFollowing findUserFollowingById(String userFollowingId) {

@@ -1,6 +1,7 @@
 package com.sishiancode.springboot.controller.admin;
 
 import com.sishiancode.springboot.controller.BaseController;
+import com.sishiancode.springboot.dto.admin.AdminPostLikeDTO;
 import com.sishiancode.springboot.entities.Administrator;
 import com.sishiancode.springboot.entities.PostLike;
 import org.springframework.stereotype.Controller;
@@ -21,8 +22,8 @@ public class PostLikeListController extends BaseController {
         Administrator admin = adminService.findAdminById(loginAdminId);
         model.addAttribute("loginAdmin", admin);
 
-        List<PostLike> allPostLike = adminService.findAllPostLike();
-        model.addAttribute("allPostLike", allPostLike);
+        List<AdminPostLikeDTO> allPostLikeDTO = adminService.findAllPostLikeDTO();
+        model.addAttribute("allPostLikeDTO", allPostLikeDTO);
         return "admin/postLikeList";
     }
 

@@ -73,21 +73,21 @@ The above copyright notice and this permission notice shall be included in all c
                                 <table class="table">
                                     <thead class=" text-primary">
                                     <!--                                    <th>id</th>-->
-                                    <th>用户Id</th>
-                                    <th>关注用户Id</th>
+                                    <th>用户名</th>
+                                    <th>关注用户名</th>
                                     <th>关注时间</th>
                                     <th class="text-right">操作</th>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="userFollowing:${allUserFollowing}">
+                                    <tr th:each="userFollowingDTO:${allUserFollowingDTO}">
                                         <!--                                        <td th:text="${userFollowing.id}"></td>-->
-                                        <td th:text="${userFollowing.userId}"></td>
-                                        <td th:text="${userFollowing.followingId}"></td>
-                                        <td th:text="${#temporals.format(userFollowing.localDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                        <td th:text="${userFollowingDTO.username}"></td>
+                                        <td th:text="${userFollowingDTO.followingUsername}"></td>
+                                        <td th:text="${#temporals.format(userFollowingDTO.localDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
                                         <td class="text-right">
                                             <!--                                            <a class="btn btn-sm btn-primary"-->
                                             <!--                                               th:href="@{/admin/userFollowing/}+${userFollowing.id}">修改</a>-->
-                                            <form th:action="@{/admin/userFollowing/}+${userFollowing.id}"
+                                            <form th:action="@{/admin/userFollowing/}+${userFollowingDTO.id}"
                                                   method="post">
                                                 <input type="hidden" name="_method" value="delete"/>
                                                 <button type="submit" class="btn btn-sm btn-danger">删除</button>

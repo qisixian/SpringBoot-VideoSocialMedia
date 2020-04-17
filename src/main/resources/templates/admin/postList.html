@@ -73,7 +73,6 @@ The above copyright notice and this permission notice shall be included in all c
                                 <table class="table">
                                     <thead class=" text-primary">
                                     <th>id</th>
-                                    <th>用户Id</th>
                                     <th>用户名</th>
                                     <th>描述</th>
                                     <th>视频Id</th>
@@ -83,7 +82,6 @@ The above copyright notice and this permission notice shall be included in all c
                                     <tbody>
                                     <tr th:each="post:${allPost}">
                                         <td th:text="${post.id}"></td>
-                                        <td th:text="${post.userId}"></td>
                                         <td th:text="${post.username}"></td>
                                         <td th:text="${post.describe}"></td>
                                         <td th:text="${post.videoId}"></td>
@@ -98,7 +96,6 @@ The above copyright notice and this permission notice shall be included in all c
                                         </td>
                                     </tr>
                                     <!--                                    <tr>-->
-                                    <!--                                        <td></td>-->
                                     <!--                                        <td></td>-->
                                     <!--                                        <td></td>-->
                                     <!--                                        <td></td>-->

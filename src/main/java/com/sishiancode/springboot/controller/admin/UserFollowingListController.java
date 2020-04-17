@@ -1,6 +1,7 @@
 package com.sishiancode.springboot.controller.admin;
 
 import com.sishiancode.springboot.controller.BaseController;
+import com.sishiancode.springboot.dto.admin.AdminUserFollowingDTO;
 import com.sishiancode.springboot.entities.Administrator;
 import com.sishiancode.springboot.entities.UserFollowing;
 import org.springframework.stereotype.Controller;
@@ -21,8 +22,8 @@ public class UserFollowingListController extends BaseController {
         Administrator admin = adminService.findAdminById(loginAdminId);
         model.addAttribute("loginAdmin", admin);
 
-        List<UserFollowing> allUserFollowing = adminService.findAllUserFollowing();
-        model.addAttribute("allUserFollowing", allUserFollowing);
+        List<AdminUserFollowingDTO> allUserFollowingDTO = adminService.findAllUserFollowingDTO();
+        model.addAttribute("allUserFollowingDTO", allUserFollowingDTO);
         return "admin/userFollowingList";
     }
 

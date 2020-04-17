@@ -1,7 +1,10 @@
 package com.sishiancode.springboot;
 
 import com.sishiancode.springboot.repository.*;
-import com.sishiancode.springboot.service.*;
+import com.sishiancode.springboot.service.AdminService;
+import com.sishiancode.springboot.service.LoginService;
+import com.sishiancode.springboot.service.PostService;
+import com.sishiancode.springboot.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +13,6 @@ import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 
 @SpringBootTest
 public class SpringBootVideoSocialMediaUseCaseTest {
-    @Autowired
-    private MainlyUseCase mainlyUseCase;
     @Autowired
     private LoginService loginService;
     @Autowired
