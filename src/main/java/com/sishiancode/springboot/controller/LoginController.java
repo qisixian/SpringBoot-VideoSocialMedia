@@ -27,18 +27,25 @@ public class LoginController extends BaseController {
 
     @PostMapping("/login")
     String userLogin(@RequestParam("phoneNumber") String phoneNumber, @RequestParam("password") String password, Map<String, Object> map, HttpSession session) {
-        logger.trace("LoginController-userLogin:" + phoneNumber + " " + password);
-        String loginUserId = loginService.LoginUser(phoneNumber, password);
-        if (loginUserId != "null") {
-            //用户登录成功
-            logger.trace("用户登录成功");
-            session.setAttribute("loginUserId", loginUserId);
-            return "redirect:/home";
-        } else {
+        logger.trace("userLogin:" + phoneNumber + " " + password);
+        if (phoneNumber.isEmpty() || password.isEmpty()) {
             //登录失败
             logger.trace("登录失败");
-            map.put("msg", "用户名密码错误");
+            map.put("msg", "请填写用户名和密码");
             return "login";
+        } else {
+            String loginUserId = loginService.LoginUser(phoneNumber, password);
+            if (loginUserId != null) {
+                //用户登录成功
+                logger.trace("用户登录成功");
+                session.setAttribute("loginUserId", loginUserId);
+                return "redirect:/home";
+            } else {
+                //登录失败
+                logger.trace("登录失败");
+                map.put("msg", "用户名密码错误");
+                return "login";
+            }
         }
     }
 
@@ -56,7 +63,7 @@ public class LoginController extends BaseController {
 
     @PostMapping("/adminLogin")
     String adminLogin(@RequestParam("phoneNumber") String phoneNumber, @RequestParam("password") String password, Map<String, Object> map, HttpSession session) {
-        logger.trace("LoginController-adminLogin:" + phoneNumber + " " + password);
+        logger.trace("adminLogin:" + phoneNumber + " " + password);
         String loginAdminId = loginService.LoginAdmin(phoneNumber, password);
         //这段逻辑如果loginAdminId是空值的话有问题，不能排查出所有错误
         if (loginAdminId != "null") {
@@ -88,7 +95,7 @@ public class LoginController extends BaseController {
 
     @PostMapping("/signUp")
     String userSignUp(@RequestParam("phoneNumber") String phoneNumber, @RequestParam("username") String username, @RequestParam("password") String password, Map<String, Object> map, HttpSession session) throws IOException {
-        logger.trace("LoginController-userSignUp:" + phoneNumber + " " + username + " " + password);
+        logger.trace("userSignUp:" + phoneNumber + " " + username + " " + password);
         String SignUpUserId = loginService.SignUpUser(phoneNumber, username, password);
         //这段逻辑如果SignUpUserId是空值的话有问题，不能排查出所有错误
         if (SignUpUserId != "null") {

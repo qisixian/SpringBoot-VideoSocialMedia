@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class PostController extends BaseController {
@@ -60,13 +61,19 @@ public class PostController extends BaseController {
     }
 
     @PostMapping("/post/comment/{id}")
-    String commentPost(@PathVariable("id") String postId, @RequestParam("receiverName") String receiverName, @RequestParam("comment") String comment, HttpSession session) {
+    String commentPost(@PathVariable("id") String postId, @RequestParam("receiverName") String receiverName, @RequestParam("comment") String comment, Map<String, Object> map, HttpSession session) {
         logger.trace("commentPost:" + postId + " " + receiverName + " " + comment);
         String senderId = (String) session.getAttribute("loginUserId");
         if (receiverName.isEmpty()) {
             postService.addComment(postId, senderId, comment);
         } else {
-            postService.addComment(postId, senderId, receiverName, comment);
+            if (postService.addComment(postId, senderId, receiverName, comment) != null) {
+            } else {
+//                model.addAttribute("msg","我们没找到回复的用户名");
+//                logger.debug("我们没找到回复的用户名");
+//                map.put("msg", "我们没找到回复的用户名");
+//                这么写就不能用redirect了
+            }
         }
         return "redirect:/post/" + postId;
     }

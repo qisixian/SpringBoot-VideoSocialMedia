@@ -51,15 +51,21 @@ public class AdminListController extends BaseController {
     @PostMapping("/admin/admin")
     String addAdmin(Administrator admin) {
         logger.trace("addAdmin:" + admin.toString());
-        adminService.saveAdmin(admin);
-        return "redirect:/admin/adminList";
+        if (adminService.saveAdmin(admin) != null) {
+            return "redirect:/admin/adminList";
+        } else {
+            return "redirect:/admin/admin";
+        }
     }
 
     @PutMapping("/admin/admin")
     String updateAdmin(Administrator admin) {
         logger.trace("updateAdmin:" + admin.toString());
-        adminService.saveAdmin(admin);
-        return "redirect:/admin/adminList";
+        if (adminService.saveAdmin(admin) != null) {
+            return "redirect:/admin/adminList";
+        } else {
+            return "redirect:/admin/admin/" + admin.getId();
+        }
     }
 
     @DeleteMapping("/admin/admin/{id}")

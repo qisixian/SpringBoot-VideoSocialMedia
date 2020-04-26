@@ -54,14 +54,16 @@ public class PostLikeListController extends BaseController {
     @PostMapping("/admin/postLike")
     String addPostLike(PostLike postLike) {
         logger.trace("addPostLike:" + postLike.toString());
-        postLike.setLocalDateTime(LocalDateTime.now());
-        adminService.savePostLike(postLike);
-        return "redirect:/admin/postLikeList";
+        if (adminService.savePostLike(postLike) != null) {
+            return "redirect:/admin/postLikeList";
+        } else {
+            return "redirect:/admin/postLike";
+        }
     }
 
     @PutMapping("/admin/postLike")
     String updatePostLike(PostLike postLike) {
-        logger.trace("updateUser:" + postLike.toString());
+        logger.trace("updatePostLike:" + postLike.toString());
         postLike.setLocalDateTime(LocalDateTime.now());
         adminService.savePostLike(postLike);
         return "redirect:/admin/postLikeList";

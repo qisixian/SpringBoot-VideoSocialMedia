@@ -114,16 +114,28 @@ public class PostService extends BaseService {
         return postCommentDTOList;
     }
 
-    public void addComment(String postId, String senderId, String content) {
-        Optional<Post> post = postRepository.findById(postId);
-        PostComment postComment = new PostComment(postId, content, senderId, post.get().getUserId(), LocalDateTime.now());
-        postCommentRepository.save(postComment);
+    public String addComment(String postId, String senderId, String content) {
+        if (!content.isEmpty()) {
+            String postUserId = postRepository.findById(postId).get().getUserId();
+            PostComment postComment = new PostComment(postId, content, senderId, postUserId, LocalDateTime.now());
+            return postCommentRepository.save(postComment).getId();
+        } else {
+            return null;
+        }
     }
 
-    public void addComment(String postId, String senderId, String receiverName, String content) {
-        Profile receiverProfile = profileRepository.findByUsername(receiverName);
-        PostComment postComment = new PostComment(postId, content, senderId, receiverProfile.getUserId(), LocalDateTime.now());
-        postCommentRepository.save(postComment);
+    public String addComment(String postId, String senderId, String receiverName, String content) {
+        if (!content.isEmpty()) {
+            Profile receiverProfile = profileRepository.findByUsername(receiverName);
+            if (receiverProfile != null) {
+                PostComment postComment = new PostComment(postId, content, senderId, receiverProfile.getUserId(), LocalDateTime.now());
+                return postCommentRepository.save(postComment).getId();
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
     }
 
     public void deleteComment(String postCommentId) {

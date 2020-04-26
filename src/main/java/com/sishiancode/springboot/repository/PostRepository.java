@@ -12,23 +12,17 @@ public interface PostRepository extends MongoRepository<Post, String> {
 
     List<Post> findByIdIn(List<String> idList);
 
-    //    @Query("{'userId: ?0'}")
     List<Post> findByUserId(String userId);
 
     List<Post> findByUserIdOrderByUpdateTimeDesc(String userId);
 
     <T> List<T> findByUserId(String userId, Class<T> type);
 
-    //    怎么用一个集合来查询？
-//    List<Post> findByUserId(List<String> userId);
     List<Post> findByUserIdIn(List<String> userIdList);
 
     List<Post> findByUserIdInOrderByUpdateTimeDesc(List<String> userIdList);
 
     Integer countByUserId(String userId);
-
-//    @Query("{'userId: ?0'}")
-//    Page<Post> findByUserId(String userId, Pageable pageable);
 
     void deleteByUserId(String userId);
 

@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -52,19 +51,36 @@ public class PostCommentListController extends BaseController {
     }
 
     @PostMapping("/admin/postComment")
-    String addPostComment(PostComment postComment) {
+    String addPostComment(PostComment postComment, Model model, HttpSession session) {
         logger.trace("addPostComment:" + postComment.toString());
-        postComment.setLocalDateTime(LocalDateTime.now());
-        adminService.savePostComment(postComment);
-        return "redirect:/admin/postCommentList";
+
+        if (adminService.savePostComment(postComment) != null) {
+            logger.trace("addPostComment:OK");
+            return "redirect:/admin/postCommentList";
+        } else {
+            logger.trace("addPostComment:false");
+//            //返回管理员账号信息
+//            String loginAdminId = (String) session.getAttribute("loginAdminId");
+//            Administrator admin = adminService.findAdminById(loginAdminId);
+//            model.addAttribute("loginAdmin", admin);
+//            return "admin/addPostComment";
+            return "redirect:/admin/postComment";
+        }
     }
 
     @PutMapping("/admin/postComment")
-    String updatePostComment(PostComment postComment) {
+    String updatePostComment(PostComment postComment, Model model, HttpSession session) {
         logger.trace("updatePostComment:" + postComment.toString());
-        postComment.setLocalDateTime(LocalDateTime.now());
-        adminService.savePostComment(postComment);
-        return "redirect:/admin/postCommentList";
+        if (adminService.savePostComment(postComment) != null) {
+            return "redirect:/admin/postCommentList";
+        } else {
+            //返回管理员账号信息
+            String loginAdminId = (String) session.getAttribute("loginAdminId");
+            Administrator admin = adminService.findAdminById(loginAdminId);
+            model.addAttribute("loginAdmin", admin);
+            model.addAttribute("postComment", postComment);
+            return "admin/addPostComment";
+        }
     }
 
     @DeleteMapping("/admin/postComment/{id}")

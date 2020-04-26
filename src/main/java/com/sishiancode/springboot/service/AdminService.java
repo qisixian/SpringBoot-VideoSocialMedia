@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,31 +29,35 @@ public class AdminService extends BaseService {
     }
 
     public String saveUser(User user) {
-        User userWithId = userRepository.save(user);
-        //save是不分新用户还是已存在的用户的
-        //用userId找有没有已经存在的profile
-        Profile existProfile = profileRepository.findByUserId(userWithId.getId());
-        if (existProfile != null) {
-            logger.debug(existProfile.toString());
-            existProfile.setUsername(user.getUsername());
-            existProfile.setPhoneNumber(user.getPhoneNumber());
-            profileRepository.save(existProfile);
-        } else {
+        if (!user.getUsername().isEmpty() && !user.getPassword().isEmpty() && !user.getPhoneNumber().isEmpty()) {
+            User userWithId = userRepository.save(user);
+            //save是不分新用户还是已存在的用户的
+            //用userId找有没有已经存在的profile
+            Profile existProfile = profileRepository.findByUserId(userWithId.getId());
+            if (existProfile != null) {
+                logger.debug(existProfile.toString());
+                existProfile.setUsername(user.getUsername());
+                existProfile.setPhoneNumber(user.getPhoneNumber());
+                profileRepository.save(existProfile);
+            } else {
 //        创建关联的profile
-            ObjectId id = new ObjectId();
-            try (InputStream is = new BufferedInputStream(new ClassPathResource("static/default-avatar.png").getInputStream())) {
-                // store file
-                DBObject metaData = new BasicDBObject();
-                metaData.put("upLoadUserId", userWithId.getId());
-                id = gridFsTemplate.store(is, "default-avatar.png", "image/png", metaData);
-            } catch (IOException e) {
-                e.printStackTrace();
+                ObjectId id = new ObjectId();
+                try (InputStream is = new BufferedInputStream(new ClassPathResource("static/default-avatar.png").getInputStream())) {
+                    // store file
+                    DBObject metaData = new BasicDBObject();
+                    metaData.put("upLoadUserId", userWithId.getId());
+                    id = gridFsTemplate.store(is, "default-avatar.png", "image/png", metaData);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Profile newProfile = new Profile((userWithId.getId()), userWithId.getUsername(), userWithId.getPhoneNumber(), id.toString());
+                logger.debug(newProfile.toString());
+                profileRepository.save(newProfile);
             }
-            Profile newProfile = new Profile((userWithId.getId()), userWithId.getUsername(), userWithId.getPhoneNumber(), id.toString());
-            logger.debug(newProfile.toString());
-            profileRepository.save(newProfile);
+            return userWithId.getId();
+        } else {
+            return null;
         }
-        return userWithId.getId();
     }
 
     public void deleteUser(String userId) {
@@ -73,7 +78,11 @@ public class AdminService extends BaseService {
     }
 
     public String saveAdmin(Administrator administrator) {
-        return administratorRepository.save(administrator).getId();
+        if (!administrator.getUsername().isEmpty() && !administrator.getPassword().isEmpty() && !administrator.getPhoneNumber().isEmpty()) {
+            return administratorRepository.save(administrator).getId();
+        } else {
+            return null;
+        }
     }
 
     public void deleteAdmin(String adminId) {
@@ -122,7 +131,17 @@ public class AdminService extends BaseService {
     }
 
     public String savePostComment(PostComment postComment) {
-        return postCommentRepository.save(postComment).getId();
+//        logger.debug("savePostComment:"+postComment.toString());
+//        logger.debug(String.valueOf(postRepository.findById(postComment.getPostId()).isPresent()));
+//        logger.debug(String.valueOf(userRepository.findById(postComment.getSenderId()).isPresent()));
+//        logger.debug(String.valueOf(userRepository.findById(postComment.getReceiverId()).isPresent()));
+//        logger.debug(postComment.getContent());
+        if (postRepository.findById(postComment.getPostId()).isPresent() && userRepository.findById(postComment.getSenderId()).isPresent() && userRepository.findById(postComment.getReceiverId()).isPresent() && !postComment.getContent().isEmpty()) {
+            postComment.setLocalDateTime(LocalDateTime.now());
+            return postCommentRepository.save(postComment).getId();
+        } else {
+            return null;
+        }
     }
 
     public void deletePostComment(String postCommentId) {
@@ -150,7 +169,12 @@ public class AdminService extends BaseService {
     }
 
     public String savePostLike(PostLike postLike) {
-        return postLikeRepository.save(postLike).getId();
+        if (postRepository.findById(postLike.getPostId()).isPresent() && userRepository.findById(postLike.getLikedUserId()).isPresent()) {
+            postLike.setLocalDateTime(LocalDateTime.now());
+            return postLikeRepository.save(postLike).getId();
+        } else {
+            return null;
+        }
     }
 
     public void deletePostLike(String postLikeId) {
@@ -197,7 +221,12 @@ public class AdminService extends BaseService {
     }
 
     public String saveUserFollowing(UserFollowing userFollowing) {
-        return userFollowingRepository.save(userFollowing).getId();
+        if (userRepository.findById(userFollowing.getUserId()).isPresent() && userRepository.findById(userFollowing.getFollowingId()).isPresent()) {
+            userFollowing.setLocalDateTime(LocalDateTime.now());
+            return userFollowingRepository.save(userFollowing).getId();
+        } else {
+            return null;
+        }
     }
 
     public void deleteUserFollowing(String userFollowingId) {

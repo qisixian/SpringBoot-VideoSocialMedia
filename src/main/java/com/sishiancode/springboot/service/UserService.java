@@ -45,14 +45,12 @@ public class UserService extends BaseService {
         String oldAvatarId = profile.getAvatarId();
         profile.setAvatarId(id.toString());
         saveProfile(profile);
-
         //在数据库删除之前的头像
         gridFsTemplate.delete(new Query(Criteria.where("_id").is(oldAvatarId)));
     }
 
     public InputStream getAvatarStream(String avatarId) throws IllegalStateException, IOException {
         GridFSFile file = gridFsTemplate.findOne(new Query(Criteria.where("_id").is(avatarId)));
-
         return gridFsOperations.getResource(file).getInputStream();
     }
 
@@ -76,7 +74,6 @@ public class UserService extends BaseService {
 
     public InputStream getVideoStream(String videoId) throws IllegalStateException, IOException {
         GridFSFile file = gridFsTemplate.findOne(new Query(Criteria.where("_id").is(videoId)));
-
         return gridFsOperations.getResource(file).getInputStream();
     }
 

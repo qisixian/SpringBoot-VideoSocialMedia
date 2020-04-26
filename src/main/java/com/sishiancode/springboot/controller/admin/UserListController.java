@@ -52,15 +52,21 @@ public class UserListController extends BaseController {
     @PostMapping("/admin/user")
     String addUser(User user) {
         logger.trace("addUser:" + user.toString());
-        adminService.saveUser(user);
-        return "redirect:/admin/userList";
+        if (adminService.saveUser(user) != null) {
+            return "redirect:/admin/userList";
+        } else {
+            return "redirect:/admin/user";
+        }
     }
 
     @PutMapping("/admin/user")
     String updateUser(User user) {
         logger.trace("updateUser:" + user.toString());
-        adminService.saveUser(user);
-        return "redirect:/admin/userList";
+        if (adminService.saveUser(user) != null) {
+            return "redirect:/admin/userList";
+        } else {
+            return "redirect:/admin/user/" + user.getId();
+        }
     }
 
     @DeleteMapping("/admin/user/{id}")

@@ -18,7 +18,7 @@ public class LoginService extends BaseService {
     public String LoginUser(String phoneNumber, String password) {
         UserIdDTO userIdDTO = userRepository.findByPhoneNumberAndPassword(phoneNumber, password);
         if (userIdDTO == null) {
-            return "null";
+            return null;
         } else {
             return userIdDTO.getId();
         }
