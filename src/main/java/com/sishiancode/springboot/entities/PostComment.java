@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 public class PostComment {
     @Id
     private String id;
+    @Indexed(background = true)
     private String postId;
     private String content;
     private String senderId;
