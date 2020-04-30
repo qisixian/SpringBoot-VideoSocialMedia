@@ -24,30 +24,26 @@ public class LoginService extends BaseService {
         }
     }
 
-    public String SignUpUser(String phoneNumber, String username, String password) throws IOException {
+    public String SignUpUser(String phoneNumber, String username, String password) {
         //在已经存在的用户里找这个手机号
         UserIdDTO userIdDTO = userRepository.findByPhoneNumber(phoneNumber);
         if (userIdDTO != null) {
             //在已经存在的用户里找到了这个手机号
             logger.debug("SignUpUserButFindUserExist:" + userIdDTO.toString());
-            logger.debug("SignUpUserButFindUserExist:" + userIdDTO.getId());
             return "null";
         } else {
-
             User user = new User(username, password, phoneNumber);
             User userWithId = userRepository.save(user);
-
             //创建关联的profile，创建默认头像
-            ObjectId id;
             try (InputStream is = new BufferedInputStream(new ClassPathResource("static/default-avatar.png").getInputStream())) {
-                // store file
-                id = gridFsOperations.store(is, "default-avatar.png");
+                ObjectId id = gridFsOperations.store(is, "default-avatar.png");
+                Profile profile = new Profile((userWithId.getId()), userWithId.getUsername(), userWithId.getPhoneNumber(), id.toString());
+                profileRepository.save(profile);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            Profile profile = new Profile((userWithId.getId()), userWithId.getUsername(), userWithId.getPhoneNumber(), id.toString());
-            profileRepository.save(profile);
             return userWithId.getId();
         }
-
     }
 
     public String LoginAdmin(String phoneNumber, String password) {

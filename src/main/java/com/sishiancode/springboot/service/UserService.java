@@ -35,18 +35,22 @@ public class UserService extends BaseService {
         return profileRepository.save(profile).getId();
     }
 
-    public void updateAvatar(MultipartFile file, String userId) throws IOException {
-        //存入头像
-        DBObject metaData = new BasicDBObject();
-        metaData.put("upLoadUserId", userId);
-        ObjectId id = gridFsTemplate.store(file.getInputStream(), file.getOriginalFilename(), file.getContentType(), metaData);
-        //关联头像和用户
-        Profile profile = findProfileByUserId(userId);
-        String oldAvatarId = profile.getAvatarId();
-        profile.setAvatarId(id.toString());
-        saveProfile(profile);
-        //在数据库删除之前的头像
-        gridFsTemplate.delete(new Query(Criteria.where("_id").is(oldAvatarId)));
+    public void updateAvatar(MultipartFile file, String userId) {
+        try {
+            //存入头像
+            DBObject metaData = new BasicDBObject();
+            metaData.put("upLoadUserId", userId);
+            ObjectId id = gridFsTemplate.store(file.getInputStream(), file.getOriginalFilename(), file.getContentType(), metaData);
+            //关联头像和用户
+            Profile profile = findProfileByUserId(userId);
+            String oldAvatarId = profile.getAvatarId();
+            profile.setAvatarId(id.toString());
+            saveProfile(profile);
+            //在数据库删除之前的头像
+            gridFsTemplate.delete(new Query(Criteria.where("_id").is(oldAvatarId)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public InputStream getAvatarStream(String avatarId) throws IllegalStateException, IOException {
@@ -54,15 +58,19 @@ public class UserService extends BaseService {
         return gridFsOperations.getResource(file).getInputStream();
     }
 
-    public void addPost(String userId, String describe, MultipartFile file) throws IOException {
-        //存入视频
-        DBObject metaData = new BasicDBObject();
-        metaData.put("upLoadUserId", userId);
-        ObjectId id = gridFsTemplate.store(file.getInputStream(), file.getOriginalFilename(), file.getContentType(), metaData);
-        //创建对应Post
-        Optional<User> user = userRepository.findById(userId);
-        Post post = new Post(userId, user.get().getUsername(), describe, id.toString(), LocalDateTime.now());
-        postRepository.save(post);
+    public void addPost(String userId, String describe, MultipartFile file) {
+        try {
+            //存入视频
+            DBObject metaData = new BasicDBObject();
+            metaData.put("upLoadUserId", userId);
+            ObjectId id = gridFsTemplate.store(file.getInputStream(), file.getOriginalFilename(), file.getContentType(), metaData);
+            //创建对应Post
+            Optional<User> user = userRepository.findById(userId);
+            Post post = new Post(userId, user.get().getUsername(), describe, id.toString(), LocalDateTime.now());
+            postRepository.save(post);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void deletePost(String postId) {

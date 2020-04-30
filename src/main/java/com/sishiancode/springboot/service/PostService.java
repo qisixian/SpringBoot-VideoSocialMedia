@@ -17,34 +17,20 @@ public class PostService extends BaseService {
 
 
     public List<PostAllDetailDTO> findFollowingPost(String userId) {
-
-//        先要查找following
         List<FollowingIdDTO> followingList = userFollowingRepository.findByUserId(userId, FollowingIdDTO.class);
-//        要把List<FollowingIdDTO>转化为List<String>;
         List<String> userIdList = new ArrayList<>();
         for (FollowingIdDTO followingIdDTO : followingList) {
             userIdList.add(followingIdDTO.getFollowingId());
         }
-//        logger.debug(userIdList.toString());
         List<Post> followingPosts = postRepository.findByUserIdInOrderByUpdateTimeDesc(userIdList);
-
         List<PostAllDetailDTO> postAllDetailDTOList = new ArrayList<>();
         for (Post post : followingPosts) {
             String avatarId = findAvatarId(post.getUserId());
             Integer likesCount = findPostLikesCount(post.getId());
-//            Integer isLiked;
-//            if(postService.findIsLiked(post.getId(), userId)==true){
-//                isLiked =1;
-//            }else {
-//                isLiked = 0;
-//            }
             Boolean isLiked = findIsLiked(post.getId(), userId);
-            postAllDetailDTOList.add(new PostAllDetailDTO(post.getId(), post.getUserId(), post.getUsername(), avatarId, post.getDescribe(), post.getVideoId(), post.getUpdateTime(), likesCount, isLiked));
+            postAllDetailDTOList.add(new PostAllDetailDTO(post.getId(), post.getUserId(), post.getUsername(),
+                    avatarId, post.getDescribe(), post.getVideoId(), post.getUpdateTime(), likesCount, isLiked));
         }
-
-//        Aggregation.newAggregation(Aggregation.match(Criteria))
-
-        //List<PostDTO> followingPostDTOs = new ArrayList<>();
         return postAllDetailDTOList;
     }
 
