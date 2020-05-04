@@ -1,10 +1,7 @@
 package com.sishiancode.springboot.service;
 
 import com.sishiancode.springboot.dto.*;
-import com.sishiancode.springboot.entities.Post;
-import com.sishiancode.springboot.entities.PostComment;
-import com.sishiancode.springboot.entities.PostLike;
-import com.sishiancode.springboot.entities.Profile;
+import com.sishiancode.springboot.entities.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -154,5 +151,23 @@ public class PostService extends BaseService {
             postAllDetailDTOList.add(new PostAllDetailDTO(post.getId(), post.getUserId(), post.getUsername(), avatarId, post.getDescribe(), post.getVideoId(), post.getUpdateTime(), likesCount, isLiked));
         }
         return postAllDetailDTOList;
+    }
+
+
+    public List<PostDetailWithoutUserDTO> suggestPost() {
+        List<EditorSuggestPost> suggestPostList = editorSuggestPostRepository.findAll();
+        List<String> postIdList = new ArrayList<>();
+        for (EditorSuggestPost suggestPost : suggestPostList) {
+            postIdList.add(suggestPost.getPostId());
+        }
+        List<Post> postList = postRepository.findByIdIn(postIdList);
+
+        List<PostDetailWithoutUserDTO> postDetailWithoutUserDTOList = new ArrayList<>();
+        for (Post post : postList) {
+            String avatarId = findAvatarId(post.getUserId());
+            Integer likesCount = findPostLikesCount(post.getId());
+            postDetailWithoutUserDTOList.add(new PostDetailWithoutUserDTO(post.getId(), post.getUserId(), post.getUsername(), avatarId, post.getDescribe(), post.getVideoId(), post.getUpdateTime(), likesCount));
+        }
+        return postDetailWithoutUserDTOList;
     }
 }

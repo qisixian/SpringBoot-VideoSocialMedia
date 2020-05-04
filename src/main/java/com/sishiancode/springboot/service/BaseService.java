@@ -24,6 +24,8 @@ public abstract class BaseService {
     protected UserRepository userRepository;
     @Autowired
     protected AdministratorRepository administratorRepository;
+    @Autowired
+    protected EditorSuggestPostRepository editorSuggestPostRepository;
 
 
     @Autowired

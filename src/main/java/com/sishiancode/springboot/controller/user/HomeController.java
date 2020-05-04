@@ -2,6 +2,7 @@ package com.sishiancode.springboot.controller.user;
 
 import com.sishiancode.springboot.controller.BaseController;
 import com.sishiancode.springboot.dto.PostAllDetailDTO;
+import com.sishiancode.springboot.entities.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +23,10 @@ public class HomeController extends BaseController {
         List<PostAllDetailDTO> followingPostWithProfiles = postService.findFollowingPost(loginUserId);
         logger.trace("HomeController-toHome:" + followingPostWithProfiles.toString());
         model.addAttribute("followingPostWithProfiles", followingPostWithProfiles);
-        return "user/home";
 
+        List<Profile> suggestUserList = editorService.suggestUser();
+        model.addAttribute("suggestUserList", suggestUserList);
+
+        return "user/home";
     }
 }

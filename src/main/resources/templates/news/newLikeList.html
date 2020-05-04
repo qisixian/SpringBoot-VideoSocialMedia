@@ -55,8 +55,8 @@
 <div class="colorlib-loader"></div>
 
 <div id="page">
-    <!--    thymeleaf抽取user/home中的nav-->
-    <div th:replace="~{user/home::#nav}"></div>
+    <!--    thymeleaf抽取login中的nav-->
+    <div th:replace="~{login::#nav}"></div>
 
     <!--    thymeleaf抽取user/home中的home-->
     <div th:replace="~{user/home::#home}"></div>
@@ -93,21 +93,9 @@
         </div>
     </div>
 
+    <!--    thymeleaf抽取user/home中的colorlib-footer-->
+    <div th:replace="~{user/home::#colorlib-footer}"></div>
 
-    <footer id="colorlib-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <p>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        This template is made with <i class="icon-heart" aria-hidden="true"></i>
-                        by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --><br>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
 </div>
 
 <div class="gototop js-top">

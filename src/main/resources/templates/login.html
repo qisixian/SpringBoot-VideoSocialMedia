@@ -55,8 +55,34 @@
 <div class="colorlib-loader"></div>
 
 <div id="page">
-    <!--    thymeleaf抽取user/home中的nav-->
-    <div th:replace="~{user/home::#nav}"></div>
+
+    <nav class="colorlib-nav" role="navigation" id="nav">
+        <div class="top-menu">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div id="colorlib-logo"><a href="/">ThousandsTakes</a></div>
+                    </div>
+                    <div class="col-md-10 text-right menu-1">
+                        <ul>
+                            <li><a th:href="@{/home}">主页</a></li>
+                            <li><a th:href="@{/explore}">发现</a></li>
+                            <li><a th:href="@{/upload}">发布</a></li>
+                            <li class="has-dropdown">
+                                <a th:href="@{/news/comment}">消息</a>
+                                <ul class="dropdown">
+                                    <li><a th:href="@{/news/comment}">评论</a></li>
+                                    <li><a th:href="@{/news/like}">喜欢</a></li>
+                                    <li><a th:href="@{/news/follower}">关注</a></li>
+                                </ul>
+                            </li>
+                            <li><a th:href="@{/user/}+${loginUserId}">我</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
 
     <!--    thymeleaf抽取user/home中的home-->
     <div th:replace="~{user/home::#home}"></div>
@@ -107,20 +133,9 @@
     </div>
 
 
-    <footer id="colorlib-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <p>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        This template is made with <i class="icon-heart" aria-hidden="true"></i>
-                        by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --><br>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!--    thymeleaf抽取user/home中的colorlib-footer-->
+    <div th:replace="~{user/home::#colorlib-footer}"></div>
+
 </div>
 
 <div class="gototop js-top">

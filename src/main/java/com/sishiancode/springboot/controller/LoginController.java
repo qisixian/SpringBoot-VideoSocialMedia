@@ -34,7 +34,7 @@ public class LoginController extends BaseController {
             map.put("msg", "请填写用户名和密码");
             return "login";
         } else {
-            String loginUserId = loginService.LoginUser(phoneNumber, password);
+            String loginUserId = loginService.loginUser(phoneNumber, password);
             if (loginUserId != null) {
                 //用户登录成功
                 logger.trace("用户登录成功");
@@ -66,7 +66,7 @@ public class LoginController extends BaseController {
     @PostMapping("/adminLogin")
     String adminLogin(@RequestParam("phoneNumber") String phoneNumber, @RequestParam("password") String password, Map<String, Object> map, HttpSession session) {
         logger.trace("adminLogin:" + phoneNumber + " " + password);
-        String loginAdminId = loginService.LoginAdmin(phoneNumber, password);
+        String loginAdminId = loginService.loginAdmin(phoneNumber, password);
         //这段逻辑如果loginAdminId是空值的话有问题，不能排查出所有错误
         if (loginAdminId != "null") {
             //管理员登录成功
@@ -105,7 +105,7 @@ public class LoginController extends BaseController {
     @PostMapping("/signUp")
     String userSignUp(@RequestParam("phoneNumber") String phoneNumber, @RequestParam("username") String username, @RequestParam("password") String password, Map<String, Object> map, HttpSession session) throws IOException {
         logger.trace("userSignUp:" + phoneNumber + " " + username + " " + password);
-        String SignUpUserId = loginService.SignUpUser(phoneNumber, username, password);
+        String SignUpUserId = loginService.signUpUser(phoneNumber, username, password);
         //这段逻辑如果SignUpUserId是空值的话有问题，不能排查出所有错误
         if (SignUpUserId != "null") {
             //用户注册成功

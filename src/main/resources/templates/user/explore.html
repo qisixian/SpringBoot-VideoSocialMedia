@@ -30,6 +30,10 @@
     <link rel="stylesheet" href="/assets/css/icomoon.css" th:href="@{/assets/css/icomoon.css}">
     <!-- Bootstrap  -->
     <link rel="stylesheet" href="/assets/css/bootstrap.css" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/fontawesome.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/brands.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/solid.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.13.0/css/regular.css}">
 
     <!-- Magnific Popup -->
     <link rel="stylesheet" href="/assets/css/magnific-popup.css" th:href="@{/assets/css/magnific-popup.css}">
@@ -55,7 +59,7 @@
 <div class="colorlib-loader"></div>
 
 <div id="page">
-    <nav class="colorlib-nav" role="navigation">
+    <nav class="colorlib-nav" role="navigation" id="nav">
         <div class="top-menu">
             <div class="container">
                 <div class="row">
@@ -65,7 +69,7 @@
                     <div class="col-md-10 text-right menu-1">
                         <ul>
                             <li><a th:href="@{/home}">主页</a></li>
-                            <li><a th:href="@{/explore}">发现</a></li>
+                            <li class="active" style="font-size: 20px;"><a th:href="@{/explore}">发现</a></li>
                             <li><a th:href="@{/upload}">发布</a></li>
                             <li class="has-dropdown">
                                 <a th:href="@{/news/comment}">消息</a>
@@ -116,37 +120,117 @@
 
     <div class="colorlib-blog">
         <div class="container">
-            <div class="row justify-content-md-center" th:each="profile:${allProfile}" th:if="${allProfile!=null}">
+            <div class="row">
                 <div class="col-md-8">
+                    <div th:each="post:${suggestPostList}">
+
+                        <article>
+                            <div class="row justify-content-between">
+                                <div class="col-4">
+                                    <p class="author-wrap">
+                                        <a th:href="@{/user/}+${post.userId}" class="author-img"
+                                           th:style="'background-image: url('+@{/avatars/stream/}+${post.avatarId}+');'"></a>
+                                        <a
+                                                th:href="@{/user/}+${post.userId}"
+                                                class="author"
+                                                th:text="${post.username}">username</a>
+                                    </p>
+                                </div>
+                                <div class="col-3 text-right">
+                                    <p th:text="${#temporals.format(post.updateTime, 'MM-dd HH:mm')}"
+                                       style="padding-top: 30px;">
+                                        updateTime
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <video th:src="@{/videos/stream/}+${post.videoId}" controls="controls"
+                                       width="100%"></video>
+                            </div>
+                            <div class="row">
+                                <a th:text="${post.likesCount}+' 喜欢'"
+                                   th:href="@{/post/like/}+${post.id}"
+                                   style="color: grey; padding-top: 18px; padding-bottom: 18px;">null likes</a>
+
+                                <form th:if="${post.isLiked}==false" th:action="@{/post/like/}+${post.id}"
+                                      method="post" style="font-size: 36px; ">
+                                    <input type="submit" class="far fa-heart"
+                                           style="color: #999999; padding: 18px; border: none;background: none;"
+                                           value="&#xf004;"/>
+                                </form>
+                                <form th:if="${post.isLiked}==true" th:action="@{/post/like/}+${post.id}"
+                                      method="post" style="font-size: 36px; ">
+                                    <input type="hidden" name="_method" value="delete"/>
+                                    <input type="submit" class="fas fa-heart"
+                                           style="color: Tomato; padding: 18px; border: none;background: none;"
+                                           value="&#xf004;"/>
+                                </form>
+
+                                <a th:href="@{/post/}+${post.id}" style="font-size: 36px; color: #999999;">
+                                    <i class="far fa-comments"></i>
+                                </a>
+                            </div>
+
+                            <div class="row">
+                                <a th:href="@{/post/}+${post.id}" style="color: grey;">
+                                    <p th:text="${post.username}+' : '+${post.describe}">describe describe describe
+                                        describe
+                                        describe
+                                        describe
+                                        describe describe describe describe describe</p>
+                                </a>
+                            </div>
+                            <form th:action="@{/post/comment/}+${post.id}" method="post">
+                                <input type="hidden" name="receiverName" th:value="${post.username}">
+
+                                <div class="row">
+
+                                    <div class="col-md-10 px-1">
+                                        <input name="comment" type="text" class="form-control"
+                                               placeholder="写评论..." required="required">
+                                    </div>
+                                    <div class="col-md-2 px-1">
+                                        <input class="btn btn-sm btn-outline-info" type="submit" value="发送"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </article>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4">
                     <article>
-                        <p class="author-wrap"><a th:href="@{/user/}+${profile.userId}" class="author-img"
-                                                  th:style="'background-image: url('+@{/avatars/stream/}+${profile.avatarId}+');'"></a>
-                            <a
-                                    th:href="@{/user/}+${profile.userId}"
-                                    class="author"
-                                    th:text="${profile.username}">username</a>
-                        </p>
+                        <p>推荐关注</p>
+
+                        <div th:each="suggestUser:${suggestUserList}">
+                            <div>
+                                <p class="author-wrap">
+                                    <a th:href="@{/user/}+${suggestUser.userId}" class="author-img"
+                                       th:style="'background-image: url('+@{/avatars/stream/}+${suggestUser.avatarId}+');'"></a>
+                                    <a
+                                            th:href="@{/user/}+${suggestUser.userId}"
+                                            class="author"
+                                            th:text="${suggestUser.username}">username</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div th:if="${#lists.isEmpty(suggestUserList)}">
+                            <p class="text-center">这个平台还没有用户注册呢，太惨了！</p>
+                        </div>
                     </article>
                 </div>
             </div>
+
+
         </div>
     </div>
 
 
-    <footer id="colorlib-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <p>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        This template is made with <i class="icon-heart" aria-hidden="true"></i>
-                        by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --><br>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!--    thymeleaf抽取user/home中的colorlib-footer-->
+    <div th:replace="~{user/home::#colorlib-footer}"></div>
+
 </div>
 
 <div class="gototop js-top">

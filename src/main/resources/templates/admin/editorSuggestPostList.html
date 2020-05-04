@@ -63,44 +63,46 @@ The above copyright notice and this permission notice shall be included in all c
   </div> -->
         <div class="content">
             <div class="row">
-                <div class="card card-user">
-                    <div class="card-header">
-                        <h5 class="card-title">编辑博客喜欢</h5>
-                    </div>
-                    <div class="card-body">
-                        <form th:action="@{/admin/postLike}" method="post">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">编辑推荐博客列表</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class=" text-primary">
+                                    <!--                                    <th>id</th>-->
+                                    <th>博客Id</th>
+                                    <th class="text-right">操作</th>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="editorSuggestPost:${allEditorSuggestPost}">
+                                        <!--                                        <td th:text="${editorSuggestPost.id}"></td>-->
+                                        <td th:text="${editorSuggestPost.postId}"></td>
+                                        <td class="text-right">
+                                            <!--                                            <a class="btn btn-sm btn-primary"-->
+                                            <!--                                               th:href="@{/admin/postLike/}+${postLike.id}">修改</a>-->
+                                            <form th:action="@{/admin/editorSuggestPost/}+${editorSuggestPost.id}"
+                                                  method="post">
+                                                <input type="hidden" name="_method" value="delete"/>
+                                                <button type="submit" class="btn btn-sm btn-danger">删除</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <!--                                        <td></td>-->
 
-                            <!--HiddenHttpMethodFilter-->
-                            <input type="hidden" name="_method" value="put" th:if="${postLike!=null}"/>
-                            <input type="hidden" name="id" th:if="${postLike!=null}" th:value="${postLike.id}">
-
-
-                            <div class="row">
-                                <div class="col-md-12 pl-1">
-                                    <div class="form-group">
-                                        <label>博客Id</label>
-                                        <input name="postId" type="text" class="form-control"
-                                               placeholder="博客Id"
-                                               th:value="${postLike!=null}?${postLike.postId}">
-                                    </div>
-                                </div>
-                                <div class="col-md-12 px-1">
-                                    <div class="form-group">
-                                        <label>喜欢用户Id</label>
-                                        <input name="likedUserId" type="text" class="form-control"
-                                               placeholder="喜欢用户Id"
-                                               th:value="${postLike!=null}?${postLike.likedUserId}">
-                                    </div>
-                                </div>
+                                        <td></td>
+                                        <td class="text-right">
+                                            <a class="btn btn-sm btn-success"
+                                               th:href="@{/admin/editorSuggestPost}">添加</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="row">
-                                <div class="update ml-auto mr-auto">
-                                    <button type="submit" class="btn btn-primary btn-round"
-                                            th:text="${postLike!=null}?'更新':'添加'">Update Profile
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
 

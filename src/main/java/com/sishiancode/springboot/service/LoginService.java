@@ -15,7 +15,7 @@ import java.io.InputStream;
 @Service
 public class LoginService extends BaseService {
 
-    public String LoginUser(String phoneNumber, String password) {
+    public String loginUser(String phoneNumber, String password) {
         UserIdDTO userIdDTO = userRepository.findByPhoneNumberAndPassword(phoneNumber, password);
         if (userIdDTO == null) {
             return null;
@@ -24,7 +24,7 @@ public class LoginService extends BaseService {
         }
     }
 
-    public String SignUpUser(String phoneNumber, String username, String password) {
+    public String signUpUser(String phoneNumber, String username, String password) {
         //在已经存在的用户里找这个手机号
         UserIdDTO userIdDTO = userRepository.findByPhoneNumber(phoneNumber);
         if (userIdDTO != null) {
@@ -46,7 +46,7 @@ public class LoginService extends BaseService {
         }
     }
 
-    public String LoginAdmin(String phoneNumber, String password) {
+    public String loginAdmin(String phoneNumber, String password) {
         AdministratorDTO administratorDTO = administratorRepository.findByPhoneNumberAndPassword(phoneNumber, password);
         if (administratorDTO == null) {
             return "null";

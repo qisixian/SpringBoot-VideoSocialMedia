@@ -68,7 +68,7 @@
                     </div>
                     <div class="col-md-10 text-right menu-1">
                         <ul>
-                            <li><a th:href="@{/home}">主页</a></li>
+                            <li class="active" style="font-size: 20px;"><a th:href="@{/home}">主页</a></li>
                             <li><a th:href="@{/explore}">发现</a></li>
                             <li><a th:href="@{/upload}">发布</a></li>
                             <li class="has-dropdown">
@@ -98,91 +98,120 @@
 
     <div class="colorlib-blog">
         <div class="container">
-            <div class="row justify-content-md-center" th:each="followingPost:${followingPostWithProfiles}">
+            <div class="row">
                 <div class="col-md-8">
-                    <article>
-                        <div class="row justify-content-between">
-                            <div class="col-4">
-                                <p class="author-wrap">
-                                    <a th:href="@{/user/}+${followingPost.userId}" class="author-img"
-                                       th:style="'background-image: url('+@{/avatars/stream/}+${followingPost.avatarId}+');'"></a>
-                                    <a
-                                            th:href="@{/user/}+${followingPost.userId}"
-                                            class="author"
-                                            th:text="${followingPost.username}">username</a>
-                                </p>
-                            </div>
-                            <div class="col-3 text-right">
-                                <p th:text="${#temporals.format(followingPost.updateTime, 'MM-dd HH:mm')}"
-                                   style="padding-top: 30px;">
-                                    updateTime
-                                </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <video th:src="@{/videos/stream/}+${followingPost.videoId}" controls="controls"
-                                   width="100%"></video>
-                        </div>
-                        <div class="row">
-                            <a th:text="${followingPost.likesCount}+' 喜欢'"
-                               th:href="@{/post/like/}+${followingPost.id}"
-                               style="color: grey; padding-top: 18px; padding-bottom: 18px;">null likes</a>
+                    <div th:each="followingPost:${followingPostWithProfiles}">
 
-                            <form th:if="${followingPost.isLiked}==false" th:action="@{/post/like/}+${followingPost.id}"
-                                  method="post" style="font-size: 36px; ">
-                                <input type="submit" class="far fa-heart"
-                                       style="color: #999999; padding: 18px; border: none;background: none;"
-                                       value="&#xf004;"/>
-                            </form>
-                            <form th:if="${followingPost.isLiked}==true" th:action="@{/post/like/}+${followingPost.id}"
-                                  method="post" style="font-size: 36px; ">
-                                <input type="hidden" name="_method" value="delete"/>
-                                <input type="submit" class="fas fa-heart"
-                                       style="color: Tomato; padding: 18px; border: none;background: none;"
-                                       value="&#xf004;"/>
-                            </form>
+                        <article>
+                            <div class="row justify-content-between">
+                                <div class="col-4">
+                                    <p class="author-wrap">
+                                        <a th:href="@{/user/}+${followingPost.userId}" class="author-img"
+                                           th:style="'background-image: url('+@{/avatars/stream/}+${followingPost.avatarId}+');'"></a>
+                                        <a
+                                                th:href="@{/user/}+${followingPost.userId}"
+                                                class="author"
+                                                th:text="${followingPost.username}">username</a>
+                                    </p>
+                                </div>
+                                <div class="col-3 text-right">
+                                    <p th:text="${#temporals.format(followingPost.updateTime, 'MM-dd HH:mm')}"
+                                       style="padding-top: 30px;">
+                                        updateTime
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <video th:src="@{/videos/stream/}+${followingPost.videoId}" controls="controls"
+                                       width="100%"></video>
+                            </div>
+                            <div class="row">
+                                <a th:text="${followingPost.likesCount}+' 喜欢'"
+                                   th:href="@{/post/like/}+${followingPost.id}"
+                                   style="color: grey; padding-top: 18px; padding-bottom: 18px;">null likes</a>
 
-                            <a th:href="@{/post/}+${followingPost.id}" style="font-size: 36px; color: #999999;">
-                                <i class="far fa-comments"></i>
+                                <form th:if="${followingPost.isLiked}==false"
+                                      th:action="@{/post/like/}+${followingPost.id}"
+                                      method="post" style="font-size: 36px; ">
+                                    <input type="submit" class="far fa-heart"
+                                           style="color: #999999; padding: 18px; border: none;background: none;"
+                                           value="&#xf004;"/>
+                                </form>
+                                <form th:if="${followingPost.isLiked}==true"
+                                      th:action="@{/post/like/}+${followingPost.id}"
+                                      method="post" style="font-size: 36px; ">
+                                    <input type="hidden" name="_method" value="delete"/>
+                                    <input type="submit" class="fas fa-heart"
+                                           style="color: Tomato; padding: 18px; border: none;background: none;"
+                                           value="&#xf004;"/>
+                                </form>
+
+                                <a th:href="@{/post/}+${followingPost.id}" style="font-size: 36px; color: #999999;">
+                                    <i class="far fa-comments"></i>
+                                </a>
+
+
+                                <!--                            <a class="btn btn-sm btn-outline-danger"-->
+                                <!--                               th:href="@{/post/like/}+${followingPost.id}" th:text="${followingPost.isLiked}">like</a>-->
+
+                                <!--                            <a class="btn btn-sm btn-outline-success" th:href="@{/post/}+${followingPost.id}">show all-->
+                                <!--                                comment</a>-->
+                            </div>
+
+                            <a th:href="@{/post/}+${followingPost.id}" style="color: grey;">
+                                <div class="row">
+                                    <p th:text="${followingPost.username}+' : '+${followingPost.describe}">describe
+                                        describe
+                                        describe describe describe
+                                        describe
+                                        describe describe describe describe describe</p>
+                                </div>
                             </a>
+                            <form th:action="@{/post/comment/}+${followingPost.id}" method="post">
 
+                                <div class="row">
+                                    <input type="hidden" name="receiverName" th:value="${followingPost.username}">
 
-                            <!--                            <a class="btn btn-sm btn-outline-danger"-->
-                            <!--                               th:href="@{/post/like/}+${followingPost.id}" th:text="${followingPost.isLiked}">like</a>-->
+                                    <div class="col-md-10 px-1">
+                                        <input name="comment" type="text" class="form-control"
+                                               placeholder="写评论..." required="required">
+                                    </div>
+                                    <div class="col-md-2 px-1">
+                                        <input class="btn btn-sm btn-outline-info" type="submit" value="发送"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </article>
+                    </div>
+                </div>
 
-                            <!--                            <a class="btn btn-sm btn-outline-success" th:href="@{/post/}+${followingPost.id}">show all-->
-                            <!--                                comment</a>-->
+                <div class="col-md-8" th:if="${#lists.isEmpty(followingPostWithProfiles)}">
+                    <p class="text-center">开始关注些用户吧！</p>
+                    <div style="height:385px;"></div>
+                </div>
+
+                <div class="col-md-4">
+                    <article>
+                        <p>推荐关注</p>
+
+                        <div th:each="suggestUser:${suggestUserList}">
+                            <div>
+                                <p class="author-wrap">
+                                    <a th:href="@{/user/}+${suggestUser.userId}" class="author-img"
+                                       th:style="'background-image: url('+@{/avatars/stream/}+${suggestUser.avatarId}+');'"></a>
+                                    <a
+                                            th:href="@{/user/}+${suggestUser.userId}"
+                                            class="author"
+                                            th:text="${suggestUser.username}">username</a>
+                                </p>
+                            </div>
                         </div>
 
-                        <a th:href="@{/post/}+${followingPost.id}" style="color: grey;">
-                            <div class="row">
-                                <p th:text="${followingPost.username}+' : '+${followingPost.describe}">describe describe
-                                    describe describe describe
-                                    describe
-                                    describe describe describe describe describe</p>
-                            </div>
-                        </a>
-                        <form th:action="@{/post/comment/}+${followingPost.id}" method="post">
-
-                            <div class="row">
-                                <input type="hidden" name="receiverName" th:value="${followingPost.username}">
-
-                                <div class="col-md-10 px-1">
-                                    <input name="comment" type="text" class="form-control"
-                                           placeholder="写评论..." required="required">
-                                </div>
-                                <div class="col-md-2 px-1">
-                                    <input class="btn btn-sm btn-outline-info" type="submit" value="发送"/>
-                                </div>
-                            </div>
-                        </form>
+                        <div th:if="${#lists.isEmpty(suggestUserList)}">
+                            <p class="text-center">这个平台还没有用户注册呢，太惨了！</p>
+                        </div>
                     </article>
                 </div>
-            </div>
-
-            <div class="row justify-content-md-center" th:if="${#lists.isEmpty(followingPostWithProfiles)}">
-                <p class="text-center">开始关注些用户吧！</p>
-                <div style="height:385px;"></div>
             </div>
 
 
@@ -194,10 +223,10 @@
             <div class="row">
                 <div class="col-md-12 text-center">
                     <p>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        This template is made with <i class="icon-heart" aria-hidden="true"></i>
-                        by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --><br>
+                        <!--                        &lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;-->
+                        <!--                        This template is made with <i class="icon-heart" aria-hidden="true"></i>-->
+                        <!--                        by <a href="https://colorlib.com" target="_blank">Colorlib</a>-->
+                        <!--                        &lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;<br>-->
                     </p>
                 </div>
             </div>

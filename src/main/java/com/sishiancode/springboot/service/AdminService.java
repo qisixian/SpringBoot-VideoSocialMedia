@@ -232,4 +232,21 @@ public class AdminService extends BaseService {
     public void deleteUserFollowing(String userFollowingId) {
         userFollowingRepository.deleteById(userFollowingId);
     }
+
+
+    public List<EditorSuggestPost> findAllEditorSuggestPost() {
+        return editorSuggestPostRepository.findAll();
+    }
+
+    public String saveEditorSuggestPost(EditorSuggestPost editorSuggestPost) {
+        if (postRepository.findById(editorSuggestPost.getPostId()).isPresent()) {
+            return editorSuggestPostRepository.save(editorSuggestPost).getId();
+        } else {
+            return null;
+        }
+    }
+
+    public void deleteEditorSuggestPost(String editorSuggestPostId) {
+        editorSuggestPostRepository.deleteById(editorSuggestPostId);
+    }
 }
