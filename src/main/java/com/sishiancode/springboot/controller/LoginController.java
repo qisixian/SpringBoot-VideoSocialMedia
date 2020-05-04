@@ -12,8 +12,8 @@ import java.util.Map;
 @Controller
 public class LoginController extends BaseController {
     @GetMapping("/login")
-    String toLogin(HttpSession session) {
-        logger.trace("toLogin");
+    String toUserLogin(HttpSession session) {
+        logger.trace("toUserLogin");
         //这个方法不被Interceptor墙，session尝试取用户ID
         String loginUserId = (String) session.getAttribute("loginUserId");
         if (loginUserId == null) {
@@ -49,15 +49,17 @@ public class LoginController extends BaseController {
         }
     }
 
-    @PostMapping("logout")
-    String logout(HttpSession session) {
-        logger.trace("logout");
+    @PostMapping("/userLogout")
+    String userLogout(HttpSession session) {
+        logger.trace("userLogout:" + session.getAttribute("loginUserId"));
+
         session.removeAttribute("loginUserId");
         return "redirect:/";
     }
 
-    @GetMapping("adminLogin")
+    @GetMapping("/adminLogin")
     String toAdminLogin() {
+        logger.trace("toAdminLogin");
         return "adminLogin";
     }
 
@@ -77,6 +79,13 @@ public class LoginController extends BaseController {
             map.put("msg", "用户名密码错误");
             return "adminLogin";
         }
+    }
+
+    @PostMapping("/adminLogout")
+    String adminLogout(HttpSession session) {
+        logger.trace("adminLogout:" + session.getAttribute("loginAdminId"));
+        session.removeAttribute("loginAdminId");
+        return "redirect:/adminLogin";
     }
 
     @GetMapping("/signUp")
