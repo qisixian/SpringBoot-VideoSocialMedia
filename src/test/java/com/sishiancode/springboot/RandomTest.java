@@ -55,7 +55,38 @@ public class RandomTest {
 
     @Test
     void suggestUserTest() {
-//        editorService.suggestUser();
+
+    }
+
+    @Test
+    void arrayListTest() {
+//        List<Post> posts = postRepository.findAll();
+//        logger.debug(posts.toString());
+//        logger.debug("=====================");
+//
+//        posts.removeIf((post) -> {
+//            return post.getUsername().equals("阿龍");
+//        });
+//
+//        //foreach会抛出ConcurrentModificationException异常
+//        for (Post post : posts) {
+//            if (post.getUsername().equals("阿龍")) {
+//
+//                logger.debug(post.toString());
+//                posts.remove(post);
+//            }
+//        }
+//
+//        for (int i = 0; i < posts.size(); i++) {
+//            if(posts.get(i).getUsername().equals("阿龍")){
+//                logger.debug(posts.get(i).toString());
+//                posts.remove(i);
+//            }
+//        }
+//
+//        logger.debug("=====================");
+//        logger.debug(posts.toString());
+
     }
 
 }
